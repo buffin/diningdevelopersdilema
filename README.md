@@ -1,4 +1,0 @@
-diningdevelopersdilema
-======================
-
-Dining Developers Dilema

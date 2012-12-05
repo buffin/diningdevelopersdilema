@@ -1,0 +1,28 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="/templates/mainNoNavi.xhtml">
+	<ui:define name="body">
+	<h1>Dining Developers Login</h1>
+	<form action="" method="post" style="margin-top: 20px;">
+		<table>
+			<tr>
+				<td><label for="username" class="desc">Username:</label> <input name="username" id="username" class="text medium" tabindex="1" /></td>
+			</tr>
+			<tr>
+				<td><label for="password" class="desc">Password:</label> <input type="password" name="password" id="password" class="text medium"
+					tabindex="2" /></td>
+			</tr>
+			<tr>
+				<td style="padding-top: 5px;"><input type="checkbox" class="checkbox" name="rememberMe" id="rememberMe" tabindex="3" /> <label
+					for="rememberMe" class="choice">Remember me.</label></td>
+			</tr>
+			<tr>
+				<td align="right"><input type="submit" value="Login" /></td>
+			</tr>
+		</table>
+	</form>
+	</ui:define>
+</ui:composition>
+
+</html>

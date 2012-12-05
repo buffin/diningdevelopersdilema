@@ -1,0 +1,13 @@
+h1. Dining Developers Dilema
+
+h2. Setup JBoss
+
+h3. Datasource
+
+* Deploy mysql-connector.jar
+* Goto JBoss Admin Interface
+** Add Datasource
+** Name: reportingDS
+** JNDI-Name java:/dddDS
+** URL: jdbc:mysql://localhost/ddd
+** Enable Datasource

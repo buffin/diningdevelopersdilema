@@ -1,0 +1,27 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<ui:composition>
+	<f:loadBundle basename="versions" var="versions" />
+	<ui:param name="contextPath" value="#{facesContext.externalContext.context.contextPath}" />
+	<html>
+
+<h:head>
+	<title>DiningDevelopers (#{versions['mvn.version']})</title>
+	<meta http-equiv="Content-Type" content="text/xhtml; charset=UTF-8" />
+	<ui:insert name="head" />
+	<link rel="stylesheet" type="text/css" href="#{contextPath}/resources/style/style.css" />
+</h:head>
+
+<h:body>
+	<div style="width: 500px; margin: 150px auto 0 auto;">
+
+		<div id="box" style="margin-top: 50px; padding: 20px;">
+			<ui:insert name="body" />
+		</div>
+		<div style="text-align: center; color: #aaaaaa; margin-top: 10px;">Rev. r#{versions['svn.revision']} - Build:
+			#{versions['buildDateTime']}</div>
+	</div>
+</h:body>
+	</html>
+</ui:composition>
+</html>
