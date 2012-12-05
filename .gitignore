@@ -4,3 +4,5 @@ target
 .project
 .factorypath
 .faces-config.xml.jsfdia
+/nb-configuration.xml
+/src/main/webapp/WEB-INF/glassfish-web.xml
