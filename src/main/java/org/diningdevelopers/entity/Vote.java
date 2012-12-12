@@ -1,5 +1,7 @@
 package org.diningdevelopers.entity;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,6 +28,13 @@ public class Vote {
 	@Column(nullable = false)
 	private Integer vote;
 
+	@Column(name="vote_date", nullable = false)
+	private Date date;
+
+	public Date getDate() {
+		return date;
+	}
+
 	public Developer getDeveloper() {
 		return developer;
 	}
@@ -40,6 +49,10 @@ public class Vote {
 
 	public Integer getVote() {
 		return vote;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 	public void setDeveloper(Developer developer) {
