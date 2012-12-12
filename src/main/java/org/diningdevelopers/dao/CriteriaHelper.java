@@ -111,6 +111,10 @@ public class CriteriaHelper<T> {
 		addOrder(path, ascending);
 	}
 
+	public void distinct(boolean b) {
+		query.distinct(b);
+	}
+
 	public CriteriaBuilder getCriteriaBuilder() {
 		return builder;
 	}
