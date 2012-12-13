@@ -9,10 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "votes", uniqueConstraints = @UniqueConstraint(columnNames = { "developer_id", "location_id" }))
+@Table(name = "votes")
 public class Vote {
 
 	@Id

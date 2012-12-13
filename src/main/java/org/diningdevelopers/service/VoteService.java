@@ -14,9 +14,16 @@ import org.diningdevelopers.entity.Developer;
 import org.diningdevelopers.entity.Location;
 import org.diningdevelopers.entity.Vote;
 import org.diningdevelopers.model.VoteModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Stateless
 public class VoteService {
+
+	private Logger logger = LoggerFactory.getLogger(getClass());
+
+	@Inject
+	private AuditService auditService;
 
 	@Inject
 	private LocationDao locationDao;
@@ -67,16 +74,24 @@ public class VoteService {
 			Location location = locationDao.findById(model.getLocationId());
 			Vote vote = votingDao.findLatestVote(developer, location);
 
-			if (needToCreateNewVote(vote, model.getVote())) {
-				vote = new Vote();
-				vote.setLocation(location);
-				vote.setDeveloper(developer);
-				vote.setDate(new Date());
-				vote.setVote(model.getVote());
+			if (model.getVote() == null) {
+				model.setVote(0);
 
-				votingDao.save(vote);
+			}
+
+			if (needToCreateNewVote(vote, model.getVote())) {
+				Vote newVote = new Vote();
+				newVote .setLocation(location);
+				newVote .setDeveloper(developer);
+				newVote .setDate(new Date());
+				newVote .setVote(model.getVote());
+
+				votingDao.save(newVote );
+
+				if (vote != null) {
+					auditService.createAudit(username, String.format("%s hat sein Voting für %s geändert. Alt: %d, Neu: %d", username, location.getName(), vote.getVote(), newVote.getVote()));
+				}
 			}
 		}
 	}
-
 }
