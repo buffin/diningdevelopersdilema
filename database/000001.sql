@@ -20,8 +20,7 @@ create table votes (
 	vote integer not null,
 	developer_id bigint not null, 
 	location_id bigint not null, 
-	primary key (id), 
-	unique (developer_id, location_id)
+	primary key (id)
 ) ENGINE=InnoDB;
 
 alter table votes add index FK6B30AC9268074A3 (location_id), 
