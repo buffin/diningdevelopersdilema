@@ -7,3 +7,4 @@ create table audit (
 	message varchar(255) not null, 
 	primary key (id)
 ) ENGINE=InnoDB;
+

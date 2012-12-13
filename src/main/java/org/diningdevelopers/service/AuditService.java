@@ -14,7 +14,7 @@ public class AuditService {
 	@Inject
 	private AuditDao auditDao;
 
-	public void createAudit(String username, String type, String message) {
+	public void createAudit(String username, String message) {
 		Audit audit = new Audit();
 		audit.setDate(new Date());
 		audit.setMessage(message);
