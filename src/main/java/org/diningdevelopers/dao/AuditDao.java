@@ -21,6 +21,8 @@ public class AuditDao {
 			helper.setMaxResults(maxResult);
 		}
 
+		//		helper.addOrder(Audit, ascending)
+
 		return helper.getResultList();
 	}
 
@@ -28,3 +30,4 @@ public class AuditDao {
 		entityManager.persist(audit);
 	}
 }
+

@@ -1,6 +1,7 @@
 package org.diningdevelopers.service;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -20,6 +21,11 @@ public class AuditService {
 		audit.setMessage(message);
 		audit.setUsername(username);
 		auditDao.save(audit);
+	}
+
+
+	public List<Audit> findLatest(int maxResult) {
+		return auditDao.findLatest(maxResult);
 	}
 
 }
