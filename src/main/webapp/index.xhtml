@@ -1,6 +1,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
 
+<f:metadata>
+	<f:event listener="#{votingsOverview.init}" type="preRenderView" />
+</f:metadata>
+
 <ui:composition template="/templates/main.xhtml">
 	<ui:define name="body">
 		<h1>Übersicht</h1>
@@ -8,6 +12,16 @@
 
 		<h:form>
 
+			<p:dataTable var="m" value="#{votingsOverview.decisionTable.decisions}" >
+				<p:column headerText="Location">
+					#{m.locationName}
+				</p:column>
+				<p:columns var="d" value="#{votingsOverview.decisionTable.developers}" headerText="#{d.name}">
+					<h:outputText value="#{m.votings[d.id]}">
+						<f:convertNumber pattern="0.00%" />
+					</h:outputText>
+				</p:columns>
+			</p:dataTable>
 		</h:form>
 	</ui:define>
 </ui:composition>

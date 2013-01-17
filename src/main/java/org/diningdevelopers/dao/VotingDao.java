@@ -28,7 +28,6 @@ public class VotingDao {
 			helper.addEqual(Vote_.location, criteria.getLocation());
 		}
 
-		helper.distinct(true);
 		helper.addOrder(Vote_.date, false);
 
 		return helper.getResultList();
@@ -42,7 +41,16 @@ public class VotingDao {
 		helper.addOrder(Vote_.date, false);
 		helper.setMaxResults(1);
 
+		helper.setCacheable(true);
+
 		return helper.getSingleResultOrNull();
+	}
+
+	public List<Vote> findLatestVotes(Developer developer) {
+		VotingCriteria votingCriteria = new VotingCriteria();
+		votingCriteria.setDeveloper(developer);
+
+		return findLatestByCriteria(votingCriteria);
 	}
 
 	public void save(Vote vote) {

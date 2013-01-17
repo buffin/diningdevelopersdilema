@@ -7,7 +7,7 @@ public class DecisionModel {
 	private Long locationId;
 	private String locationName;
 
-	private Map<DeveloperModel, Integer> votings;
+	private Map<Long, Float> votings;
 
 	private float probabilityPercent;
 
@@ -23,7 +23,7 @@ public class DecisionModel {
 		return probabilityPercent;
 	}
 
-	public Map<DeveloperModel, Integer> getVotings() {
+	public Map<Long, Float> getVotings() {
 		return votings;
 	}
 
@@ -39,7 +39,7 @@ public class DecisionModel {
 		this.probabilityPercent = probabilityPercent;
 	}
 
-	public void setVotings(Map<DeveloperModel, Integer> votings) {
+	public void setVotings(Map<Long, Float> votings) {
 		this.votings = votings;
 	}
 
