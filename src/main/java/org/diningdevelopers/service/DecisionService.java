@@ -30,7 +30,6 @@ public class DecisionService {
 	@Inject
 	private VotingDao votingDao;
 
-
 	public DecisionTable buildDecisionTable(Date date) {
 		DecisionTable decisionTable = new DecisionTable();
 
@@ -42,6 +41,8 @@ public class DecisionService {
 		}
 
 		decisionTable.setDecisions(new ArrayList<>(decisions.values()));
+
+		updateTable(decisionTable);
 
 		return decisionTable;
 	}
@@ -91,6 +92,18 @@ public class DecisionService {
 
 				decisionModel.getVotings().put(developerModel.getId(), votingPercent);
 			}
+		}
+	}
+
+	private void updateTable(DecisionTable decisionTable) {
+		for (DecisionModel m : decisionTable.getDecisions()) {
+			float sum = 0f;
+
+			for (Float i : m.getVotings().values()) {
+				sum += i;
+			}
+
+			m.setProbabilityPercent(sum);
 		}
 	}
 }
