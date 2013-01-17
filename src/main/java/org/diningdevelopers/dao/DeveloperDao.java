@@ -24,6 +24,10 @@ public class DeveloperDao {
 	}
 
 	public List<Developer> findParticipating() {
-		return null;
+		CriteriaHelper<Developer> helper = new CriteriaHelper<>(entityManager, Developer.class);
+
+		helper.addEqual(Developer_.participating, Boolean.TRUE);
+
+		return helper.getResultList();
 	}
 }
