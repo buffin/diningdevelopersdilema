@@ -17,12 +17,27 @@
 					#{m.locationName}
 				</p:column>
 				<p:columns var="d" value="#{votingsOverview.decisionTable.developers}" headerText="#{d.name}">
-					<h:outputText value="#{m.votings[d.id] * 100}">
+					<h:outputText value="#{m.votings[d.id]}">
 						<f:convertNumber pattern="0.00" />
 					</h:outputText>
 				</p:columns>
 				<p:column headerText="Pkt">
-					<h:outputText value="#{m.probabilityPercent * 100}">
+					<h:outputText value="#{m.pointsTotal}">
+						<f:convertNumber pattern="0.00" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="W-keit">
+					<h:outputText value="#{m.pointsTotal / votingsOverview.decisionTable.totalPoints}">
+						<f:convertNumber pattern="0.00%" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Start">
+					<h:outputText value="#{m.randomRangeStart}">
+						<f:convertNumber pattern="0.00" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Ende">
+					<h:outputText value="#{m.randomRangeEnd}">
 						<f:convertNumber pattern="0.00" />
 					</h:outputText>
 				</p:column>

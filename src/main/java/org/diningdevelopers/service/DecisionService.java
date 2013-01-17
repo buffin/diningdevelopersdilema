@@ -86,7 +86,7 @@ public class DecisionService {
 
 		for (Vote v : votes) {
 			if (v.getVote() != null) {
-				Float votingPercent = v.getVote().floatValue() / sum;
+				Float votingPercent = (v.getVote().floatValue() / sum)  * 100;
 
 				DecisionModel decisionModel = getDecicionModel(decisions, v.getLocation());
 
@@ -96,14 +96,23 @@ public class DecisionService {
 	}
 
 	private void updateTable(DecisionTable decisionTable) {
+		float totalSum = 0f;
+
 		for (DecisionModel m : decisionTable.getDecisions()) {
 			float sum = 0f;
+
+			m.setRandomRangeStart(totalSum);
 
 			for (Float i : m.getVotings().values()) {
 				sum += i;
 			}
 
-			m.setProbabilityPercent(sum);
+			m.setPointsTotal(sum);
+
+			totalSum += sum;
+			m.setRandomRangeEnd(totalSum);
 		}
+
+		decisionTable.setTotalPoints(totalSum);
 	}
 }
