@@ -7,11 +7,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "votes")
+@Table(name = "votes", uniqueConstraints = @UniqueConstraint(columnNames = { "developer_id", "location_id" }))
 public class Vote {
 
 	@Id
@@ -19,15 +21,17 @@ public class Vote {
 	private Long id;
 
 	@ManyToOne(optional = false)
+	@JoinColumn(name="location_id")
 	private Location location;
 
 	@ManyToOne(optional = false)
+	@JoinColumn(name="developer_id")
 	private Developer developer;
 
 	@Column(nullable = false)
 	private Integer vote;
 
-	@Column(name="vote_date", nullable = false)
+	@Column(name = "vote_date", nullable = false)
 	private Date date;
 
 	public Date getDate() {
@@ -69,6 +73,5 @@ public class Vote {
 	public void setVote(Integer vote) {
 		this.vote = vote;
 	}
-
 
 }

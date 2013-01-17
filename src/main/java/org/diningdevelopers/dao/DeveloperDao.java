@@ -1,5 +1,7 @@
 package org.diningdevelopers.dao;
 
+import java.util.List;
+
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -19,5 +21,13 @@ public class DeveloperDao {
 		helper.addEqual(Developer_.username, username);
 
 		return helper.getSingleResultOrNull();
+	}
+
+	public List<Developer> findParticipating() {
+		CriteriaHelper<Developer> helper = new CriteriaHelper<>(entityManager, Developer.class);
+
+		helper.addEqual(Developer_.participating, Boolean.TRUE);
+
+		return helper.getResultList();
 	}
 }

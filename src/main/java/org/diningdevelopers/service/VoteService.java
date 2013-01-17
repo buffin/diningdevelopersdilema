@@ -56,16 +56,8 @@ public class VoteService {
 		return result;
 	}
 
-	private boolean needToCreateNewVote(Vote vote, Integer newVoteing) {
-		if (vote == null) {
-			return true;
-		}
-
-		if (vote.getVote().equals(newVoteing) == false) {
-			return true;
-		}
-
-		return false;
+	private boolean needToCreateNewVote(Vote vote) {
+		return vote == null;
 	}
 
 	public void save(String username, List<VoteModel> voteModels) {
@@ -74,22 +66,26 @@ public class VoteService {
 			Location location = locationDao.findById(model.getLocationId());
 			Vote vote = votingDao.findLatestVote(developer, location);
 
-			if (model.getVote() == null) {
+			Integer newVote = model.getVote();
+			if (newVote == null) {
 				model.setVote(0);
-
+				newVote = 0;
 			}
 
-			if (needToCreateNewVote(vote, model.getVote())) {
-				Vote newVote = new Vote();
-				newVote .setLocation(location);
-				newVote .setDeveloper(developer);
-				newVote .setDate(new Date());
-				newVote .setVote(model.getVote());
+			if (needToCreateNewVote(vote)) {
+				vote = new Vote();
+				vote.setLocation(location);
+				vote.setDeveloper(developer);
+				vote.setDate(new Date());
+				vote.setVote(newVote);
 
-				votingDao.save(newVote );
-
-				if (vote != null) {
-					auditService.createAudit(username, String.format("%s hat sein Voting für %s geändert. Alt: %d, Neu: %d", username, location.getName(), vote.getVote(), newVote.getVote()));
+				votingDao.save(vote);
+			} else {
+				Integer oldVote = vote.getVote();
+				if (oldVote.equals(newVote) == false) {
+					String auditMessage = "%s hat sein Voting für %s geändert. Alt: %d, Neu: %d";
+					auditService.createAudit(username, String.format(auditMessage, username, location.getName(), oldVote, newVote));
+					vote.setVote(newVote);
 				}
 			}
 		}
