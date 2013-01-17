@@ -1,6 +1,7 @@
 package org.diningdevelopers.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -96,6 +97,8 @@ public class DecisionService {
 	}
 
 	private void updateTable(DecisionTable decisionTable) {
+		Collections.sort(decisionTable.getDecisions());
+
 		float totalSum = 0f;
 
 		for (DecisionModel m : decisionTable.getDecisions()) {

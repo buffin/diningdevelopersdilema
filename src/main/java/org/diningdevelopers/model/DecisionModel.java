@@ -2,7 +2,7 @@ package org.diningdevelopers.model;
 
 import java.util.Map;
 
-public class DecisionModel {
+public class DecisionModel implements Comparable<DecisionModel> {
 
 	private Long locationId;
 	private String locationName;
@@ -10,6 +10,11 @@ public class DecisionModel {
 	private float pointsTotal;
 	private float randomRangeStart;
 	private float randomRangeEnd;
+
+	@Override
+	public int compareTo(DecisionModel o) {
+		return locationName.compareTo(o.getLocationName());
+	}
 
 	public Long getLocationId() {
 		return locationId;
