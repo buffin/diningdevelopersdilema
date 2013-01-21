@@ -7,7 +7,7 @@ h3. Datasource
 * Deploy mysql-connector.jar
 * Goto JBoss Admin Interface
 ** Add Datasource
-** Name: reportingDS
-** JNDI-Name java:/dddDS
+** Name: diningDevelopersDS
+** JNDI-Name java:/diningDevelopersDS
 ** URL: jdbc:mysql://localhost/ddd
 ** Enable Datasource
