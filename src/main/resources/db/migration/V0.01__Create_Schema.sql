@@ -32,9 +32,3 @@ alter table votes
 	add constraint FK6B30AC94FBE2B91 
 	foreign key (developer_id) references developers (id);
 	
-INSERT INTO  developers (name, username, email, passowrd) VALUES ('Nils', 'neckert', 'mail@nils-eckert.de', SHA1( 'neckert'));
-INSERT INTO  developers (name, username, email, passowrd) VALUES ('Benjamin', 'basbach', 'mail@nils-eckert.de', SHA1( 'basbach'));
-INSERT INTO  developers (name, username, email, passowrd) VALUES ('Markus', 'mfischer', 'mail@nils-eckert.de', SHA1( 'mfischer'));
-INSERT INTO  developers (name, username, email, passowrd) VALUES ('Michel', 'mzedler', 'mail@nils-eckert.de', SHA1( 'mzedler'));
-
-	

@@ -11,3 +11,11 @@ h3. Datasource
 ** JNDI-Name java:/diningDevelopersDS
 ** URL: jdbc:mysql://localhost/ddd
 ** Enable Datasource
+
+h4. Flyway instructions
+
+* mvn clean install
+* mvn initialize flyway:clean (database reset...)
+* mvn initialize flyway:init (initialize schema version table)
+* mvn initialize flyway:migrate (migrate schema to latest version)
+* mvn initialize sql:execute (insert test data)
