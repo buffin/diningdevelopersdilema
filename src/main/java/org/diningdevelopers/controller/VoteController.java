@@ -26,6 +26,17 @@ public class VoteController implements Serializable {
 	@Inject
 	private VoteService voteService;
 
+	public int getSumPoints() {
+		int sum = 0;
+
+		for (VoteModel model : voteModels) {
+			if (model.getVote() != null) {
+				sum += model.getVote();
+			}
+		}
+		return sum;
+	}
+
 	public List<VoteModel> getVoteModels() {
 		return voteModels;
 	}
@@ -36,8 +47,24 @@ public class VoteController implements Serializable {
 		}
 	}
 
+	private boolean isSumValid(List<VoteModel> voteModels) {
+		int sum = getSumPoints();
+
+		if (sum == 100) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	public void save() {
+		if (isSumValid(voteModels) == false) {
+			FacesUtils.addMessage("Fehler: Es müssen genau 100 Punkte vergeben werden");
+			return;
+		}
+
 		try {
+
 			voteService.save(Authentication.getUsername(), voteModels);
 			FacesUtils.addMessage("Das Voting wurde gespeichert!");
 		} catch (Exception e) {
@@ -49,4 +76,5 @@ public class VoteController implements Serializable {
 	public void setVoteModels(List<VoteModel> voteModels) {
 		this.voteModels = voteModels;
 	}
+
 }

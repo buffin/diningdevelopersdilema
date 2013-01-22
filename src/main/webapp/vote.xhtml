@@ -10,15 +10,24 @@
 		<h1>Übersicht</h1>
 		<h:messages />
 
-		<h:form>
+		<h:form id="form">
 			<h:dataTable var="vote" value="#{voteController.voteModels}">
 				<h:column>
 					<h:outputText value="#{vote.locationName}" />
 				</h:column>
 				<h:column>
-					<p:rating stars="10" cancel="true" value="#{vote.vote}" />
+					<h:inputText value="#{vote.vote}" style="width: 30px; text-align: right;">
+						<f:ajax event="change" render=":form:sum" />
+						<f:validateLongRange minimum="0" maximum="100" />
+					</h:inputText>
 				</h:column>
 			</h:dataTable>
+
+			<h:panelGroup id="sum" style="margin: 10px 0;" layout="block">
+				<h:outputText value="Bereits vergeben: " />
+				<h:outputText value="#{voteController.sumPoints}" />
+				<h:outputText value=" Punkte" />
+			</h:panelGroup>
 
 			<h:commandButton value="Speichern" action="#{voteController.save}" />
 		</h:form>
