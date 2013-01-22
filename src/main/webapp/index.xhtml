@@ -42,6 +42,10 @@
 					</h:outputText>
 				</p:column>
 			</p:dataTable>
+			<p>
+			<p:pieChart id="custom" value="#{votingsOverview.pieModel}" legendPosition="e" fill="false" showDataLabels="true"  
+                title="Chart for this voting" style="width:600px;height:400px;display: block; margin-left: auto; margin-right: auto" sliceMargin="5" diameter="250"/>
+            </p> 
 		</h:form>
 	</ui:define>
 </ui:composition>

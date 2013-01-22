@@ -6,4 +6,8 @@ INSERT INTO  developers (name, username, email, passowrd) VALUES ('Jens', 'jmert
 INSERT INTO  developers (name, username, email, passowrd) VALUES ('Phil', 'pmeier', 'mail@nils-eckert.de', SHA1( 'pmeier'));
 INSERT INTO  developers (name, username, email, passowrd) VALUES ('Timo', 'tguenzel', 'mail@nils-eckert.de', SHA1( 'tguenzel'));
 
+INSERT INTO locations (name) VALUES ('Illuminati');
+INSERT INTO locations (name) VALUES ('Theaterhaus');
+INSERT INTO locations (name) VALUES ('Kantine');
+
 INSERT INTO version (version) VALUES (6);
