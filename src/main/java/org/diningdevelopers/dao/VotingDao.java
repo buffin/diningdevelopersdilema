@@ -53,6 +53,11 @@ public class VotingDao {
 		return findLatestByCriteria(votingCriteria);
 	}
 
+	public void removeAllVotes() {
+		String queryString = "delete from Vote";
+		entityManager.createQuery(queryString).executeUpdate();
+	}
+
 	public void save(Vote vote) {
 		JpaUtils.save(entityManager, vote);
 	}

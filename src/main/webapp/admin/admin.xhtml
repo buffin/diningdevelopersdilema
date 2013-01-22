@@ -12,6 +12,8 @@
 		<h:messages />
 
 		<h:form>
+			<p:commandButton value="Votes zurücksetzen" action="#{adminController.deleteVotes}" />
+			<br />
 			<p:commandButton value="Invalidate Cache" action="#{adminController.invalidateCache}" ajax="false" />			
 		</h:form>
 	</ui:define>
