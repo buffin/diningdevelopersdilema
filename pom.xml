@@ -53,6 +53,50 @@
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
+                <artifactId>buildnumber-maven-plugin</artifactId>
+                <version>1.2</version>
+                <executions>
+                    <execution>
+                        <id>generate-datetime</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>create</goal>
+                        </goals>
+                        <configuration>
+                            <format>{0,date,dd.MM.yyyy HH:mm:ss}</format>
+                            <items>
+                                <item>timestamp</item>
+                            </items>
+                            <buildNumberPropertyName>buildDateTime</buildNumberPropertyName>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>generate-timestamp</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>create</goal>
+                        </goals>
+                        <configuration>
+                            <timestampPropertyName>buildTimestamp</timestampPropertyName>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>generate-buildnumber</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>create</goal>
+                        </goals>
+                        <configuration>
+                            <!-- <revisionOnScmFailure>UNKNOWN</revisionOnScmFailure> -->
+                            <useLastCommittedRevision>true</useLastCommittedRevision>
+                            <buildNumberPropertyName>buildRevision</buildNumberPropertyName>
+                            <shortRevisionLength>8</shortRevisionLength>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
                 <artifactId>hibernate3-maven-plugin</artifactId>
                 <version>2.2</version>
                 <configuration>
@@ -193,6 +237,7 @@
                     </dependency>
                 </dependencies>
             </plugin>
+
         </plugins>
         <pluginManagement>
             <plugins>
