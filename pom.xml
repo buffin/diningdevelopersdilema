@@ -4,6 +4,8 @@
 
     <groupId>org.dindevdel</groupId>
     <artifactId>ddd</artifactId>
+    <packaging>war</packaging>
+    <version>1.0.CR1</version>
 
 	<properties>
 		<hbm2ddl.create>true</hbm2ddl.create>
@@ -330,5 +332,4 @@
 			<layout>default</layout>
 		</repository>
 	</repositories>
-	<packaging>war</packaging>
 </project>
