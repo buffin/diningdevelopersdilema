@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.diningdevelopers.entity.Audit;
+import org.diningdevelopers.entity.Audit_;
 
 @Named
 public class AuditDao {
@@ -21,7 +22,7 @@ public class AuditDao {
 			helper.setMaxResults(maxResult);
 		}
 
-		//		helper.addOrder(Audit, ascending)
+		helper.addOrder(Audit_.date, false);
 
 		return helper.getResultList();
 	}
