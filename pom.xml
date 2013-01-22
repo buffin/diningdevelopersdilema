@@ -5,7 +5,7 @@
     <groupId>org.dindevdel</groupId>
     <artifactId>ddd</artifactId>
     <packaging>war</packaging>
-    <version>1.0.CR2-SNAPSHOT</version>
+    <version>1.0.CR2</version>
 
     <properties>
         <hbm2ddl.create>true</hbm2ddl.create>
