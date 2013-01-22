@@ -79,20 +79,24 @@ public class DecisionService {
 	private void insertDeveloperPreferences(List<DeveloperModel> developerModels, Map<Long, DecisionModel> decisions, Developer d) {
 		DeveloperModel developerModel = developerConverter.toModel(d);
 
-		developerModels.add(developerModel);
-
 		List<Vote> votes = votingDao.findLatestVotes(d);
-
 		Integer sum = getVotedPoints(votes);
+		boolean hasVotes = false;
 
 		for (Vote v : votes) {
-			if (v.getVote() != null) {
-				Float votingPercent = (v.getVote().floatValue() / sum)  * 100;
+			if ((v.getVote() != null) && (v.getVote().intValue() != 0)) {
+				Float votingPercent = (v.getVote().floatValue() / sum) * 100;
 
 				DecisionModel decisionModel = getDecicionModel(decisions, v.getLocation());
 
 				decisionModel.getVotings().put(developerModel.getId(), votingPercent);
+
+				hasVotes = true;
 			}
+		}
+
+		if (hasVotes == true) {
+			developerModels.add(developerModel);
 		}
 	}
 

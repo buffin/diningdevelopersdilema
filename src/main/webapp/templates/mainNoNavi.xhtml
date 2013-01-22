@@ -1,9 +1,9 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core">
-<ui:composition>
-	<f:loadBundle basename="versions" var="versions" />
-	<ui:param name="contextPath" value="#{facesContext.externalContext.context.contextPath}" />
-	<html>
+<f:loadBundle basename="versions" var="versions" />
+<ui:param name="contextPath" value="#{facesContext.externalContext.context.contextPath}" />
 
 <h:head>
 	<title>DiningDevelopers (#{versions['mvn.version']})</title>
@@ -22,6 +22,4 @@
 			#{versions['buildDateTime']}</div>
 	</div>
 </h:body>
-	</html>
-</ui:composition>
 </html>
