@@ -15,6 +15,14 @@ public class DeveloperDao {
 	@PersistenceContext
 	private EntityManager entityManager;
 
+	public List<Developer> findAll() {
+		return JpaUtils.findAll(entityManager, Developer.class);
+	}
+
+	public Developer findById(Long id) {
+		return entityManager.find(Developer.class, id);
+	}
+
 	public Developer findByUsername(String username) {
 		CriteriaHelper<Developer> helper = new CriteriaHelper<>(entityManager, Developer.class);
 
@@ -29,5 +37,9 @@ public class DeveloperDao {
 		helper.addEqual(Developer_.participating, Boolean.TRUE);
 
 		return helper.getResultList();
+	}
+
+	public Developer save(Developer developer) {
+		return JpaUtils.save(entityManager, developer);
 	}
 }

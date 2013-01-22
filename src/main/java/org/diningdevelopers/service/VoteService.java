@@ -60,6 +60,10 @@ public class VoteService {
 		return vote == null;
 	}
 
+	public void removeAllVotes() {
+		votingDao.removeAllVotes();
+	}
+
 	public void save(String username, List<VoteModel> voteModels) {
 		for (VoteModel model : voteModels) {
 			Developer developer = developerDao.findByUsername(username);
