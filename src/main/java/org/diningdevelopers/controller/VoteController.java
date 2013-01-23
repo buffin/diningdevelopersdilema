@@ -85,5 +85,9 @@ public class VoteController implements Serializable {
 	public void setVoteModels(List<VoteModel> voteModels) {
 		this.voteModels = voteModels;
 	}
+	
+	public boolean isVotingClosed() {
+		return voteService.isVotingClosed();
+	}
 
 }

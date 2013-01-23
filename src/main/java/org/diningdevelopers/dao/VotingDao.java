@@ -1,5 +1,6 @@
 package org.diningdevelopers.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Named;
@@ -11,6 +12,8 @@ import org.diningdevelopers.entity.Developer;
 import org.diningdevelopers.entity.Location;
 import org.diningdevelopers.entity.Vote;
 import org.diningdevelopers.entity.Vote_;
+import org.diningdevelopers.entity.Voting;
+import org.diningdevelopers.entity.Voting_;
 
 @Named
 public class VotingDao {
@@ -70,5 +73,15 @@ public class VotingDao {
 
 	public void save(Vote vote) {
 		JpaUtils.save(entityManager, vote);
+	}
+	
+	public void save(Voting voting) {
+		JpaUtils.save(entityManager, voting);
+	}
+	
+	public Voting findVotingForDate(Date date) {
+		CriteriaHelper<Voting> helper = new CriteriaHelper<>(entityManager, Voting.class);
+		helper.addGreaterThanOrEqualTo(Voting_.date, date);
+		return helper.getSingleResultOrNull();
 	}
 }

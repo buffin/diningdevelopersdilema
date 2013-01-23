@@ -1,6 +1,7 @@
 package org.diningdevelopers.service;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import org.diningdevelopers.dao.VotingDao;
 import org.diningdevelopers.entity.Developer;
 import org.diningdevelopers.entity.Location;
 import org.diningdevelopers.entity.Vote;
+import org.diningdevelopers.entity.Voting;
 import org.diningdevelopers.model.VoteModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -98,5 +100,20 @@ public class VoteService {
 				}
 			}
 		}
+	}
+	
+	public boolean isVotingClosed() {
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.HOUR_OF_DAY, 0);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.SECOND, 0);
+		
+		Voting voting = votingDao.findVotingForDate(cal.getTime());
+		if (voting == null) {
+			logger.warn("No voting found for today, date: " + cal.getTime());
+			return true;
+		}
+		return voting.getClosed();
+		
 	}
 }

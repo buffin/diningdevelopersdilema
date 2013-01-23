@@ -11,6 +11,8 @@
 		<h:messages />
 
 		<h:form>
+		
+			<h2>Status des Votings: #{votingsOverview.votingState}</h2>
 
 			<p:dataTable var="m" value="#{votingsOverview.decisionTable.decisions}">
 				<p:column headerText="Location">

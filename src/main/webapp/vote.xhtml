@@ -28,9 +28,13 @@
 				<h:outputText value="#{voteController.sumPoints}" />
 				<h:outputText value=" Punkte" />
 			</h:panelGroup>
-
-			<h:commandButton value="Speichern" action="#{voteController.save}" />
-			<h:commandButton value="Voting widerrufen" action="#{voteController.reset}" onclick="if (confirm('Sicher?') == false) return false;" ajax="false" />
+			<h:panelGroup rendered="#{not voteController.votingClosed}">
+				<h:commandButton value="Speichern" action="#{voteController.save}" />
+				<h:commandButton value="Voting widerrufen" action="#{voteController.reset}" onclick="if (confirm('Sicher?') == false) return false;" ajax="false" />
+			</h:panelGroup>
+			<h:panelGroup rendered="#{voteController.votingClosed}">
+				Voting ist bereits abgeschlossen...
+			</h:panelGroup>
 		</h:form>
 	</ui:define>
 </ui:composition>

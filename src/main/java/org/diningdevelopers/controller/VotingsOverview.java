@@ -10,6 +10,7 @@ import javax.inject.Named;
 import org.diningdevelopers.model.DecisionModel;
 import org.diningdevelopers.model.DecisionTable;
 import org.diningdevelopers.service.DecisionService;
+import org.diningdevelopers.service.VoteService;
 import org.diningdevelopers.utils.FacesUtils;
 import org.primefaces.model.chart.PieChartModel;
 
@@ -19,6 +20,9 @@ public class VotingsOverview implements Serializable {
 
 	@Inject
 	private DecisionService decisionService;
+	
+	@Inject
+	private VoteService voteService;
 
 	private DecisionTable decisionTable;
 	
@@ -53,6 +57,13 @@ public class VotingsOverview implements Serializable {
 		for (DecisionModel d : decisionTable.getDecisions()) {
 			pieModel.getData().put(d.getLocationName(), d.getPointsTotal());
 		}
-    }  
+    } 
+	
+	public String getVotingState() {
+		if (voteService.isVotingClosed()) {
+			return "beendet";
+		}
+		return "aktiv";
+	}
 	
 }
