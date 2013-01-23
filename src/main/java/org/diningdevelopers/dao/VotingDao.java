@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.diningdevelopers.entity.Developer;
 import org.diningdevelopers.entity.Location;
@@ -56,6 +57,15 @@ public class VotingDao {
 	public void removeAllVotes() {
 		String queryString = "delete from Vote";
 		entityManager.createQuery(queryString).executeUpdate();
+	}
+
+	public void removeVotes(Developer developer) {
+		String queryString = "delete from Vote v where v.developer = :d";
+
+		Query query = entityManager.createQuery(queryString);
+		query.setParameter("d", developer);
+
+		query.executeUpdate();
 	}
 
 	public void save(Vote vote) {
