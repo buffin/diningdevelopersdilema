@@ -16,7 +16,7 @@
 					<h:outputText value="#{vote.locationName}" />
 				</h:column>
 				<h:column>
-					<h:inputText value="#{vote.vote}" style="width: 30px; text-align: right;">
+					<h:inputText value="#{vote.vote}" style="width: 30px; text-align: right;" label="#{vote.locationName}">
 						<f:ajax event="change" render=":form:sum" />
 						<f:validateLongRange minimum="0" maximum="100" />
 					</h:inputText>
@@ -30,6 +30,7 @@
 			</h:panelGroup>
 
 			<h:commandButton value="Speichern" action="#{voteController.save}" />
+			<h:commandButton value="Voting wiederrufen" action="#{voteController.reset}" onclick="if (confirm('Sicher?') == false) return;" ajax="false" />
 		</h:form>
 	</ui:define>
 </ui:composition>

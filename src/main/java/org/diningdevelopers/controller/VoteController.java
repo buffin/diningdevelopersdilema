@@ -57,6 +57,15 @@ public class VoteController implements Serializable {
 		}
 	}
 
+	public String reset() {
+		voteService.removeVotes(Authentication.getUsername());
+
+		FacesUtils.addMessage("Ihr Voting wurde widerrufen.");
+
+		voteModels = voteService.getVoteModel(Authentication.getUsername());
+		return null;
+	}
+
 	public void save() {
 		if (isSumValid(voteModels) == false) {
 			FacesUtils.addMessage("Fehler: Es müssen genau 100 Punkte vergeben werden");
