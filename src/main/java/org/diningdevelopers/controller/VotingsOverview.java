@@ -66,4 +66,8 @@ public class VotingsOverview implements Serializable {
 		return "aktiv";
 	}
 	
+	public boolean isVotingClosed() {
+		return voteService.isVotingClosed();
+	}
+	
 }

@@ -14,7 +14,7 @@
 		
 			<h2>Status des Votings: #{votingsOverview.votingState}</h2>
 
-			<p:dataTable var="m" value="#{votingsOverview.decisionTable.decisions}">
+			<p:dataTable var="m" value="#{votingsOverview.decisionTable.decisions}" rendered="#{votingsOverview.votingClosed}">
 				<p:column headerText="Location">
 					#{m.locationName}
 				</p:column>
@@ -45,7 +45,7 @@
 				</p:column>
 			</p:dataTable>
 			<p>
-			<p:pieChart id="custom" value="#{votingsOverview.pieModel}" legendPosition="e" fill="false" showDataLabels="true"  
+			<p:pieChart id="custom" value="#{votingsOverview.pieModel}" legendPosition="e" fill="false" showDataLabels="true" rendered="#{votingsOverview.votingClosed}" 
                 title="Chart for this voting" style="width:600px;height:400px;display: block; margin-left: auto; margin-right: auto" sliceMargin="5" diameter="250"/>
             </p> 
 		</h:form>
