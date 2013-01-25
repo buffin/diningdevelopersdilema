@@ -8,7 +8,10 @@
 <ui:composition template="/templates/main.xhtml">
 	<ui:define name="body">
 		<h1>Übersicht</h1>
-		<h:messages />
+
+		<h:panelGroup id="messages">
+			<h:messages />
+		</h:panelGroup>
 
 		<h:form id="form">
 			<h:dataTable var="vote" value="#{voteController.voteModels}">
@@ -16,22 +19,27 @@
 					<h:outputText value="#{vote.locationName}" />
 				</h:column>
 				<h:column>
-					<h:inputText value="#{vote.vote}" style="width: 30px; text-align: right;" label="#{vote.locationName}">
-						<f:ajax event="change" render=":form:sum" />
+					<h:inputText value="#{vote.vote}" style="margin-left: 15px; width: 30px; text-align: right;" label="#{vote.locationName}"
+						readonly="#{voteController.votingClosed}" validatorMessage="Du darfst für #{vote.locationName} nur zwischen 0 und 100 Punkte vergeben.">
+						<f:ajax event="change" render=":form:sum :messages" />
 						<f:validateLongRange minimum="0" maximum="100" />
 					</h:inputText>
 				</h:column>
 			</h:dataTable>
 
-			<h:panelGroup id="sum" style="margin: 10px 0;" layout="block">
+			<h:panelGroup id="sum" style="margin: 10px 0; #{voteController.computeAdditionalStylesForSumPoints(voteController.sumPoints)}"
+				layout="block">
 				<h:outputText value="Bereits vergeben: " />
 				<h:outputText value="#{voteController.sumPoints}" />
 				<h:outputText value=" Punkte" />
 			</h:panelGroup>
+
 			<h:panelGroup rendered="#{not voteController.votingClosed}">
 				<h:commandButton value="Speichern" action="#{voteController.save}" />
-				<h:commandButton value="Voting widerrufen" action="#{voteController.reset}" onclick="if (confirm('Sicher?') == false) return false;" ajax="false" />
+				<h:commandButton value="Voting widerrufen" action="#{voteController.reset}" onclick="if (confirm('Sicher?') == false) return false;"
+					ajax="false" />
 			</h:panelGroup>
+
 			<h:panelGroup rendered="#{voteController.votingClosed}">
 				Voting ist bereits abgeschlossen...
 			</h:panelGroup>

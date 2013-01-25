@@ -26,6 +26,14 @@ public class VoteController implements Serializable {
 	@Inject
 	private VoteService voteService;
 
+	public String computeAdditionalStylesForSumPoints(int sumPoints) {
+		if (sumPoints > 100) {
+			return "color: red;";
+		} else {
+			return "";
+		}
+	}
+
 	public int getSumPoints() {
 		int sum = 0;
 
@@ -57,6 +65,10 @@ public class VoteController implements Serializable {
 		}
 	}
 
+	public boolean isVotingClosed() {
+		return voteService.isVotingClosed();
+	}
+
 	public String reset() {
 		voteService.removeVotes(Authentication.getUsername());
 
@@ -84,10 +96,6 @@ public class VoteController implements Serializable {
 
 	public void setVoteModels(List<VoteModel> voteModels) {
 		this.voteModels = voteModels;
-	}
-	
-	public boolean isVotingClosed() {
-		return voteService.isVotingClosed();
 	}
 
 }
