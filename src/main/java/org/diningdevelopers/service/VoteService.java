@@ -116,4 +116,26 @@ public class VoteService {
 		return voting.getClosed();
 		
 	}
+		
+	public void openVoting() {
+		Voting voting = new Voting(Calendar.getInstance().getTime(), false);
+		votingDao.save(voting);
+		
+		votingDao.removeAllVotes();
+	}
+	
+	public void closeVoting() {
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.HOUR_OF_DAY, 0);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.SECOND, 0);
+		Voting voting = votingDao.findVotingForDate(cal.getTime());
+		if (voting == null) {
+			Voting closedVoting = new Voting(Calendar.getInstance().getTime(), true);
+			votingDao.save(closedVoting);
+		} else {
+			voting.setClosed(true);
+			votingDao.save(voting);
+		}
+	}
 }
