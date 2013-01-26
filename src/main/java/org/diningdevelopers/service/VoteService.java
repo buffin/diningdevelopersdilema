@@ -8,6 +8,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
+import org.apache.commons.lang3.StringUtils;
 import org.diningdevelopers.dao.DeveloperDao;
 import org.diningdevelopers.dao.LocationDao;
 import org.diningdevelopers.dao.VotingDao;
@@ -16,6 +17,11 @@ import org.diningdevelopers.entity.Location;
 import org.diningdevelopers.entity.Vote;
 import org.diningdevelopers.entity.Voting;
 import org.diningdevelopers.model.VoteModel;
+import org.diningdevelopers.utils.CoordinatesParser;
+import org.primefaces.model.map.DefaultMapModel;
+import org.primefaces.model.map.LatLng;
+import org.primefaces.model.map.MapModel;
+import org.primefaces.model.map.Marker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,6 +41,9 @@ public class VoteService {
 
 	@Inject
 	private DeveloperDao developerDao;
+	
+	@Inject
+	private CoordinatesParser coordinatesParser;
 
 	public List<VoteModel> getVoteModel(String username) {
 		List<Location> locations = locationDao.findActive();
@@ -46,6 +55,15 @@ public class VoteService {
 			VoteModel model = new VoteModel();
 			model.setLocationId(l.getId());
 			model.setLocationName(l.getName());
+			model.setLocationDescription(l.getDescription());
+			model.setLocationUrl(l.getUrl());
+			model.setLocationCoordinates(l.getCoordinates());
+			if (StringUtils.isNotBlank(l.getCoordinates())) {
+				MapModel locationModel = new DefaultMapModel();
+				LatLng coordinates = coordinatesParser.parseCoordinates(l.getCoordinates());
+				locationModel.addOverlay(new Marker(coordinates));
+				model.setLocationModel(locationModel);
+			}
 
 			Vote latestVote = votingDao.findLatestVote(developer, l);
 			if (latestVote != null) {

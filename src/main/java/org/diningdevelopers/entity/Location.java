@@ -17,6 +17,15 @@ public class Location {
 
 	@Column(name = "name", nullable = false)
 	private String name;
+	
+	@Column(name = "description")
+	private String description;
+	
+	@Column(name = "url")
+	private String url;
+	
+	@Column(name = "coordinates")
+	private String coordinates;
 
 	public Long getId() {
 		return id;
@@ -33,4 +42,30 @@ public class Location {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public String getCoordinates() {
+		return coordinates;
+	}
+
+	public void setCoordinates(String coordinates) {
+		this.coordinates = coordinates;
+	}
+	
+	
 }
