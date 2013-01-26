@@ -14,7 +14,11 @@
 		<h:form>
 			<p:commandButton value="Votes zurücksetzen" action="#{adminController.deleteVotes}" />
 			<br />
-			<p:commandButton value="Invalidate Cache" action="#{adminController.invalidateCache}" ajax="false" />			
+			<p:commandButton value="Invalidate Cache" action="#{adminController.invalidateCache}" ajax="false" />
+			<br />
+			<p:commandButton value="Open Voting" action="#{adminController.openVoting}" ajax="false" />
+			<br />
+			<p:commandButton value="Close Voting" action="#{adminController.closeVoting}" ajax="false" />					
 		</h:form>
 	</ui:define>
 </ui:composition>

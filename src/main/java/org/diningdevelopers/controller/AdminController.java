@@ -38,4 +38,14 @@ public class AdminController implements Serializable {
 		JpaUtils.evictCache(entityManager);
 		return null;
 	}
+	
+	public String openVoting() {
+		voteService.openVoting();
+		return null;
+	}
+	
+	public String closeVoting() {
+		voteService.closeVoting();
+		return null;
+	}
 }
