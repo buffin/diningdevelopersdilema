@@ -23,6 +23,9 @@ public class Voting {
 	@Column(name="closed", nullable = false)
 	private Boolean closed;
 	
+	@Column(name="result")
+	private Integer result;
+	
 	public Voting() {
 		
 	}
@@ -55,5 +58,12 @@ public class Voting {
 	public void setClosed(Boolean closed) {
 		this.closed = closed;
 	}
-	
+
+	public Integer getResult() {
+		return result;
+	}
+
+	public void setResult(Integer result) {
+		this.result = result;
+	}
 }

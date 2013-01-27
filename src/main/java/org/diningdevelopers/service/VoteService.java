@@ -18,6 +18,7 @@ import org.diningdevelopers.entity.Vote;
 import org.diningdevelopers.entity.Voting;
 import org.diningdevelopers.model.VoteModel;
 import org.diningdevelopers.utils.CoordinatesParser;
+import org.diningdevelopers.utils.DateHelper;
 import org.primefaces.model.map.DefaultMapModel;
 import org.primefaces.model.map.LatLng;
 import org.primefaces.model.map.MapModel;
@@ -43,7 +44,13 @@ public class VoteService {
 	private DeveloperDao developerDao;
 	
 	@Inject
+	private DecisionService decisionService;
+	
+	@Inject
 	private CoordinatesParser coordinatesParser;
+	
+	@Inject
+	private DateHelper dateHelper;
 
 	public List<VoteModel> getVoteModel(String username) {
 		List<Location> locations = locationDao.findActive();
@@ -121,14 +128,9 @@ public class VoteService {
 	}
 	
 	public boolean isVotingClosed() {
-		Calendar cal = Calendar.getInstance();
-		cal.set(Calendar.HOUR_OF_DAY, 0);
-		cal.set(Calendar.MINUTE, 0);
-		cal.set(Calendar.SECOND, 0);
-		
-		Voting voting = votingDao.findVotingForDate(cal.getTime());
+		Voting voting = votingDao.findLatestVoting();
 		if (voting == null) {
-			logger.warn("No voting found for today, date: " + cal.getTime());
+			logger.warn("No voting found at all!");
 			return true;
 		}
 		return voting.getClosed();
@@ -143,11 +145,8 @@ public class VoteService {
 	}
 	
 	public void closeVoting() {
-		Calendar cal = Calendar.getInstance();
-		cal.set(Calendar.HOUR_OF_DAY, 0);
-		cal.set(Calendar.MINUTE, 0);
-		cal.set(Calendar.SECOND, 0);
-		Voting voting = votingDao.findVotingForDate(cal.getTime());
+		Date today = dateHelper.getDateForTodayWithNulledHoursMinutesAndMiliseconds();
+		Voting voting = votingDao.findVotingForDate(today);
 		if (voting == null) {
 			Voting closedVoting = new Voting(Calendar.getInstance().getTime(), true);
 			votingDao.save(closedVoting);
@@ -155,5 +154,7 @@ public class VoteService {
 			voting.setClosed(true);
 			votingDao.save(voting);
 		}
+		
+		decisionService.determineResultForVoting();
 	}
 }

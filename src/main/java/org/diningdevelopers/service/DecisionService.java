@@ -15,9 +15,13 @@ import org.diningdevelopers.dao.VotingDao;
 import org.diningdevelopers.entity.Developer;
 import org.diningdevelopers.entity.Location;
 import org.diningdevelopers.entity.Vote;
+import org.diningdevelopers.entity.Voting;
 import org.diningdevelopers.model.DecisionModel;
 import org.diningdevelopers.model.DecisionTable;
 import org.diningdevelopers.model.DeveloperModel;
+import org.diningdevelopers.model.ResultModel;
+import org.diningdevelopers.service.external.RandomOrgNumberGeneratorService;
+import org.diningdevelopers.utils.DateHelper;
 
 @Stateless
 public class DecisionService {
@@ -30,6 +34,12 @@ public class DecisionService {
 
 	@Inject
 	private VotingDao votingDao;
+	
+	@Inject
+	private RandomOrgNumberGeneratorService randomService;
+	
+	@Inject
+	private DateHelper dateHelper;
 
 	public DecisionTable buildDecisionTable(Date date) {
 		DecisionTable decisionTable = new DecisionTable();
@@ -46,6 +56,33 @@ public class DecisionService {
 		updateTable(decisionTable);
 
 		return decisionTable;
+	}
+	
+	public void determineResultForVoting() {
+		DecisionTable table = buildDecisionTable(null);
+		int maxValue = Math.round(table.getTotalPoints());
+		
+		Date today = dateHelper.getDateForTodayWithNulledHoursMinutesAndMiliseconds();
+		
+		Voting voting = votingDao.findVotingForDate(today);
+		
+		try {
+			int number = randomService.generateRandomNumberBetween(0, maxValue);
+			voting.setResult(number);
+		} catch (Exception e) {
+			voting.setResult(-1);
+		} finally {
+			votingDao.save(voting);
+		}
+	}
+	
+	public ResultModel getResultModelForLatestVote() {
+		ResultModel result = new ResultModel();
+		Voting voting = votingDao.findLatestVoting();
+		if (voting != null) {
+			result.setRandomNumber(voting.getResult());
+		}
+		return result;
 	}
 
 	private DecisionModel getDecicionModel(Map<Long, DecisionModel> decisions, Location location) {
