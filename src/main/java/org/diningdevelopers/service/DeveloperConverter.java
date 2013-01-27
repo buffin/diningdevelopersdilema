@@ -15,6 +15,5 @@ public class DeveloperConverter {
 	public void updateEntity(Developer developer, DeveloperModel model) {
 		developer.setName(model.getName());
 		developer.setEmail(model.getEmail());
-		developer.setParticipating(model.getParticipating());
 	}
 }

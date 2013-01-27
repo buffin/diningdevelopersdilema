@@ -21,14 +21,11 @@ public class Developer {
 	@Column(name = "name", nullable = false)
 	private String name;
 
-	@Column(name = "passowrd", nullable = false)
+	@Column(name = "password", nullable = false)
 	private String password;
 
 	@Column(name = "email", nullable = true)
 	private String email;
-
-	@Column(name="participating", nullable = true)
-	private Boolean participating;
 
 	public String getEmail() {
 		return email;
@@ -37,12 +34,9 @@ public class Developer {
 	public Long getId() {
 		return id;
 	}
+
 	public String getName() {
 		return name;
-	}
-
-	public Boolean getParticipating() {
-		return participating;
 	}
 
 	public String getPassword() {
@@ -65,10 +59,6 @@ public class Developer {
 		this.name = name;
 	}
 
-	public void setParticipating(Boolean participating) {
-		this.participating = participating;
-	}
-
 	public void setPassword(String password) {
 		this.password = password;
 	}
@@ -76,6 +66,5 @@ public class Developer {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-
 
 }

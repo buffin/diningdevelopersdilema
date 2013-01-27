@@ -34,7 +34,7 @@ public class DecisionService {
 	public DecisionTable buildDecisionTable(Date date) {
 		DecisionTable decisionTable = new DecisionTable();
 
-		List<Developer> developers = developerDao.findParticipating();
+		List<Developer> developers = developerDao.findAll();
 		Map<Long, DecisionModel> decisions = new HashMap<>();
 
 		for (Developer d : developers) {
