@@ -25,12 +25,12 @@
 				</p:column>
 				<p:columns var="d" value="#{votingsOverview.decisionTable.developers}" headerText="#{d.name}">
 					<h:outputText value="#{m.votings[d.id]}">
-						<f:convertNumber pattern="0.00" />
+						<f:convertNumber pattern="0" />
 					</h:outputText>
 				</p:columns>
 				<p:column headerText="Pkt">
 					<h:outputText value="#{m.pointsTotal}">
-						<f:convertNumber pattern="0.00" />
+						<f:convertNumber pattern="0" />
 					</h:outputText>
 				</p:column>
 				<p:column headerText="W-keit">
@@ -40,12 +40,12 @@
 				</p:column>
 				<p:column headerText="Start">
 					<h:outputText value="#{m.randomRangeStart}">
-						<f:convertNumber pattern="0.00" />
+						<f:convertNumber pattern="0" />
 					</h:outputText>
 				</p:column>
 				<p:column headerText="Ende">
 					<h:outputText value="#{m.randomRangeEnd}">
-						<f:convertNumber pattern="0.00" />
+						<f:convertNumber pattern="0" />
 					</h:outputText>
 				</p:column>
 			</p:dataTable>
