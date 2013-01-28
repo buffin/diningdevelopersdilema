@@ -55,7 +55,7 @@
 			<!-- List of developers if voting is active-->
 			<p:dataList var="dev" value="#{votingsOverview.decisionTable.developers}" itemType="disc" 
 				 styleClass="datalist-noborder" rendered="#{not votingsOverview.votingClosed}" >
-				<h2 style="font-family: Titilium,Helvetica; color:black;">#{dev.name}</h2>
+				<h:outputText value="#{dev.name}" />
 			</p:dataList>
 			
 			<p:pieChart id="custom" value="#{votingsOverview.pieModel}" legendPosition="e" fill="false" showDataLabels="true" rendered="#{votingsOverview.votingClosed}" 
