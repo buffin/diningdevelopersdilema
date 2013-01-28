@@ -6,10 +6,10 @@ public class DecisionModel implements Comparable<DecisionModel> {
 
 	private Long locationId;
 	private String locationName;
-	private Map<Long, Float> votings;
-	private float pointsTotal;
-	private float randomRangeStart;
-	private float randomRangeEnd;
+	private Map<Long, Integer> votings;
+	private int pointsTotal;
+	private int randomRangeStart;
+	private int randomRangeEnd;
 
 	@Override
 	public int compareTo(DecisionModel o) {
@@ -36,7 +36,7 @@ public class DecisionModel implements Comparable<DecisionModel> {
 		return randomRangeStart;
 	}
 
-	public Map<Long, Float> getVotings() {
+	public Map<Long, Integer> getVotings() {
 		return votings;
 	}
 
@@ -48,19 +48,19 @@ public class DecisionModel implements Comparable<DecisionModel> {
 		this.locationName = locationName;
 	}
 
-	public void setPointsTotal(float pointsTotal) {
+	public void setPointsTotal(int pointsTotal) {
 		this.pointsTotal = pointsTotal;
 	}
 
-	public void setRandomRangeEnd(float randomRangeEnd) {
+	public void setRandomRangeEnd(int randomRangeEnd) {
 		this.randomRangeEnd = randomRangeEnd;
 	}
 
-	public void setRandomRangeStart(float randomRangeStart) {
+	public void setRandomRangeStart(int randomRangeStart) {
 		this.randomRangeStart = randomRangeStart;
 	}
 
-	public void setVotings(Map<Long, Float> votings) {
+	public void setVotings(Map<Long, Integer> votings) {
 		this.votings = votings;
 	}
 

@@ -25,12 +25,12 @@
 				</p:column>
 				<p:columns var="d" value="#{votingsOverview.decisionTable.developers}" headerText="#{d.name}">
 					<h:outputText value="#{m.votings[d.id]}">
-						<f:convertNumber pattern="0.00" />
+						<f:convertNumber pattern="0" />
 					</h:outputText>
 				</p:columns>
 				<p:column headerText="Pkt">
 					<h:outputText value="#{m.pointsTotal}">
-						<f:convertNumber pattern="0.00" />
+						<f:convertNumber pattern="0" />
 					</h:outputText>
 				</p:column>
 				<p:column headerText="W-keit">
@@ -40,12 +40,12 @@
 				</p:column>
 				<p:column headerText="Start">
 					<h:outputText value="#{m.randomRangeStart}">
-						<f:convertNumber pattern="0.00" />
+						<f:convertNumber pattern="0" />
 					</h:outputText>
 				</p:column>
 				<p:column headerText="Ende">
 					<h:outputText value="#{m.randomRangeEnd}">
-						<f:convertNumber pattern="0.00" />
+						<f:convertNumber pattern="0" />
 					</h:outputText>
 				</p:column>
 			</p:dataTable>
@@ -55,7 +55,7 @@
 			<!-- List of developers if voting is active-->
 			<p:dataList var="dev" value="#{votingsOverview.decisionTable.developers}" itemType="disc" 
 				 styleClass="datalist-noborder" rendered="#{not votingsOverview.votingClosed}" >
-				<h2 style="font-family: Titilium,Helvetica; color:black;">#{dev.name}</h2>
+				<h:outputText value="#{dev.name}" />
 			</p:dataList>
 			
 			<p:pieChart id="custom" value="#{votingsOverview.pieModel}" legendPosition="e" fill="false" showDataLabels="true" rendered="#{votingsOverview.votingClosed}" 
