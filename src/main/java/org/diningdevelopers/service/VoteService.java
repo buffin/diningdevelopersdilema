@@ -152,4 +152,13 @@ public class VoteService {
 			votingDao.save(voting);
 		}
 	}
+
+	public void reopenVoting() {
+		Date today = dateHelper.getDateForTodayWithNulledHoursMinutesAndMiliseconds();
+		Voting voting = votingDao.findVotingForDate(today);
+
+		if (voting != null) {
+			voting.setClosed(Boolean.FALSE);
+		}
+	}
 }
