@@ -42,13 +42,10 @@ public class VoteService {
 
 	@Inject
 	private DeveloperDao developerDao;
-	
-	@Inject
-	private DecisionService decisionService;
-	
+
 	@Inject
 	private CoordinatesParser coordinatesParser;
-	
+
 	@Inject
 	private DateHelper dateHelper;
 
@@ -126,7 +123,7 @@ public class VoteService {
 			}
 		}
 	}
-	
+
 	public boolean isVotingClosed() {
 		Voting voting = votingDao.findLatestVoting();
 		if (voting == null) {
@@ -134,16 +131,15 @@ public class VoteService {
 			return true;
 		}
 		return voting.getClosed();
-		
 	}
-		
+
 	public void openVoting() {
 		Voting voting = new Voting(Calendar.getInstance().getTime(), false);
 		votingDao.save(voting);
-		
+
 		votingDao.removeAllVotes();
 	}
-	
+
 	public void closeVoting() {
 		Date today = dateHelper.getDateForTodayWithNulledHoursMinutesAndMiliseconds();
 		Voting voting = votingDao.findVotingForDate(today);
@@ -154,7 +150,14 @@ public class VoteService {
 			voting.setClosed(true);
 			votingDao.save(voting);
 		}
-		
-		decisionService.determineResultForVoting();
+	}
+
+	public void reopenVoting() {
+		Date today = dateHelper.getDateForTodayWithNulledHoursMinutesAndMiliseconds();
+		Voting voting = votingDao.findVotingForDate(today);
+
+		if (voting != null) {
+			voting.setClosed(Boolean.FALSE);
+		}
 	}
 }

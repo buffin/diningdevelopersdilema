@@ -4,24 +4,20 @@
 <ui:composition template="/templates/main.xhtml">
 	<ui:define name="body">
 		<h1>Einstellungen</h1>
-		
-		
-		<h:form id="form">			
+
+
+		<h:form id="form">
 			<h2>Passwort ändern</h2>
 			<h:messages />
-			<p:panelGrid columns="3">
-				<p:outputLabel for="password" value="Passwort:" />
-				<p:inputText id="password" value="#{settingsController.password}" type="password"/>
-				<div/>
-				<p:outputLabel for="passwordRepeated" value="Passwort wiederholen:" />
-				<p:inputText id="passwordRepeated" type="password"
-					value="#{settingsController.passwordRepeated}" />
-				<p:commandButton
-					actionListener="#{settingsController.changePassword}"
-					value="Speichern" update=":form"/>
+			<p:outputLabel for="password" value="Passwort" style="display: block;" />
+			<p:inputText id="password" value="#{settingsController.password}" type="password" />
 
-			</p:panelGrid>
+			<p:outputLabel for="passwordRepeated" value="Passwort wiederholen" style="display: block; margin-top: 10px;" />
+			<p:inputText id="passwordRepeated" type="password" value="#{settingsController.passwordRepeated}" />
 
+			<div style="margin-top: 20px;">
+				<p:commandButton actionListener="#{settingsController.changePassword}" value="Speichern" update=":form" />
+			</div>
 		</h:form>
 	</ui:define>
 </ui:composition>
