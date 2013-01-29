@@ -9,10 +9,10 @@ import org.diningdevelopers.service.VoteService;
 
 @Stateless
 public class VotingTimer {
-	
+
 	@Inject
 	private VoteService voteService;
-	
+
 	@Inject
 	private DecisionService decisionService;
 
@@ -21,10 +21,10 @@ public class VotingTimer {
 		voteService.closeVoting();
 		decisionService.determineResultForVoting();
 	}
-	
+
 	@Schedule(dayOfWeek="1-5", hour="6", minute="0", persistent=false)
 	public void openVoting() {
-		voteService.closeVoting();
+		voteService.openVoting();
 	}
-	
+
 }
