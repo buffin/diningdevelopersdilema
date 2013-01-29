@@ -26,9 +26,9 @@
 				<h:column>
 					<h:outputText value="#{vote.locationName}" rendered="#{not vote.informationAvailable}"/>
 					<p:commandLink id="locationBtn" value="#{vote.locationName}"
-						onclick="#{vote.locationName}.show()" rendered="#{vote.informationAvailable}"/>
+						onclick="location#{vote.locationId}.show()" rendered="#{vote.informationAvailable}"/>
 
-					<p:dialog widgetVar="#{vote.locationName}" header="#{vote.locationName}" showEffect="fade" width="500" height="400"
+					<p:dialog widgetVar="location#{vote.locationId}" header="#{vote.locationName}" showEffect="fade" width="500" height="400"
 						modal="true">
 						<h:panelGroup rendered="#{not empty vote.locationDescription}" style="margin-bottom:1em;" layout="block">
 						#{vote.locationDescription}
