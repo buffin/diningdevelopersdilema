@@ -42,10 +42,7 @@ public class VoteService {
 
 	@Inject
 	private DeveloperDao developerDao;
-	
-	@Inject
-	private DecisionService decisionService;
-	
+
 	@Inject
 	private CoordinatesParser coordinatesParser;
 	
@@ -154,7 +151,5 @@ public class VoteService {
 			voting.setClosed(true);
 			votingDao.save(voting);
 		}
-		
-		decisionService.determineResultForVoting();
 	}
 }
