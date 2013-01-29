@@ -45,7 +45,7 @@ public class VoteService {
 
 	@Inject
 	private CoordinatesParser coordinatesParser;
-	
+
 	@Inject
 	private DateHelper dateHelper;
 
@@ -123,7 +123,7 @@ public class VoteService {
 			}
 		}
 	}
-	
+
 	public boolean isVotingClosed() {
 		Voting voting = votingDao.findLatestVoting();
 		if (voting == null) {
@@ -131,16 +131,15 @@ public class VoteService {
 			return true;
 		}
 		return voting.getClosed();
-		
 	}
-		
+
 	public void openVoting() {
 		Voting voting = new Voting(Calendar.getInstance().getTime(), false);
 		votingDao.save(voting);
-		
+
 		votingDao.removeAllVotes();
 	}
-	
+
 	public void closeVoting() {
 		Date today = dateHelper.getDateForTodayWithNulledHoursMinutesAndMiliseconds();
 		Voting voting = votingDao.findVotingForDate(today);
