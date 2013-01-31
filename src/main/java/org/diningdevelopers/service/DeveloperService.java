@@ -1,13 +1,10 @@
 package org.diningdevelopers.service;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.persistence.Query;
 
 import org.diningdevelopers.dao.DeveloperDao;
 import org.diningdevelopers.entity.Developer;
@@ -50,7 +47,7 @@ public class DeveloperService {
 			developerDao.save(developer);
 		}
 	}
-	
+
 	public void changePassword(String username, String password) {
 		developerDao.changePassword(username, password);
 	}
