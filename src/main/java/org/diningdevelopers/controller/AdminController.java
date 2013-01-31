@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.diningdevelopers.dao.JpaUtils;
+import org.diningdevelopers.service.DecisionService;
 import org.diningdevelopers.service.VoteService;
 import org.diningdevelopers.utils.FacesUtils;
 import org.slf4j.Logger;
@@ -23,6 +24,9 @@ public class AdminController implements Serializable {
 
 	@Inject
 	private VoteService voteService;
+
+	@Inject
+	private DecisionService decisionService;
 
 	private Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -41,6 +45,11 @@ public class AdminController implements Serializable {
 
 	public String openVoting() {
 		voteService.openVoting();
+		return null;
+	}
+
+	public String determineResult() {
+		decisionService.determineResultForVoting();
 		return null;
 	}
 
