@@ -97,7 +97,16 @@ public class DecisionService {
 		ResultModel result = new ResultModel();
 		Voting voting = votingDao.findLatestVoting();
 		if (voting != null) {
-			result.setRandomNumber(voting.getResult());
+			Integer random = voting.getResult();
+			result.setRandomNumber(random);
+
+			DecisionTable table = buildDecisionTable(null);
+
+			for (DecisionModel d : table.getDecisions()) {
+				if ((random >= d.getRandomRangeStart()) && (random <= d.getRandomRangeEnd())) {
+					result.setLocationName(d.getLocationName());
+				}
+			}
 		}
 		return result;
 	}

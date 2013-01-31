@@ -1,15 +1,15 @@
 package org.diningdevelopers.model;
 
 public class ResultModel {
-	
-	private int randomNumber;
+
+	private Integer randomNumber;
 	private String locationName;
 	private String errorMessage;
-	
-	public int getRandomNumber() {
+
+	public Integer getRandomNumber() {
 		return randomNumber;
 	}
-	public void setRandomNumber(int randomNumber) {
+	public void setRandomNumber(Integer randomNumber) {
 		this.randomNumber = randomNumber;
 	}
 	public String getLocationName() {

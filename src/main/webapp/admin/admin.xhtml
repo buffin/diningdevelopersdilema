@@ -16,9 +16,10 @@
 			<p:commandButton value="Invalidate Cache" action="#{adminController.invalidateCache}" ajax="false" />
 			
 			<h2>Admin Voting-System</h2>
-			<p:commandButton value="Repen Voting" action="#{adminController.openVoting}" ajax="false" />
 			<p:commandButton value="Open Voting" action="#{adminController.openVoting}" ajax="false" />
-			<p:commandButton value="Close Voting" action="#{adminController.closeVoting}" ajax="false" />					
+			<p:commandButton value="Repen Voting" action="#{adminController.reopenVoting}" ajax="false" />
+			<p:commandButton value="Close Voting" action="#{adminController.closeVoting}" ajax="false" />
+			<p:commandButton value="Random.org Fragen" action="#{adminController.determineResult}" ajax="false" />
 			<p:commandButton value="Votes zurücksetzen" action="#{adminController.deleteVotes}" />
 		</h:form>
 	</ui:define>
