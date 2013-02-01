@@ -1,5 +1,6 @@
 package org.diningdevelopers.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Named;
@@ -15,7 +16,7 @@ public class AuditDao {
 	@PersistenceContext
 	private EntityManager entityManager;
 
-	public List<Audit> findLatest(int maxResult) {
+	public List<Audit> findLatest(int maxResult, Date filterDate) {
 		CriteriaHelper<Audit> helper = new CriteriaHelper<>(entityManager, Audit.class);
 
 		if (maxResult > 0) {
@@ -23,6 +24,7 @@ public class AuditDao {
 		}
 
 		helper.addOrder(Audit_.date, false);
+		helper.addLessThanOrEqualTo(Audit_.date, filterDate);
 
 		return helper.getResultList();
 	}
