@@ -1,7 +1,5 @@
 package org.diningdevelopers.dao;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import javax.inject.Named;
@@ -37,7 +35,7 @@ public class DeveloperDao {
 	public Developer save(Developer developer) {
 		return JpaUtils.save(entityManager, developer);
 	}
-	
+
 	public void changePassword(String username, String password) {
 
 		String queryString = "update Developer d set d.password= SHA1(:p) where d.username = :u";
@@ -49,5 +47,5 @@ public class DeveloperDao {
 		query.executeUpdate();
 
 	}
-	
+
 }

@@ -20,7 +20,10 @@
 			<p:commandButton value="Repen Voting" action="#{adminController.reopenVoting}" ajax="false" />
 			<p:commandButton value="Close Voting" action="#{adminController.closeVoting}" ajax="false" />
 			<p:commandButton value="Random.org Fragen" action="#{adminController.determineResult}" ajax="false" />
-			<p:commandButton value="Votes zurücksetzen" action="#{adminController.deleteVotes}" />
+			<p:commandButton value="Votes zurücksetzen" action="#{adminController.deleteVotes}" ajax="false" />
+			
+			<h2>Tests</h2>
+			<p:commandButton value="Test-Mail versenden" action="#{adminController.sendTestMail}" ajax="false" />
 		</h:form>
 	</ui:define>
 </ui:composition>
