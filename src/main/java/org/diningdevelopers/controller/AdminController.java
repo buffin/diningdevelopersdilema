@@ -86,6 +86,8 @@ public class AdminController implements Serializable {
 
 		mailService.sendMail(mail);
 
+		FacesUtils.addMessage("Testmail verschickt");
+
 		return null;
 	}
 }
