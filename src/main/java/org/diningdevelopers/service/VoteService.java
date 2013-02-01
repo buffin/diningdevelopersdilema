@@ -91,6 +91,9 @@ public class VoteService {
 	public void removeVotes(String username) {
 		Developer developer = developerDao.findByUsername(username);
 		votingDao.removeVotes(developer);
+		String auditMessage = "%s hat sein Voting widerrufen";
+		auditService.createAudit(username, String.format(auditMessage, username));
+		
 	}
 
 	public void save(String username, List<VoteModel> voteModels) {
@@ -111,6 +114,11 @@ public class VoteService {
 				vote.setDeveloper(developer);
 				vote.setDate(new Date());
 				vote.setVote(newVote);
+				
+				String auditMessage = "%s hat sein Voting für %s auf %d gesetzt";
+				if(vote.getVote() > 0) {
+					auditService.createAudit(username, String.format(auditMessage, username, location.getName(), vote.getVote()));
+				}
 
 				votingDao.save(vote);
 			} else {

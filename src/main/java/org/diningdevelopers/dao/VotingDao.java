@@ -91,4 +91,14 @@ public class VotingDao {
 		helper.setMaxResults(1);
 		return helper.getSingleResultOrNull();
 	}
+
+	public Date findLatestActiveVoting() {
+		CriteriaHelper<Voting> helper = new CriteriaHelper<>(entityManager, Voting.class);
+		helper.addOrder(Voting_.date, false);
+		helper.addEqual(Voting_.closed, false);
+		helper.setMaxResults(1);
+		Voting voting = helper.getSingleResultOrNull();
+		return voting == null ? new Date() : voting.getDate();
+		
+	}
 }
