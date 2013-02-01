@@ -52,4 +52,22 @@ public class DeveloperService {
 		developerDao.changePassword(username, password);
 	}
 
+	public String getMailAddress(String username) {
+		Developer developer = findByUsername(username);
+
+		if (developer != null) {
+			return developer.getEmail();
+		}
+
+		return null;
+	}
+
+	public void updateMailAddress(String username, String email) {
+		Developer developer = findByUsername(username);
+
+		if (developer != null) {
+			developer.setEmail(email);
+		}
+	}
+
 }
