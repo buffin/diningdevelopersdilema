@@ -32,8 +32,8 @@ public class DeveloperDao {
 		return helper.getSingleResultOrNull();
 	}	
 
-	public Developer save(Developer developer) {
-		return JpaUtils.save(entityManager, developer);
+	public void persist(Developer developer) {
+		entityManager.persist(developer);
 	}
 
 	public void changePassword(String username, String password) {
@@ -47,5 +47,6 @@ public class DeveloperDao {
 		query.executeUpdate();
 
 	}
+
 
 }

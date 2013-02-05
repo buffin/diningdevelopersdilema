@@ -63,25 +63,10 @@ public class JpaUtils {
 		return object;
 	}
 
-	@Deprecated
-	public static <T> Collection<T> save(EntityManager entityManager, Collection<T> collection) {
-		for (T t : collection) {
-			t = save(entityManager, t);
-		}
-
-		return collection;
-	}
-
 	public static <T> void persistAll(EntityManager entityManager, Collection<T> collection) {
 		for (T t : collection) {
 			entityManager.persist(t);
 		}
-	}
-
-	@Deprecated
-	public static <T> T save(EntityManager entityManager, T t) {
-		T merged = entityManager.merge(t);
-		return merged;
 	}
 
 	public static <T> List<T> findAll(EntityManager entityManager, Class<T> type) {

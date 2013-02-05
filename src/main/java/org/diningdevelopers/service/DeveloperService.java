@@ -43,8 +43,6 @@ public class DeveloperService {
 			Developer developer = new Developer();
 			developerConverter.updateEntity(developer, model);
 			developer.setUsername(model.getUsername());
-
-			developerDao.save(developer);
 		}
 	}
 
