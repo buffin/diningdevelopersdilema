@@ -163,7 +163,7 @@ public class VoteService {
 			votingDao.save(voting);
 		}
 
-		transactionHelper.lockForWrite(voting);
+		transactionHelper.lockWritePessimistic(voting);
 
 		voting.setState(VotingState.InProgress);
 

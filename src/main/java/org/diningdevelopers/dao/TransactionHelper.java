@@ -11,7 +11,7 @@ public class TransactionHelper {
 	@PersistenceContext
 	private EntityManager entityManager;
 
-	public void lockForWrite(Object o) {
+	public void lockWritePessimistic(Object o) {
 		entityManager.lock(o, LockModeType.PESSIMISTIC_WRITE);
 	}
 
