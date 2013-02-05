@@ -6,6 +6,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.diningdevelopers.dao.DeveloperDao;
 import org.diningdevelopers.entity.Developer;
 import org.diningdevelopers.model.DeveloperModel;
@@ -43,11 +44,17 @@ public class DeveloperService {
 			Developer developer = new Developer();
 			developerConverter.updateEntity(developer, model);
 			developer.setUsername(model.getUsername());
+			developerDao.persist(developer);
 		}
 	}
 
 	public void changePassword(String username, String password) {
-		developerDao.changePassword(username, password);
+		Developer developer = developerDao.findByUsername(username);
+
+		if (developer != null) {
+			String passwordSha = DigestUtils.shaHex(password);
+			developer.setPassword(passwordSha);
+		}
 	}
 
 	public String getMailAddress(String username) {
