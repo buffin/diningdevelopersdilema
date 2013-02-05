@@ -65,8 +65,8 @@ public class VoteController implements Serializable {
 		}
 	}
 
-	public boolean isVotingClosed() {
-		return voteService.isVotingClosed();
+	public boolean isVotingOpen() {
+		return voteService.isVotingOpen();
 	}
 
 	public String reset() {
