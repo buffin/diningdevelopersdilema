@@ -13,6 +13,7 @@ import org.diningdevelopers.entity.Location;
 import org.diningdevelopers.entity.Vote;
 import org.diningdevelopers.entity.Vote_;
 import org.diningdevelopers.entity.Voting;
+import org.diningdevelopers.entity.VotingState;
 import org.diningdevelopers.entity.Voting_;
 
 @Named
@@ -72,16 +73,18 @@ public class VotingDao {
 	}
 
 	public void save(Vote vote) {
-		JpaUtils.save(entityManager, vote);
+		entityManager.persist(vote);
 	}
 
 	public void save(Voting voting) {
-		JpaUtils.save(entityManager, voting);
+		entityManager.persist(voting);
 	}
 
 	public Voting findVotingForDate(Date date) {
 		CriteriaHelper<Voting> helper = new CriteriaHelper<>(entityManager, Voting.class);
 		helper.addGreaterThanOrEqualTo(Voting_.date, date);
+		helper.addOrder(Voting_.date, false);
+		helper.setMaxResults(1);
 		return helper.getSingleResultOrNull();
 	}
 
@@ -95,10 +98,10 @@ public class VotingDao {
 	public Date findLatestActiveVoting() {
 		CriteriaHelper<Voting> helper = new CriteriaHelper<>(entityManager, Voting.class);
 		helper.addOrder(Voting_.date, false);
-		helper.addEqual(Voting_.closed, false);
+		helper.addEqual(Voting_.state, VotingState.Open);
 		helper.setMaxResults(1);
 		Voting voting = helper.getSingleResultOrNull();
 		return voting == null ? new Date() : voting.getDate();
-		
+
 	}
 }

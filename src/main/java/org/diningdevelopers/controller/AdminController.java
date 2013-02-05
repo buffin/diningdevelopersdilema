@@ -59,11 +59,6 @@ public class AdminController implements Serializable {
 		return null;
 	}
 
-	public String determineResult() {
-		decisionService.determineResultForVoting();
-		return null;
-	}
-
 	public String reopenVoting() {
 		voteService.reopenVoting();
 		return null;

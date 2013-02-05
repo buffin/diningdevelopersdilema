@@ -5,7 +5,6 @@ import java.util.List;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 
 import org.diningdevelopers.entity.Developer;
 import org.diningdevelopers.entity.Developer_;
@@ -32,20 +31,8 @@ public class DeveloperDao {
 		return helper.getSingleResultOrNull();
 	}	
 
-	public Developer save(Developer developer) {
-		return JpaUtils.save(entityManager, developer);
-	}
-
-	public void changePassword(String username, String password) {
-
-		String queryString = "update Developer d set d.password= SHA1(:p) where d.username = :u";
-
-		Query query = entityManager.createQuery(queryString);
-		query.setParameter("p", password);
-		query.setParameter("u", username);
-
-		query.executeUpdate();
-
+	public void persist(Developer developer) {
+		entityManager.persist(developer);
 	}
 
 }

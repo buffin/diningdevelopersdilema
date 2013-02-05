@@ -24,7 +24,6 @@ public class VotingTimer {
 	public void closeVoting() {
 		logger.info("closeVoting() was triggered");
 		voteService.closeVoting();
-		decisionService.determineResultForVoting();
 	}
 
 	@Schedule(dayOfWeek="1-5", hour="6", minute="0", persistent=false)

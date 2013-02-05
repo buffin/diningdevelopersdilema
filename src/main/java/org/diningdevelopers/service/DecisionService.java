@@ -58,13 +58,9 @@ public class DecisionService {
 		return decisionTable;
 	}
 
-	public void determineResultForVoting() {
+	public void determineResultForVoting(Voting voting) {
 		DecisionTable table = buildDecisionTable(null);
 		int maxValue = Math.round(table.getTotalPoints());
-
-		Date today = dateHelper.getDateForTodayWithNulledHoursMinutesAndMiliseconds();
-
-		Voting voting = votingDao.findVotingForDate(today);
 
 		try {
 			int number = randomService.generateRandomNumberBetween(0, maxValue);

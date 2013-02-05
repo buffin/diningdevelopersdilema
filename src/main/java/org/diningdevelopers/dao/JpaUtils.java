@@ -26,7 +26,7 @@ public class JpaUtils {
 			return null;
 		}
 	}
-	
+
 	public static <T> List<T> getResultList(EntityManager entityManager, CriteriaQuery<T> criteria) {
 		TypedQuery<T> typedQuery = entityManager.createQuery(criteria);
 		return typedQuery.getResultList();
@@ -63,19 +63,12 @@ public class JpaUtils {
 		return object;
 	}
 
-	public static <T> Collection<T> save(EntityManager entityManager, Collection<T> collection) {
+	public static <T> void persistAll(EntityManager entityManager, Collection<T> collection) {
 		for (T t : collection) {
-			t = save(entityManager, t);
+			entityManager.persist(t);
 		}
-
-		return collection;
 	}
 
-	public static <T> T save(EntityManager entityManager, T t) {
-		T merged = entityManager.merge(t);
-		return merged;
-	}
-	
 	public static <T> List<T> findAll(EntityManager entityManager, Class<T> type) {
 		CriteriaHelper<T> criteriaHelper = new CriteriaHelper<T>(entityManager, type);
 		return criteriaHelper.getResultList();

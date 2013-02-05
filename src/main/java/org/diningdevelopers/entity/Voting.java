@@ -4,35 +4,37 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="voting")
+@Table(name = "voting")
 public class Voting {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name="votingdate", nullable=false)
+	@Column(name = "votingdate", nullable = false)
 	private Date date;
-	
-	@Column(name="closed", nullable = false)
-	private Boolean closed;
-	
-	@Column(name="result")
+
+	@Column(name = "state", nullable = false)
+	@Enumerated(EnumType.STRING)
+	private VotingState state = VotingState.Open;
+
+	@Column(name = "result")
 	private Integer result;
-	
+
 	public Voting() {
-		
 	}
-	
-	public Voting(Date date, Boolean closed) {
+
+	public Voting(Date date, VotingState state) {
 		this.date = date;
-		this.closed = closed;
+		this.state = state;
 	}
 
 	public Long getId() {
@@ -51,12 +53,12 @@ public class Voting {
 		this.date = date;
 	}
 
-	public Boolean getClosed() {
-		return closed;
+	public VotingState getState() {
+		return state;
 	}
 
-	public void setClosed(Boolean closed) {
-		this.closed = closed;
+	public void setState(VotingState state) {
+		this.state = state;
 	}
 
 	public Integer getResult() {

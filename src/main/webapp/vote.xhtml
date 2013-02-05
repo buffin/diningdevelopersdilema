@@ -48,7 +48,7 @@
 				</h:column>
 				<h:column>
 					<h:inputText value="#{vote.vote}" style="margin-left: 15px; width: 30px; text-align: right;" label="#{vote.locationName}"
-						readonly="#{voteController.votingClosed}" validatorMessage="Du darfst für #{vote.locationName} nur zwischen 0 und 100 Punkte vergeben.">
+						readonly="#{not voteController.votingOpen}" validatorMessage="Du darfst für #{vote.locationName} nur zwischen 0 und 100 Punkte vergeben.">
 						<f:ajax event="change" render=":form:sum :messages" />
 						<f:validateLongRange minimum="0" maximum="100" />
 					</h:inputText>
@@ -62,13 +62,13 @@
 				<h:outputText value=" Punkte" />
 			</h:panelGroup>
 
-			<h:panelGroup rendered="#{not voteController.votingClosed}">
+			<h:panelGroup rendered="#{voteController.votingOpen}">
 				<h:commandButton value="Speichern" action="#{voteController.save}" />
 				<h:commandButton value="Voting widerrufen" action="#{voteController.reset}" onclick="if (confirm('Sicher?') == false) return false;"
 					ajax="false" />
 			</h:panelGroup>
 
-			<h:panelGroup rendered="#{voteController.votingClosed}">
+			<h:panelGroup rendered="#{not voteController.votingOpen}">
 				Voting ist bereits abgeschlossen...
 			</h:panelGroup>
 		</h:form>

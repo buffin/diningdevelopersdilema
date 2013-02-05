@@ -7,6 +7,7 @@ import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.diningdevelopers.entity.VotingState;
 import org.diningdevelopers.model.DecisionModel;
 import org.diningdevelopers.model.DecisionTable;
 import org.diningdevelopers.model.ResultModel;
@@ -21,14 +22,14 @@ public class VotingsOverview implements Serializable {
 
 	@Inject
 	private DecisionService decisionService;
-	
+
 	@Inject
 	private VoteService voteService;
 
 	private DecisionTable decisionTable;
-	
+
 	private PieChartModel pieModel;
-	
+
 	private ResultModel resultModel;
 
 	public DecisionTable getDecisionTable() {
@@ -54,27 +55,34 @@ public class VotingsOverview implements Serializable {
 	public PieChartModel getPieModel() {
 		return pieModel;
 	}
-	
+
 	private void updatePieModel(DecisionTable decisionTable) {
 		pieModel = new PieChartModel();
 		for (DecisionModel d : decisionTable.getDecisions()) {
 			pieModel.getData().put(d.getLocationName(), d.getPointsTotal());
 		}
-    } 
-	
+	} 
+
 	public String getVotingState() {
-		if (voteService.isVotingClosed()) {
+		VotingState state = voteService.getLatestVotingState();
+
+		if (state == VotingState.Open) {
+			return "aktiv";
+		} else if (state == VotingState.Closed) {
 			return "beendet";
+		} else if (state == VotingState.InProgress) {
+			return "Warte auf Random.org";
+		} else {
+			return "unbekannt";
 		}
-		return "aktiv";
 	}
-	
+
 	public boolean isVotingClosed() {
-		return voteService.isVotingClosed();
+		return voteService.isVotingOpen() == false;
 	}
-	
+
 	public ResultModel getResultModel() {
 		return decisionService.getResultModelForLatestVote();
 	}
-	
+
 }

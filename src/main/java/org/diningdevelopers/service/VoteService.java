@@ -11,11 +11,13 @@ import javax.inject.Inject;
 import org.apache.commons.lang3.StringUtils;
 import org.diningdevelopers.dao.DeveloperDao;
 import org.diningdevelopers.dao.LocationDao;
+import org.diningdevelopers.dao.TransactionHelper;
 import org.diningdevelopers.dao.VotingDao;
 import org.diningdevelopers.entity.Developer;
 import org.diningdevelopers.entity.Location;
 import org.diningdevelopers.entity.Vote;
 import org.diningdevelopers.entity.Voting;
+import org.diningdevelopers.entity.VotingState;
 import org.diningdevelopers.model.VoteModel;
 import org.diningdevelopers.utils.CoordinatesParser;
 import org.diningdevelopers.utils.DateHelper;
@@ -48,6 +50,12 @@ public class VoteService {
 
 	@Inject
 	private DateHelper dateHelper;
+
+	@Inject
+	private DecisionService decisionService;
+
+	@Inject
+	private TransactionHelper transactionHelper;
 
 	public List<VoteModel> getVoteModel(String username) {
 		List<Location> locations = locationDao.findActive();
@@ -93,7 +101,7 @@ public class VoteService {
 		votingDao.removeVotes(developer);
 		String auditMessage = "%s hat sein Voting widerrufen";
 		auditService.createAudit(username, String.format(auditMessage, username));
-		
+
 	}
 
 	public void save(String username, List<VoteModel> voteModels) {
@@ -114,9 +122,9 @@ public class VoteService {
 				vote.setDeveloper(developer);
 				vote.setDate(new Date());
 				vote.setVote(newVote);
-				
+
 				String auditMessage = "%s hat sein Voting für %s auf %d gesetzt";
-				if(vote.getVote() > 0) {
+				if (vote.getVote() > 0) {
 					auditService.createAudit(username, String.format(auditMessage, username, location.getName(), vote.getVote()));
 				}
 
@@ -132,17 +140,16 @@ public class VoteService {
 		}
 	}
 
-	public boolean isVotingClosed() {
+	public VotingState getLatestVotingState() {
 		Voting voting = votingDao.findLatestVoting();
 		if (voting == null) {
-			logger.warn("No voting found at all!");
-			return true;
+			return VotingState.Open;
 		}
-		return voting.getClosed();
+		return voting.getState();
 	}
 
 	public void openVoting() {
-		Voting voting = new Voting(Calendar.getInstance().getTime(), false);
+		Voting voting = new Voting(Calendar.getInstance().getTime(), VotingState.Open);
 		votingDao.save(voting);
 
 		votingDao.removeAllVotes();
@@ -152,12 +159,19 @@ public class VoteService {
 		Date today = dateHelper.getDateForTodayWithNulledHoursMinutesAndMiliseconds();
 		Voting voting = votingDao.findVotingForDate(today);
 		if (voting == null) {
-			Voting closedVoting = new Voting(Calendar.getInstance().getTime(), true);
-			votingDao.save(closedVoting);
-		} else {
-			voting.setClosed(true);
+			voting = new Voting(Calendar.getInstance().getTime(), VotingState.Open);
 			votingDao.save(voting);
 		}
+
+		transactionHelper.lockWritePessimistic(voting);
+
+		voting.setState(VotingState.InProgress);
+
+		transactionHelper.flush();
+
+		decisionService.determineResultForVoting(voting);
+
+		voting.setState(VotingState.Closed);
 	}
 
 	public void reopenVoting() {
@@ -165,7 +179,17 @@ public class VoteService {
 		Voting voting = votingDao.findVotingForDate(today);
 
 		if (voting != null) {
-			voting.setClosed(Boolean.FALSE);
+			voting.setState(VotingState.Open);
+		}
+	}
+
+	public boolean isVotingOpen() {
+		Voting voting = votingDao.findLatestVoting();
+
+		if ((voting != null) && (voting.getState() != null)) {
+			return voting.getState() == VotingState.Open;
+		} else {
+			return false;
 		}
 	}
 }
