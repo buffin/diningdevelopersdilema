@@ -11,15 +11,15 @@
 		<h:messages />
 
 		<h:form>
-		
+
 			<h2>Status des Votings: #{votingsOverview.votingState}</h2>
-			
+
 			<h:panelGroup rendered="#{votingsOverview.votingClosed}">
 				<h2>Ergebnis: #{votingsOverview.resultModel.locationName} (#{votingsOverview.resultModel.randomNumber})</h2>
 			</h:panelGroup>
 
 			<!-- Table if voting is closed-->
-			<p:dataTable var="m" value="#{votingsOverview.decisionTable.decisions}" rendered="#{votingsOverview.votingClosed}" >
+			<p:dataTable var="m" value="#{votingsOverview.decisionTable.decisions}" rendered="#{votingsOverview.votingClosed}">
 				<p:column headerText="Location">
 					#{m.locationName}
 				</p:column>
@@ -50,15 +50,17 @@
 				</p:column>
 			</p:dataTable>
 
-			<h2>Diese Entwickler haben bereits abgestimmt:</h2>
-			<!-- List of developers if voting is active-->
-			<p:dataList var="dev" value="#{votingsOverview.decisionTable.developers}" itemType="disc" 
-				 styleClass="datalist-noborder" rendered="#{not votingsOverview.votingClosed}" >
-				<h:outputText value="#{dev.name}" />
-			</p:dataList>
-			
-			<p:pieChart id="custom" value="#{votingsOverview.pieModel}" legendPosition="e" fill="false" showDataLabels="true" rendered="#{votingsOverview.votingClosed}" 
-                title="Chart for this voting" style="width:600px;height:400px;display: block; margin-left: auto; margin-right: auto" sliceMargin="5" diameter="250"/>
+			<h:panelGroup rendered="#{not votingsOverview.votingClosed}">
+				<h2>Diese Entwickler haben bereits abgestimmt:</h2>
+				<!-- List of developers if voting is active-->
+				<p:dataList var="dev" value="#{votingsOverview.decisionTable.developers}" itemType="disc" styleClass="datalist-noborder">
+					<h:outputText value="#{dev.name}" />
+				</p:dataList>
+			</h:panelGroup>
+
+			<p:pieChart id="custom" value="#{votingsOverview.pieModel}" legendPosition="e" fill="false" showDataLabels="true"
+				rendered="#{votingsOverview.votingClosed}" title="Chart for this voting"
+				style="width:600px;height:400px;display: block; margin-left: auto; margin-right: auto" sliceMargin="5" diameter="250" />
 		</h:form>
 	</ui:define>
 </ui:composition>

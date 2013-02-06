@@ -78,7 +78,7 @@ public class VotingsOverview implements Serializable {
 	}
 
 	public boolean isVotingClosed() {
-		return voteService.isVotingOpen() == false;
+		return voteService.getLatestVotingState() == VotingState.Closed;
 	}
 
 	public ResultModel getResultModel() {
