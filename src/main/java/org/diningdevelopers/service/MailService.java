@@ -29,7 +29,6 @@ public class MailService {
 		logger.debug("sending mail");
 		Message msg = new MimeMessage(session);
 
-
 		try {
 			String from = session.getProperty("mail.from");
 			msg.setFrom(new InternetAddress(from));

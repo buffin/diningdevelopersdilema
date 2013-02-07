@@ -9,6 +9,7 @@ public class DeveloperConverter {
 		DeveloperModel model = new DeveloperModel();
 		model.setId(developer.getId());
 		model.setName(developer.getName());
+		model.setEmail(developer.getEmail());
 		return model;
 	}
 
