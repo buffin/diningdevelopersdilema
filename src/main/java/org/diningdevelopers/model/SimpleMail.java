@@ -42,4 +42,7 @@ public class SimpleMail {
 		this.to = to;
 	}
 
+	public boolean addTo(String to) {
+		return getTo().add(to);
+	}
 }

@@ -265,6 +265,11 @@
             <artifactId>commons-codec</artifactId>
             <version>1.4</version>
         </dependency>
+        <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+            <version>2.3.19</version>
+        </dependency>
 
         <!-- Provided -->
         <dependency>
@@ -316,10 +321,10 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
-			<version>4.2.2</version>
-		</dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.2.2</version>
+        </dependency>
     </dependencies>
 
     <repositories>

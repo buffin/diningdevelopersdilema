@@ -11,6 +11,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import org.diningdevelopers.dao.DeveloperDao;
+import org.diningdevelopers.dao.TransactionHelper;
 import org.diningdevelopers.dao.VotingDao;
 import org.diningdevelopers.entity.Developer;
 import org.diningdevelopers.entity.Location;
@@ -21,7 +22,6 @@ import org.diningdevelopers.model.DecisionTable;
 import org.diningdevelopers.model.DeveloperModel;
 import org.diningdevelopers.model.ResultModel;
 import org.diningdevelopers.service.external.RandomOrgNumberGeneratorService;
-import org.diningdevelopers.utils.DateHelper;
 
 @Stateless
 public class DecisionService {
@@ -39,7 +39,10 @@ public class DecisionService {
 	private RandomOrgNumberGeneratorService randomService;
 
 	@Inject
-	private DateHelper dateHelper;
+	private NotificationService notificationService;
+
+	@Inject
+	private TransactionHelper transactionHelper;
 
 	public DecisionTable buildDecisionTable(Date date) {
 		DecisionTable decisionTable = new DecisionTable();
@@ -65,6 +68,12 @@ public class DecisionService {
 		try {
 			int number = randomService.generateRandomNumberBetween(0, maxValue);
 			voting.setResult(number);
+
+			transactionHelper.flush();
+
+			ResultModel resultModel = getResultModelForLatestVote();
+
+			notificationService.notifiyParticipatingUsers(voting, table, resultModel);
 		} catch (Exception e) {
 			voting.setResult(-1);
 		} finally {
