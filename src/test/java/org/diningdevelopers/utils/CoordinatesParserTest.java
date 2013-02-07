@@ -3,36 +3,38 @@ package org.diningdevelopers.utils;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.primefaces.model.map.LatLng;
 
 
 public class CoordinatesParserTest {
 	
-	private CoordinatesParser parser = new CoordinatesParser();;
+	CoordinatesParser parser;
+	double lat;
+	double lng;
 
+	@Before
+	public void setUp() {
+		lat = 45.123;
+		lng = 27.145;
+		parser = new CoordinatesParser();;
+	}
+	
 	@Test
 	public void canParseCommaSeparatedCoordinates() throws Exception {
-		double lat = 45.123;
-		double lng = 27.145;
-		String coordinates = String.valueOf(lat) + "," + String.valueOf(lng);
+		String coordinates = createCoordinatesAsString(lat, lng);
 		LatLng result = parser.parseCoordinates(coordinates);
-		assertNotNull(result);
-		assertEquals(lat, result.getLat(), 0.001);
-		assertEquals(lng, result.getLng(), 0.001);
+		assertResultIsNotNullAndCoordinatesAreCorrect(result);
 	}
 	
 	@Test
 	public void canParseCommaSeparatedCoordinatesWithSpaces() throws Exception {
-		double lat = 45.123;
-		double lng = 27.145;
-		String coordinates = String.valueOf(lat) + " , " + String.valueOf(lng);
+		String coordinates = createCoordinatesAsString(lat, lng);
 		LatLng result = parser.parseCoordinates(coordinates);
-		assertNotNull(result);
-		assertEquals(lat, result.getLat(), 0.001);
-		assertEquals(lng, result.getLng(), 0.001);
+		assertResultIsNotNullAndCoordinatesAreCorrect(result);
 	}
-	
+
 	@Test(expected = IllegalArgumentException.class)
 	public void emptyStringLeadsToException() throws Exception {
 		parser.parseCoordinates("");
@@ -45,7 +47,17 @@ public class CoordinatesParserTest {
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void missingDelimiterLeadsToException() throws Exception {
-		parser.parseCoordinates("41.254 45.658");
+		String coordinates = "41.254 45.658";
+		parser.parseCoordinates(coordinates);
 	}
 
+	private String createCoordinatesAsString(double lat, double lng) {
+		return String.valueOf(lat) + " , " + String.valueOf(lng);
+	}
+	
+	private void assertResultIsNotNullAndCoordinatesAreCorrect(LatLng result) {
+		assertNotNull(result);
+		assertEquals(lat, result.getLat(), 0.001);
+		assertEquals(lng, result.getLng(), 0.001);
+	}
 }
