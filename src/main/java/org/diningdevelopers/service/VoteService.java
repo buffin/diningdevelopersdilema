@@ -93,6 +93,7 @@ public class VoteService {
 	}
 
 	public void removeAllVotes() {
+		logger.info("Call to removeAllVotes()");
 		votingDao.removeAllVotes();
 	}
 
