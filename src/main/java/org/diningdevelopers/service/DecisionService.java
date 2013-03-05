@@ -66,7 +66,7 @@ public class DecisionService {
 		int maxValue = Math.round(table.getTotalPoints());
 
 		try {
-			int number = randomService.generateRandomNumberBetween(0, maxValue);
+			int number = randomService.generateRandomNumberBetween(1, maxValue);
 			voting.setResult(number);
 
 			transactionHelper.flush();
