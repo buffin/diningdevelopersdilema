@@ -1,5 +1,9 @@
 h1. Dining Developers Dilema
 
+h2. Infrastrcture
+
+* "Jenkins CI":https://tools.eckert-partner.it/jenkins/job/ddd/
+
 h2. Setup JBoss
 
 h3. Datasource
