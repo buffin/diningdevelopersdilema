@@ -8,7 +8,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import org.apache.commons.lang3.StringUtils;
-import org.diningdevelopers.entity.Voting;
+import org.diningdevelopers.entity.Event;
 import org.diningdevelopers.model.DecisionTable;
 import org.diningdevelopers.model.DeveloperModel;
 import org.diningdevelopers.model.ResultModel;
@@ -27,7 +27,7 @@ public class NotificationService {
 	@Inject
 	private TemplateService templateService;
 
-	public void notifiyParticipatingUsers(Voting voting, DecisionTable table, ResultModel resultModel) {
+	public void notifiyParticipatingUsers(Event voting, DecisionTable table, ResultModel resultModel) {
 		List<DeveloperModel> developers = table.getDevelopers();
 		for (DeveloperModel model : developers) {
 			try {
@@ -39,7 +39,7 @@ public class NotificationService {
 		}
 	}
 
-	private void notifyUserVotingResult(DeveloperModel developer, Voting voting, ResultModel resultModel) {
+	private void notifyUserVotingResult(DeveloperModel developer, Event voting, ResultModel resultModel) {
 		if (StringUtils.isBlank(developer.getEmail())) {
 			return;
 		}

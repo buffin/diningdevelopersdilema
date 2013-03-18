@@ -8,7 +8,7 @@ import javax.inject.Inject;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.diningdevelopers.dao.DeveloperDao;
-import org.diningdevelopers.entity.Developer;
+import org.diningdevelopers.entity.User;
 import org.diningdevelopers.model.DeveloperModel;
 
 @Stateless
@@ -21,10 +21,10 @@ public class DeveloperService {
 	private DeveloperConverter developerConverter;
 
 	public List<DeveloperModel> findAll() {
-		List<Developer> developers = developerDao.findAll();
+		List<User> developers = developerDao.findAll();
 		List<DeveloperModel> result = new ArrayList<>();
 
-		for (Developer d : developers) {
+		for (User d : developers) {
 			DeveloperModel model = developerConverter.toModel(d);
 			result.add(model);
 		}
@@ -32,16 +32,16 @@ public class DeveloperService {
 		return result;
 	}
 
-	public Developer findByUsername(String username) {
+	public User findByUsername(String username) {
 		return developerDao.findByUsername(username);
 	}
 
 	public void save(DeveloperModel model) {
 		if (model.getId() != null) {
-			Developer developer = developerDao.findById(model.getId());
+			User developer = developerDao.findById(model.getId());
 			developerConverter.updateEntity(developer, model);
 		} else {
-			Developer developer = new Developer();
+			User developer = new User();
 			developerConverter.updateEntity(developer, model);
 			developer.setUsername(model.getUsername());
 			developerDao.persist(developer);
@@ -49,7 +49,7 @@ public class DeveloperService {
 	}
 
 	public void changePassword(String username, String password) {
-		Developer developer = developerDao.findByUsername(username);
+		User developer = developerDao.findByUsername(username);
 
 		if (developer != null) {
 			String passwordSha = DigestUtils.shaHex(password);
@@ -58,7 +58,7 @@ public class DeveloperService {
 	}
 
 	public String getMailAddress(String username) {
-		Developer developer = findByUsername(username);
+		User developer = findByUsername(username);
 
 		if (developer != null) {
 			return developer.getEmail();
@@ -68,7 +68,7 @@ public class DeveloperService {
 	}
 
 	public void updateMailAddress(String username, String email) {
-		Developer developer = findByUsername(username);
+		User developer = findByUsername(username);
 
 		if (developer != null) {
 			developer.setEmail(email);

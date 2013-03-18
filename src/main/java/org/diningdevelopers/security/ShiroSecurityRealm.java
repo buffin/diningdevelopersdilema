@@ -19,7 +19,7 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.Initializable;
-import org.diningdevelopers.entity.Developer;
+import org.diningdevelopers.entity.User;
 import org.diningdevelopers.service.DeveloperService;
 
 @Stateless
@@ -39,7 +39,7 @@ public class ShiroSecurityRealm extends AuthorizingRealm implements Authorizer, 
 		UsernamePasswordToken upToken = (UsernamePasswordToken) token;
 		String username = upToken.getUsername();
 
-		Developer user = developerService.findByUsername(username);
+		User user = developerService.findByUsername(username);
 
 		if (user == null) {
 			throw new AuthenticationException();

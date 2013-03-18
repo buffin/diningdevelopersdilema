@@ -26,7 +26,7 @@ public class Vote {
 
 	@ManyToOne(optional = false)
 	@JoinColumn(name="developer_id")
-	private Developer developer;
+	private User developer;
 
 	@Column(nullable = false)
 	private Integer vote;
@@ -38,7 +38,7 @@ public class Vote {
 		return date;
 	}
 
-	public Developer getDeveloper() {
+	public User getDeveloper() {
 		return developer;
 	}
 
@@ -58,7 +58,7 @@ public class Vote {
 		this.date = date;
 	}
 
-	public void setDeveloper(Developer developer) {
+	public void setDeveloper(User developer) {
 		this.developer = developer;
 	}
 

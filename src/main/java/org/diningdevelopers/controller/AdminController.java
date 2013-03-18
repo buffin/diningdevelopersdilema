@@ -10,7 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.diningdevelopers.dao.JpaUtils;
-import org.diningdevelopers.entity.Developer;
+import org.diningdevelopers.entity.User;
 import org.diningdevelopers.model.SimpleMail;
 import org.diningdevelopers.service.DecisionService;
 import org.diningdevelopers.service.DeveloperService;
@@ -73,7 +73,7 @@ public class AdminController implements Serializable {
 		SimpleMail mail = new SimpleMail();
 
 		String username = Authentication.getUsername();
-		Developer developer = developerService.findByUsername(username);
+		User developer = developerService.findByUsername(username);
 
 		mail.setTo(Arrays.asList(developer.getEmail()));
 		mail.setSubject("DDD Testmail");

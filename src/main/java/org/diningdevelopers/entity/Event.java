@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "voting")
-public class Voting {
+public class Event {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,10 +29,10 @@ public class Voting {
 	@Column(name = "result")
 	private Integer result;
 
-	public Voting() {
+	public Event() {
 	}
 
-	public Voting(Date date, VotingState state) {
+	public Event(Date date, VotingState state) {
 		this.date = date;
 		this.state = state;
 	}

@@ -6,7 +6,7 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.diningdevelopers.entity.Developer;
+import org.diningdevelopers.entity.User;
 import org.diningdevelopers.entity.Developer_;
 
 @Named
@@ -15,23 +15,23 @@ public class DeveloperDao {
 	@PersistenceContext
 	private EntityManager entityManager;
 
-	public List<Developer> findAll() {
-		return JpaUtils.findAll(entityManager, Developer.class);
+	public List<User> findAll() {
+		return JpaUtils.findAll(entityManager, User.class);
 	}
 
-	public Developer findById(Long id) {
-		return entityManager.find(Developer.class, id);
+	public User findById(Long id) {
+		return entityManager.find(User.class, id);
 	}
 
-	public Developer findByUsername(String username) {
-		CriteriaHelper<Developer> helper = new CriteriaHelper<>(entityManager, Developer.class);
+	public User findByUsername(String username) {
+		CriteriaHelper<User> helper = new CriteriaHelper<>(entityManager, User.class);
 
 		helper.addEqual(Developer_.username, username);
 
 		return helper.getSingleResultOrNull();
 	}	
 
-	public void persist(Developer developer) {
+	public void persist(User developer) {
 		entityManager.persist(developer);
 	}
 
