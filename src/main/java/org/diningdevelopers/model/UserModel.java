@@ -1,7 +1,7 @@
 package org.diningdevelopers.model;
 
 
-public class DeveloperModel {
+public class UserModel {
 
 	private Long id;
 	private String username;

@@ -9,7 +9,7 @@ import javax.inject.Inject;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.diningdevelopers.dao.UserDao;
 import org.diningdevelopers.entity.User;
-import org.diningdevelopers.model.DeveloperModel;
+import org.diningdevelopers.model.UserModel;
 
 @Stateless
 public class DeveloperService {
@@ -18,14 +18,14 @@ public class DeveloperService {
 	private UserDao developerDao;
 
 	@Inject
-	private DeveloperConverter developerConverter;
+	private UserConverter developerConverter;
 
-	public List<DeveloperModel> findAll() {
+	public List<UserModel> findAll() {
 		List<User> developers = developerDao.findAll();
-		List<DeveloperModel> result = new ArrayList<>();
+		List<UserModel> result = new ArrayList<>();
 
 		for (User d : developers) {
-			DeveloperModel model = developerConverter.toModel(d);
+			UserModel model = developerConverter.toModel(d);
 			result.add(model);
 		}
 
@@ -36,7 +36,7 @@ public class DeveloperService {
 		return developerDao.findByUsername(username);
 	}
 
-	public void save(DeveloperModel model) {
+	public void save(UserModel model) {
 		if (model.getId() != null) {
 			User developer = developerDao.findById(model.getId());
 			developerConverter.updateEntity(developer, model);

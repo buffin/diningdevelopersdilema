@@ -10,7 +10,7 @@ import javax.inject.Inject;
 import org.apache.commons.lang3.StringUtils;
 import org.diningdevelopers.entity.Event;
 import org.diningdevelopers.model.DecisionTable;
-import org.diningdevelopers.model.DeveloperModel;
+import org.diningdevelopers.model.UserModel;
 import org.diningdevelopers.model.ResultModel;
 import org.diningdevelopers.model.SimpleMail;
 import org.slf4j.Logger;
@@ -28,8 +28,8 @@ public class NotificationService {
 	private TemplateService templateService;
 
 	public void notifiyParticipatingUsers(Event voting, DecisionTable table, ResultModel resultModel) {
-		List<DeveloperModel> developers = table.getDevelopers();
-		for (DeveloperModel model : developers) {
+		List<UserModel> developers = table.getDevelopers();
+		for (UserModel model : developers) {
 			try {
 				notifyUserVotingResult(model, voting, resultModel);
 			} catch (Exception e) {
@@ -39,7 +39,7 @@ public class NotificationService {
 		}
 	}
 
-	private void notifyUserVotingResult(DeveloperModel developer, Event voting, ResultModel resultModel) {
+	private void notifyUserVotingResult(UserModel developer, Event voting, ResultModel resultModel) {
 		if (StringUtils.isBlank(developer.getEmail())) {
 			return;
 		}

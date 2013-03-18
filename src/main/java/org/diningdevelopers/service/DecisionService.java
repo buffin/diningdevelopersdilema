@@ -19,7 +19,7 @@ import org.diningdevelopers.entity.Vote;
 import org.diningdevelopers.entity.Event;
 import org.diningdevelopers.model.DecisionModel;
 import org.diningdevelopers.model.DecisionTable;
-import org.diningdevelopers.model.DeveloperModel;
+import org.diningdevelopers.model.UserModel;
 import org.diningdevelopers.model.ResultModel;
 import org.diningdevelopers.service.external.RandomOrgNumberGeneratorService;
 
@@ -30,7 +30,7 @@ public class DecisionService {
 	private UserDao developerDao;
 
 	@Inject
-	private DeveloperConverter developerConverter;
+	private UserConverter developerConverter;
 
 	@Inject
 	private VotingDao votingDao;
@@ -116,8 +116,8 @@ public class DecisionService {
 		return result;
 	}
 
-	private void insertDeveloperPreferences(List<DeveloperModel> developerModels, Map<Long, DecisionModel> decisions, User d) {
-		DeveloperModel developerModel = developerConverter.toModel(d);
+	private void insertDeveloperPreferences(List<UserModel> developerModels, Map<Long, DecisionModel> decisions, User d) {
+		UserModel developerModel = developerConverter.toModel(d);
 
 		List<Vote> votes = votingDao.findLatestVotes(d);
 		boolean hasVotes = false;
