@@ -7,25 +7,25 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.diningdevelopers.model.DeveloperModel;
-import org.diningdevelopers.service.DeveloperService;
+import org.diningdevelopers.model.UserModel;
+import org.diningdevelopers.service.UserService;
 
 @Named
 @SessionScoped
 public class AdminDevelopersController implements Serializable {
 
-	private List<DeveloperModel> developers;
+	private List<UserModel> developers;
 
-	private DeveloperModel current;
+	private UserModel current;
 
 	@Inject
-	private DeveloperService developerService;
+	private UserService developerService;
 
-	public DeveloperModel getCurrent() {
+	public UserModel getCurrent() {
 		return current;
 	}
 
-	public List<DeveloperModel> getDevelopers() {
+	public List<UserModel> getDevelopers() {
 		return developers;
 	}
 
@@ -45,11 +45,11 @@ public class AdminDevelopersController implements Serializable {
 		return null;
 	}
 
-	public void setCurrent(DeveloperModel current) {
+	public void setCurrent(UserModel current) {
 		this.current = current;
 	}
 
-	public void setDevelopers(List<DeveloperModel> developers) {
+	public void setDevelopers(List<UserModel> developers) {
 		this.developers = developers;
 	}
 }

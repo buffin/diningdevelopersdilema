@@ -8,13 +8,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import org.diningdevelopers.entity.Developer;
+import org.diningdevelopers.entity.Event;
+import org.diningdevelopers.entity.Event_;
 import org.diningdevelopers.entity.Location;
+import org.diningdevelopers.entity.User;
 import org.diningdevelopers.entity.Vote;
 import org.diningdevelopers.entity.Vote_;
-import org.diningdevelopers.entity.Voting;
 import org.diningdevelopers.entity.VotingState;
-import org.diningdevelopers.entity.Voting_;
 
 @Named
 public class VotingDao {
@@ -38,7 +38,7 @@ public class VotingDao {
 		return helper.getResultList();
 	}
 
-	public Vote findLatestVote(Developer d, Location l) {
+	public Vote findLatestVote(User d, Location l) {
 		CriteriaHelper<Vote> helper = new CriteriaHelper<>(entityManager, Vote.class);
 		helper.addEqual(Vote_.developer, d);
 		helper.addEqual(Vote_.location, l);
@@ -51,7 +51,7 @@ public class VotingDao {
 		return helper.getSingleResultOrNull();
 	}
 
-	public List<Vote> findLatestVotes(Developer developer) {
+	public List<Vote> findLatestVotes(User developer) {
 		VotingCriteria votingCriteria = new VotingCriteria();
 		votingCriteria.setDeveloper(developer);
 
@@ -63,7 +63,7 @@ public class VotingDao {
 		entityManager.createQuery(queryString).executeUpdate();
 	}
 
-	public void removeVotes(Developer developer) {
+	public void removeVotes(User developer) {
 		String queryString = "delete from Vote v where v.developer = :d";
 
 		Query query = entityManager.createQuery(queryString);
@@ -76,31 +76,31 @@ public class VotingDao {
 		entityManager.persist(vote);
 	}
 
-	public void save(Voting voting) {
+	public void save(Event voting) {
 		entityManager.persist(voting);
 	}
 
-	public Voting findVotingForDate(Date date) {
-		CriteriaHelper<Voting> helper = new CriteriaHelper<>(entityManager, Voting.class);
-		helper.addGreaterThanOrEqualTo(Voting_.date, date);
-		helper.addOrder(Voting_.date, false);
+	public Event findVotingForDate(Date date) {
+		CriteriaHelper<Event> helper = new CriteriaHelper<>(entityManager, Event.class);
+		helper.addGreaterThanOrEqualTo(Event_.date, date);
+		helper.addOrder(Event_.date, false);
 		helper.setMaxResults(1);
 		return helper.getSingleResultOrNull();
 	}
 
-	public Voting findLatestVoting() {
-		CriteriaHelper<Voting> helper = new CriteriaHelper<>(entityManager, Voting.class);
-		helper.addOrder(Voting_.date, false);
+	public Event findLatestVoting() {
+		CriteriaHelper<Event> helper = new CriteriaHelper<>(entityManager, Event.class);
+		helper.addOrder(Event_.date, false);
 		helper.setMaxResults(1);
 		return helper.getSingleResultOrNull();
 	}
 
 	public Date findLatestActiveVoting() {
-		CriteriaHelper<Voting> helper = new CriteriaHelper<>(entityManager, Voting.class);
-		helper.addOrder(Voting_.date, false);
-		helper.addEqual(Voting_.state, VotingState.Open);
+		CriteriaHelper<Event> helper = new CriteriaHelper<>(entityManager, Event.class);
+		helper.addOrder(Event_.date, false);
+		helper.addEqual(Event_.state, VotingState.Open);
 		helper.setMaxResults(1);
-		Voting voting = helper.getSingleResultOrNull();
+		Event voting = helper.getSingleResultOrNull();
 		return voting == null ? new Date() : voting.getDate();
 
 	}

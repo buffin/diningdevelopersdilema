@@ -7,7 +7,7 @@ public class DecisionTable {
 
 	private List<DecisionModel> decisions = new ArrayList<>();
 
-	private List<DeveloperModel> developers = new ArrayList<>(); 
+	private List<UserModel> developers = new ArrayList<>(); 
 
 	private float totalPoints = 0f;
 
@@ -16,7 +16,7 @@ public class DecisionTable {
 		return decisions;
 	}
 
-	public List<DeveloperModel> getDevelopers() {
+	public List<UserModel> getDevelopers() {
 		return developers;
 	}
 	public float getTotalPoints() {
@@ -27,7 +27,7 @@ public class DecisionTable {
 		this.decisions = decisions;
 	}
 
-	public void setDevelopers(List<DeveloperModel> developers) {
+	public void setDevelopers(List<UserModel> developers) {
 		this.developers = developers;
 	}
 

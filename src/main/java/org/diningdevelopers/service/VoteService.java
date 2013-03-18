@@ -9,14 +9,14 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import org.apache.commons.lang3.StringUtils;
-import org.diningdevelopers.dao.DeveloperDao;
 import org.diningdevelopers.dao.LocationDao;
 import org.diningdevelopers.dao.TransactionHelper;
+import org.diningdevelopers.dao.UserDao;
 import org.diningdevelopers.dao.VotingDao;
-import org.diningdevelopers.entity.Developer;
+import org.diningdevelopers.entity.Event;
 import org.diningdevelopers.entity.Location;
+import org.diningdevelopers.entity.User;
 import org.diningdevelopers.entity.Vote;
-import org.diningdevelopers.entity.Voting;
 import org.diningdevelopers.entity.VotingState;
 import org.diningdevelopers.model.VoteModel;
 import org.diningdevelopers.utils.CoordinatesParser;
@@ -43,7 +43,7 @@ public class VoteService {
 	private VotingDao votingDao;
 
 	@Inject
-	private DeveloperDao developerDao;
+	private UserDao developerDao;
 
 	@Inject
 	private CoordinatesParser coordinatesParser;
@@ -61,7 +61,7 @@ public class VoteService {
 		List<Location> locations = locationDao.findActive();
 		List<VoteModel> result = new ArrayList<>();
 
-		Developer developer = developerDao.findByUsername(username);
+		User developer = developerDao.findByUsername(username);
 
 		for (Location l : locations) {
 			VoteModel model = new VoteModel();
@@ -98,7 +98,7 @@ public class VoteService {
 	}
 
 	public void removeVotes(String username) {
-		Developer developer = developerDao.findByUsername(username);
+		User developer = developerDao.findByUsername(username);
 		votingDao.removeVotes(developer);
 		String auditMessage = "%s hat sein Voting widerrufen";
 		auditService.createAudit(username, String.format(auditMessage, username));
@@ -106,8 +106,10 @@ public class VoteService {
 	}
 
 	public void save(String username, List<VoteModel> voteModels) {
+		Event event = votingDao.findLatestVoting();
+
 		for (VoteModel model : voteModels) {
-			Developer developer = developerDao.findByUsername(username);
+			User developer = developerDao.findByUsername(username);
 			Location location = locationDao.findById(model.getLocationId());
 			Vote vote = votingDao.findLatestVote(developer, location);
 
@@ -129,6 +131,8 @@ public class VoteService {
 					auditService.createAudit(username, String.format(auditMessage, username, location.getName(), vote.getVote()));
 				}
 
+				vote.setEvent(event);
+
 				votingDao.save(vote);
 			} else {
 				Integer oldVote = vote.getVote();
@@ -142,7 +146,7 @@ public class VoteService {
 	}
 
 	public VotingState getLatestVotingState() {
-		Voting voting = votingDao.findLatestVoting();
+		Event voting = votingDao.findLatestVoting();
 		if (voting == null) {
 			return VotingState.Open;
 		}
@@ -150,7 +154,7 @@ public class VoteService {
 	}
 
 	public void openVoting() {
-		Voting voting = new Voting(Calendar.getInstance().getTime(), VotingState.Open);
+		Event voting = new Event(Calendar.getInstance().getTime(), VotingState.Open);
 		votingDao.save(voting);
 
 		votingDao.removeAllVotes();
@@ -158,9 +162,9 @@ public class VoteService {
 
 	public void closeVoting() {
 		Date today = dateHelper.getDateForTodayWithNulledHoursMinutesAndMiliseconds();
-		Voting voting = votingDao.findVotingForDate(today);
+		Event voting = votingDao.findVotingForDate(today);
 		if (voting == null) {
-			voting = new Voting(Calendar.getInstance().getTime(), VotingState.Open);
+			voting = new Event(Calendar.getInstance().getTime(), VotingState.Open);
 			votingDao.save(voting);
 		}
 
@@ -177,7 +181,7 @@ public class VoteService {
 
 	public void reopenVoting() {
 		Date today = dateHelper.getDateForTodayWithNulledHoursMinutesAndMiliseconds();
-		Voting voting = votingDao.findVotingForDate(today);
+		Event voting = votingDao.findVotingForDate(today);
 
 		if (voting != null) {
 			voting.setState(VotingState.Open);
@@ -185,7 +189,7 @@ public class VoteService {
 	}
 
 	public boolean isVotingOpen() {
-		Voting voting = votingDao.findLatestVoting();
+		Event voting = votingDao.findLatestVoting();
 
 		if ((voting != null) && (voting.getState() != null)) {
 			return voting.getState() == VotingState.Open;

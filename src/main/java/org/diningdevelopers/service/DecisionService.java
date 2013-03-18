@@ -10,16 +10,16 @@ import java.util.Map;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
-import org.diningdevelopers.dao.DeveloperDao;
+import org.diningdevelopers.dao.UserDao;
 import org.diningdevelopers.dao.TransactionHelper;
 import org.diningdevelopers.dao.VotingDao;
-import org.diningdevelopers.entity.Developer;
+import org.diningdevelopers.entity.User;
 import org.diningdevelopers.entity.Location;
 import org.diningdevelopers.entity.Vote;
-import org.diningdevelopers.entity.Voting;
+import org.diningdevelopers.entity.Event;
 import org.diningdevelopers.model.DecisionModel;
 import org.diningdevelopers.model.DecisionTable;
-import org.diningdevelopers.model.DeveloperModel;
+import org.diningdevelopers.model.UserModel;
 import org.diningdevelopers.model.ResultModel;
 import org.diningdevelopers.service.external.RandomOrgNumberGeneratorService;
 
@@ -27,10 +27,10 @@ import org.diningdevelopers.service.external.RandomOrgNumberGeneratorService;
 public class DecisionService {
 
 	@Inject
-	private DeveloperDao developerDao;
+	private UserDao developerDao;
 
 	@Inject
-	private DeveloperConverter developerConverter;
+	private UserConverter developerConverter;
 
 	@Inject
 	private VotingDao votingDao;
@@ -47,10 +47,10 @@ public class DecisionService {
 	public DecisionTable buildDecisionTable(Date date) {
 		DecisionTable decisionTable = new DecisionTable();
 
-		List<Developer> developers = developerDao.findAll();
+		List<User> developers = developerDao.findAll();
 		Map<Long, DecisionModel> decisions = new HashMap<>();
 
-		for (Developer d : developers) {
+		for (User d : developers) {
 			insertDeveloperPreferences(decisionTable.getDevelopers(), decisions, d);
 		}
 
@@ -61,7 +61,7 @@ public class DecisionService {
 		return decisionTable;
 	}
 
-	public void determineResultForVoting(Voting voting) {
+	public void determineResultForVoting(Event voting) {
 		DecisionTable table = buildDecisionTable(null);
 		int maxValue = Math.round(table.getTotalPoints());
 
@@ -100,7 +100,7 @@ public class DecisionService {
 
 	public ResultModel getResultModelForLatestVote() {
 		ResultModel result = new ResultModel();
-		Voting voting = votingDao.findLatestVoting();
+		Event voting = votingDao.findLatestVoting();
 		if (voting != null) {
 			Integer random = voting.getResult();
 			result.setRandomNumber(random);
@@ -116,8 +116,8 @@ public class DecisionService {
 		return result;
 	}
 
-	private void insertDeveloperPreferences(List<DeveloperModel> developerModels, Map<Long, DecisionModel> decisions, Developer d) {
-		DeveloperModel developerModel = developerConverter.toModel(d);
+	private void insertDeveloperPreferences(List<UserModel> developerModels, Map<Long, DecisionModel> decisions, User d) {
+		UserModel developerModel = developerConverter.toModel(d);
 
 		List<Vote> votes = votingDao.findLatestVotes(d);
 		boolean hasVotes = false;

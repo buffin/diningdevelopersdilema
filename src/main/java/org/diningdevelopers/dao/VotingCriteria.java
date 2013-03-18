@@ -1,14 +1,14 @@
 package org.diningdevelopers.dao;
 
-import org.diningdevelopers.entity.Developer;
+import org.diningdevelopers.entity.User;
 import org.diningdevelopers.entity.Location;
 
 public class VotingCriteria {
 
-	private Developer developer;
+	private User developer;
 	private Location location;
 
-	public Developer getDeveloper() {
+	public User getDeveloper() {
 		return developer;
 	}
 
@@ -16,7 +16,7 @@ public class VotingCriteria {
 		return location;
 	}
 
-	public void setDeveloper(Developer developer) {
+	public void setDeveloper(User developer) {
 		this.developer = developer;
 	}
 
