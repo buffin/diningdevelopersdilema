@@ -8,13 +8,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import org.diningdevelopers.entity.User;
+import org.diningdevelopers.entity.Event;
+import org.diningdevelopers.entity.Event_;
 import org.diningdevelopers.entity.Location;
+import org.diningdevelopers.entity.User;
 import org.diningdevelopers.entity.Vote;
 import org.diningdevelopers.entity.Vote_;
-import org.diningdevelopers.entity.Event;
 import org.diningdevelopers.entity.VotingState;
-import org.diningdevelopers.entity.Voting_;
 
 @Named
 public class VotingDao {
@@ -82,23 +82,23 @@ public class VotingDao {
 
 	public Event findVotingForDate(Date date) {
 		CriteriaHelper<Event> helper = new CriteriaHelper<>(entityManager, Event.class);
-		helper.addGreaterThanOrEqualTo(Voting_.date, date);
-		helper.addOrder(Voting_.date, false);
+		helper.addGreaterThanOrEqualTo(Event_.date, date);
+		helper.addOrder(Event_.date, false);
 		helper.setMaxResults(1);
 		return helper.getSingleResultOrNull();
 	}
 
 	public Event findLatestVoting() {
 		CriteriaHelper<Event> helper = new CriteriaHelper<>(entityManager, Event.class);
-		helper.addOrder(Voting_.date, false);
+		helper.addOrder(Event_.date, false);
 		helper.setMaxResults(1);
 		return helper.getSingleResultOrNull();
 	}
 
 	public Date findLatestActiveVoting() {
 		CriteriaHelper<Event> helper = new CriteriaHelper<>(entityManager, Event.class);
-		helper.addOrder(Voting_.date, false);
-		helper.addEqual(Voting_.state, VotingState.Open);
+		helper.addOrder(Event_.date, false);
+		helper.addEqual(Event_.state, VotingState.Open);
 		helper.setMaxResults(1);
 		Event voting = helper.getSingleResultOrNull();
 		return voting == null ? new Date() : voting.getDate();

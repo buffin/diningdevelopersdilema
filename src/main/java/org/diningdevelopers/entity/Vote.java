@@ -24,6 +24,10 @@ public class Vote {
 	@JoinColumn(name="location_id")
 	private Location location;
 
+	@ManyToOne(optional=false)
+	@JoinColumn(name="event_id")
+	private Event event;
+
 	@ManyToOne(optional = false)
 	@JoinColumn(name="developer_id")
 	private User developer;
@@ -37,9 +41,12 @@ public class Vote {
 	public Date getDate() {
 		return date;
 	}
-
 	public User getDeveloper() {
 		return developer;
+	}
+
+	public Event getEvent() {
+		return event;
 	}
 
 	public Long getId() {
@@ -60,6 +67,10 @@ public class Vote {
 
 	public void setDeveloper(User developer) {
 		this.developer = developer;
+	}
+
+	public void setEvent(Event event) {
+		this.event = event;
 	}
 
 	public void setId(Long id) {

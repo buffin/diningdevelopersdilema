@@ -7,7 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.diningdevelopers.entity.User;
-import org.diningdevelopers.entity.Developer_;
+import org.diningdevelopers.entity.User_;
 
 @Named
 public class UserDao {
@@ -26,7 +26,7 @@ public class UserDao {
 	public User findByUsername(String username) {
 		CriteriaHelper<User> helper = new CriteriaHelper<>(entityManager, User.class);
 
-		helper.addEqual(Developer_.username, username);
+		helper.addEqual(User_.username, username);
 
 		return helper.getSingleResultOrNull();
 	}	

@@ -9,14 +9,14 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import org.apache.commons.lang3.StringUtils;
-import org.diningdevelopers.dao.UserDao;
 import org.diningdevelopers.dao.LocationDao;
 import org.diningdevelopers.dao.TransactionHelper;
+import org.diningdevelopers.dao.UserDao;
 import org.diningdevelopers.dao.VotingDao;
-import org.diningdevelopers.entity.User;
-import org.diningdevelopers.entity.Location;
-import org.diningdevelopers.entity.Vote;
 import org.diningdevelopers.entity.Event;
+import org.diningdevelopers.entity.Location;
+import org.diningdevelopers.entity.User;
+import org.diningdevelopers.entity.Vote;
 import org.diningdevelopers.entity.VotingState;
 import org.diningdevelopers.model.VoteModel;
 import org.diningdevelopers.utils.CoordinatesParser;
@@ -106,6 +106,8 @@ public class VoteService {
 	}
 
 	public void save(String username, List<VoteModel> voteModels) {
+		Event event = votingDao.findLatestVoting();
+
 		for (VoteModel model : voteModels) {
 			User developer = developerDao.findByUsername(username);
 			Location location = locationDao.findById(model.getLocationId());
@@ -128,6 +130,8 @@ public class VoteService {
 				if (vote.getVote() > 0) {
 					auditService.createAudit(username, String.format(auditMessage, username, location.getName(), vote.getVote()));
 				}
+
+				vote.setEvent(event);
 
 				votingDao.save(vote);
 			} else {
