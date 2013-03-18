@@ -12,20 +12,20 @@ import org.diningdevelopers.entity.User;
 import org.diningdevelopers.model.UserModel;
 
 @Stateless
-public class DeveloperService {
+public class UserService {
 
 	@Inject
-	private UserDao developerDao;
+	private UserDao userDao;
 
 	@Inject
-	private UserConverter developerConverter;
+	private UserConverter userConverter;
 
 	public List<UserModel> findAll() {
-		List<User> developers = developerDao.findAll();
+		List<User> users = userDao.findAll();
 		List<UserModel> result = new ArrayList<>();
 
-		for (User d : developers) {
-			UserModel model = developerConverter.toModel(d);
+		for (User d : users) {
+			UserModel model = userConverter.toModel(d);
 			result.add(model);
 		}
 
@@ -33,45 +33,45 @@ public class DeveloperService {
 	}
 
 	public User findByUsername(String username) {
-		return developerDao.findByUsername(username);
+		return userDao.findByUsername(username);
 	}
 
 	public void save(UserModel model) {
 		if (model.getId() != null) {
-			User developer = developerDao.findById(model.getId());
-			developerConverter.updateEntity(developer, model);
+			User user = userDao.findById(model.getId());
+			userConverter.updateEntity(user, model);
 		} else {
-			User developer = new User();
-			developerConverter.updateEntity(developer, model);
-			developer.setUsername(model.getUsername());
-			developerDao.persist(developer);
+			User user = new User();
+			userConverter.updateEntity(user, model);
+			user.setUsername(model.getUsername());
+			userDao.persist(user);
 		}
 	}
 
 	public void changePassword(String username, String password) {
-		User developer = developerDao.findByUsername(username);
+		User user = userDao.findByUsername(username);
 
-		if (developer != null) {
+		if (user != null) {
 			String passwordSha = DigestUtils.shaHex(password);
-			developer.setPassword(passwordSha);
+			user.setPassword(passwordSha);
 		}
 	}
 
 	public String getMailAddress(String username) {
-		User developer = findByUsername(username);
+		User user = findByUsername(username);
 
-		if (developer != null) {
-			return developer.getEmail();
+		if (user != null) {
+			return user.getEmail();
 		}
 
 		return null;
 	}
 
 	public void updateMailAddress(String username, String email) {
-		User developer = findByUsername(username);
+		User user = findByUsername(username);
 
-		if (developer != null) {
-			developer.setEmail(email);
+		if (user != null) {
+			user.setEmail(email);
 		}
 	}
 

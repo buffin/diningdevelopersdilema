@@ -20,14 +20,14 @@ import org.apache.shiro.realm.Realm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.Initializable;
 import org.diningdevelopers.entity.User;
-import org.diningdevelopers.service.DeveloperService;
+import org.diningdevelopers.service.UserService;
 
 @Stateless
 @Local(Realm.class)
 public class ShiroSecurityRealm extends AuthorizingRealm implements Authorizer, Initializable, PermissionResolverAware, RolePermissionResolverAware {
 
 	@EJB
-	private DeveloperService developerService;
+	private UserService developerService;
 
 	public ShiroSecurityRealm() {
 		CredentialsMatcher credentialsMatcher = new HashedCredentialsMatcher("SHA-1");

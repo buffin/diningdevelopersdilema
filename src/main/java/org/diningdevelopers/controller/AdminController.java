@@ -13,7 +13,7 @@ import org.diningdevelopers.dao.JpaUtils;
 import org.diningdevelopers.entity.User;
 import org.diningdevelopers.model.SimpleMail;
 import org.diningdevelopers.service.DecisionService;
-import org.diningdevelopers.service.DeveloperService;
+import org.diningdevelopers.service.UserService;
 import org.diningdevelopers.service.MailService;
 import org.diningdevelopers.service.VoteService;
 import org.diningdevelopers.utils.Authentication;
@@ -37,7 +37,7 @@ public class AdminController implements Serializable {
 	@Inject
 	private MailService mailService;
 
-	@Inject DeveloperService developerService;
+	@Inject UserService developerService;
 
 	private Logger logger = LoggerFactory.getLogger(getClass());
 

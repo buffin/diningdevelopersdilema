@@ -8,7 +8,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.diningdevelopers.model.UserModel;
-import org.diningdevelopers.service.DeveloperService;
+import org.diningdevelopers.service.UserService;
 
 @Named
 @SessionScoped
@@ -19,7 +19,7 @@ public class AdminDevelopersController implements Serializable {
 	private UserModel current;
 
 	@Inject
-	private DeveloperService developerService;
+	private UserService developerService;
 
 	public UserModel getCurrent() {
 		return current;

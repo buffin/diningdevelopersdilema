@@ -8,7 +8,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.commons.lang3.StringUtils;
-import org.diningdevelopers.service.DeveloperService;
+import org.diningdevelopers.service.UserService;
 import org.diningdevelopers.utils.Authentication;
 import org.diningdevelopers.utils.FacesUtils;
 
@@ -17,7 +17,7 @@ import org.diningdevelopers.utils.FacesUtils;
 public class SettingsController {
 
 	@Inject
-	private DeveloperService developerService;
+	private UserService developerService;
 
 	private String password;
 	private String passwordRepeated;
