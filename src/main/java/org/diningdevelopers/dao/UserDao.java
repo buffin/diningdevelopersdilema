@@ -10,7 +10,7 @@ import org.diningdevelopers.entity.User;
 import org.diningdevelopers.entity.Developer_;
 
 @Named
-public class DeveloperDao {
+public class UserDao {
 
 	@PersistenceContext
 	private EntityManager entityManager;

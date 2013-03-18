@@ -9,7 +9,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import org.apache.commons.lang3.StringUtils;
-import org.diningdevelopers.dao.DeveloperDao;
+import org.diningdevelopers.dao.UserDao;
 import org.diningdevelopers.dao.LocationDao;
 import org.diningdevelopers.dao.TransactionHelper;
 import org.diningdevelopers.dao.VotingDao;
@@ -43,7 +43,7 @@ public class VoteService {
 	private VotingDao votingDao;
 
 	@Inject
-	private DeveloperDao developerDao;
+	private UserDao developerDao;
 
 	@Inject
 	private CoordinatesParser coordinatesParser;

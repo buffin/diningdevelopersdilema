@@ -7,7 +7,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import org.apache.commons.codec.digest.DigestUtils;
-import org.diningdevelopers.dao.DeveloperDao;
+import org.diningdevelopers.dao.UserDao;
 import org.diningdevelopers.entity.User;
 import org.diningdevelopers.model.DeveloperModel;
 
@@ -15,7 +15,7 @@ import org.diningdevelopers.model.DeveloperModel;
 public class DeveloperService {
 
 	@Inject
-	private DeveloperDao developerDao;
+	private UserDao developerDao;
 
 	@Inject
 	private DeveloperConverter developerConverter;

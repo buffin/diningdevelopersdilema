@@ -10,7 +10,7 @@ import java.util.Map;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
-import org.diningdevelopers.dao.DeveloperDao;
+import org.diningdevelopers.dao.UserDao;
 import org.diningdevelopers.dao.TransactionHelper;
 import org.diningdevelopers.dao.VotingDao;
 import org.diningdevelopers.entity.User;
@@ -27,7 +27,7 @@ import org.diningdevelopers.service.external.RandomOrgNumberGeneratorService;
 public class DecisionService {
 
 	@Inject
-	private DeveloperDao developerDao;
+	private UserDao developerDao;
 
 	@Inject
 	private DeveloperConverter developerConverter;
