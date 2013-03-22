@@ -16,16 +16,16 @@
 
 			<div style="width: 200px; float: left;">
 				<p:outputLabel for="password" value="Passwort" style="display: block;" />
-				<p:inputText id="password" value="#{settingsController.password}" type="password" />
+				<p:password id="password" value="#{settingsController.password}" type="password" required="true"  />
 			</div>
 
 			<div style="width: 200px; float: left;">
 				<p:outputLabel for="passwordRepeated" value="Passwort wiederholen" style="display: block;" />
-				<p:inputText id="passwordRepeated" type="password" value="#{settingsController.passwordRepeated}" />
+				<p:password id="passwordRepeated" type="password" value="#{settingsController.passwordRepeated}" required="true" />
 			</div>
 
 			<div style="padding-top: 10px;">
-				<p:commandButton actionListener="#{settingsController.changePassword}" value="Speichern" ajax="false"/>
+				<p:commandButton actionListener="#{settingsController.changePassword}" value="Speichern" ajax="false" />
 			</div>
 
 			<div style="clear: both;" />
@@ -35,9 +35,10 @@
 			<h2>E-Mail Adresse ändern</h2>
 			<div style="width: 200px; float: left;">
 				<p:outputLabel for="email" value="E-Mail Adresse" style="display: block; margin-top: 10px;" />
-				<p:inputText id="email" value="#{settingsController.email}" rendered="true" validatorMessage="Bitte gib eine gültige E-Mail Adresse ein.">
-					<f:validateRegex pattern="^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$"  />
-				</p:inputText>	
+				<p:inputText id="email" value="#{settingsController.email}" rendered="true"
+					validatorMessage="Bitte gib eine gültige E-Mail Adresse ein.">
+					<f:validateRegex pattern="^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$" />
+				</p:inputText>
 			</div>
 
 			<div style="padding-top: 15px;">

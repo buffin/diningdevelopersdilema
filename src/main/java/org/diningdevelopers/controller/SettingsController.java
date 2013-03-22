@@ -1,30 +1,41 @@
 package org.diningdevelopers.controller;
 
-import javax.enterprise.context.RequestScoped;
+import java.io.Serializable;
+
+import javax.enterprise.context.Conversation;
+import javax.enterprise.context.ConversationScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.commons.lang3.StringUtils;
 import org.diningdevelopers.service.UserService;
 import org.diningdevelopers.utils.Authentication;
+import org.diningdevelopers.utils.FacesHelper;
 import org.diningdevelopers.utils.FacesUtils;
 
 @Named
-@RequestScoped
-public class SettingsController {
+@ConversationScoped
+public class SettingsController implements Serializable {
 
 	@Inject
 	private UserService developerService;
+
+	@Inject
+	private Conversation conversation;
+
+	@Inject
+	private FacesHelper facesHelper;
 
 	private String password;
 	private String passwordRepeated;
 
 	private String email;
 
-	public void init(ComponentSystemEvent event) {
+	public void init() {
+		facesHelper.beginConversation(conversation);
+
 		if (FacesUtils.isNotPostback()) {
 			email = developerService.getMailAddress(Authentication.getUsername());
 		}
