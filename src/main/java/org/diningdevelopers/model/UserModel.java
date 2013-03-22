@@ -1,6 +1,7 @@
 package org.diningdevelopers.model;
 
 
+
 public class UserModel {
 
 	private Long id;
