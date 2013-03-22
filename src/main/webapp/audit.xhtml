@@ -13,9 +13,9 @@
 
 		<h:form>
 			<p:dataTable var="audit" value="#{viewAuditController.latest}">
-				<p:column headerText="Datum">
+				<p:column headerText="Datum" width="100">
 					<h:outputText value="#{audit.date}">
-
+						<f:convertDateTime dateStyle="short" timeStyle="medium" type="both" />
 					</h:outputText>
 				</p:column>
 				<p:column headerText="Benutzer">
