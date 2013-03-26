@@ -40,12 +40,20 @@ public class EventService {
 		}
 	}
 
-	public VotingState getLatestVotingState() {
-		Event voting = eventDao.findLatestVoting();
-		if (voting == null) {
-			return VotingState.Open;
+	public String getLatestEventState() {
+		Event event = eventDao.findLatestVoting();
+
+		VotingState state = event.getState();
+
+		if (state == VotingState.Open) {
+			return "aktiv";
+		} else if (state == VotingState.Closed) {
+			return "beendet";
+		} else if (state == VotingState.InProgress) {
+			return "Warte auf Random.org";
+		} else {
+			return "unbekannt";
 		}
-		return voting.getState();
 	}
 
 	public void openVoting() {
@@ -79,6 +87,16 @@ public class EventService {
 
 		if ((voting != null) && (voting.getState() != null)) {
 			return voting.getState() == VotingState.Open;
+		} else {
+			return false;
+		}
+	}
+
+	public boolean isLatestEventClosed() {
+		Event event = eventDao.findLatestVoting();
+
+		if (event.getState() == VotingState.Closed) {
+			return true;
 		} else {
 			return false;
 		}

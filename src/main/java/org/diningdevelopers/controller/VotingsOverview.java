@@ -7,7 +7,6 @@ import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.diningdevelopers.entity.VotingState;
 import org.diningdevelopers.model.DecisionModel;
 import org.diningdevelopers.model.DecisionTable;
 import org.diningdevelopers.model.ResultModel;
@@ -62,21 +61,11 @@ public class VotingsOverview implements Serializable {
 	} 
 
 	public String getVotingState() {
-		VotingState state = eventService.getLatestVotingState();
-
-		if (state == VotingState.Open) {
-			return "aktiv";
-		} else if (state == VotingState.Closed) {
-			return "beendet";
-		} else if (state == VotingState.InProgress) {
-			return "Warte auf Random.org";
-		} else {
-			return "unbekannt";
-		}
+		return eventService.getLatestEventState();
 	}
 
 	public boolean isVotingClosed() {
-		return eventService.getLatestVotingState() == VotingState.Closed;
+		return eventService.isLatestEventClosed();
 	}
 
 	public ResultModel getResultModel() {
