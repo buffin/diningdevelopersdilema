@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.diningdevelopers.model.VoteModel;
+import org.diningdevelopers.service.EventService;
 import org.diningdevelopers.service.VoteService;
 import org.diningdevelopers.utils.Authentication;
 import org.diningdevelopers.utils.FacesUtils;
@@ -25,6 +26,9 @@ public class VoteController implements Serializable {
 
 	@Inject
 	private VoteService voteService;
+
+	@Inject
+	private EventService eventService;
 
 	public String computeAdditionalStylesForSumPoints(int sumPoints) {
 		if (sumPoints > 100) {
@@ -66,7 +70,7 @@ public class VoteController implements Serializable {
 	}
 
 	public boolean isVotingOpen() {
-		return voteService.isVotingOpen();
+		return eventService.isVotingOpen();
 	}
 
 	public String reset() {

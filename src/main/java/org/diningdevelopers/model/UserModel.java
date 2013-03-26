@@ -9,6 +9,7 @@ public class UserModel {
 	private String name;
 	private String email;
 	private Boolean participating;
+	private String password;
 
 	public String getEmail() {
 		return email;
@@ -47,5 +48,13 @@ public class UserModel {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 }

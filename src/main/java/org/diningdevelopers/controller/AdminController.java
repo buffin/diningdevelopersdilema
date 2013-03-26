@@ -10,11 +10,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.diningdevelopers.dao.JpaUtils;
-import org.diningdevelopers.entity.User;
 import org.diningdevelopers.model.SimpleMail;
-import org.diningdevelopers.service.DecisionService;
-import org.diningdevelopers.service.UserService;
+import org.diningdevelopers.model.UserModel;
+import org.diningdevelopers.service.EventService;
 import org.diningdevelopers.service.MailService;
+import org.diningdevelopers.service.UserService;
 import org.diningdevelopers.service.VoteService;
 import org.diningdevelopers.utils.Authentication;
 import org.diningdevelopers.utils.FacesUtils;
@@ -32,7 +32,7 @@ public class AdminController implements Serializable {
 	private VoteService voteService;
 
 	@Inject
-	private DecisionService decisionService;
+	private EventService eventService;
 
 	@Inject
 	private MailService mailService;
@@ -55,17 +55,17 @@ public class AdminController implements Serializable {
 	}
 
 	public String openVoting() {
-		voteService.openVoting();
+		eventService.openVoting();
 		return null;
 	}
 
 	public String reopenVoting() {
-		voteService.reopenVoting();
+		eventService.reopenVoting();
 		return null;
 	}
 
 	public String closeVoting() {
-		voteService.closeVoting();
+		eventService.closeVoting();
 		return null;
 	}
 
@@ -73,7 +73,7 @@ public class AdminController implements Serializable {
 		SimpleMail mail = new SimpleMail();
 
 		String username = Authentication.getUsername();
-		User developer = developerService.findByUsername(username);
+		UserModel developer = developerService.findByUsername(username);
 
 		mail.setTo(Arrays.asList(developer.getEmail()));
 		mail.setSubject("DDD Testmail");

@@ -10,9 +10,9 @@ import javax.inject.Inject;
 import org.apache.commons.lang3.StringUtils;
 import org.diningdevelopers.entity.Event;
 import org.diningdevelopers.model.DecisionTable;
-import org.diningdevelopers.model.UserModel;
 import org.diningdevelopers.model.ResultModel;
 import org.diningdevelopers.model.SimpleMail;
+import org.diningdevelopers.model.UserModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

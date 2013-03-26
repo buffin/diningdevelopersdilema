@@ -7,7 +7,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import org.diningdevelopers.dao.AuditDao;
-import org.diningdevelopers.dao.VotingDao;
+import org.diningdevelopers.dao.EventDao;
 import org.diningdevelopers.entity.Audit;
 import org.diningdevelopers.model.AuditModel;
 
@@ -18,7 +18,7 @@ public class AuditService {
 	private AuditDao auditDao;
 
 	@Inject
-	private VotingDao votingDao;
+	private EventDao eventDao;
 
 	@Inject
 	private MappingService mappingService;
@@ -33,7 +33,7 @@ public class AuditService {
 
 
 	public List<AuditModel> findLatest(int maxResult) {
-		Date filterDate = votingDao.findLatestActiveVoting();
+		Date filterDate = eventDao.findLatestActiveVoting();
 		List<Audit> audits = auditDao.findLatest(maxResult, filterDate);
 
 		return mappingService.mapCollection(audits, AuditModel.class);
