@@ -73,7 +73,7 @@ public class AdminController implements Serializable {
 		SimpleMail mail = new SimpleMail();
 
 		String username = Authentication.getUsername();
-		User developer = developerService.findByUsername(username);
+		UserModel developer = developerService.findByUsername(username);
 
 		mail.setTo(Arrays.asList(developer.getEmail()));
 		mail.setSubject("DDD Testmail");
