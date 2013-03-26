@@ -10,17 +10,17 @@ import java.util.Map;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
-import org.diningdevelopers.dao.UserDao;
 import org.diningdevelopers.dao.TransactionHelper;
+import org.diningdevelopers.dao.UserDao;
 import org.diningdevelopers.dao.VotingDao;
-import org.diningdevelopers.entity.User;
-import org.diningdevelopers.entity.Location;
-import org.diningdevelopers.entity.Vote;
 import org.diningdevelopers.entity.Event;
+import org.diningdevelopers.entity.Location;
+import org.diningdevelopers.entity.User;
+import org.diningdevelopers.entity.Vote;
 import org.diningdevelopers.model.DecisionModel;
 import org.diningdevelopers.model.DecisionTable;
-import org.diningdevelopers.model.UserModel;
 import org.diningdevelopers.model.ResultModel;
+import org.diningdevelopers.model.UserModel;
 import org.diningdevelopers.service.external.RandomOrgNumberGeneratorService;
 
 @Stateless
@@ -30,7 +30,7 @@ public class DecisionService {
 	private UserDao developerDao;
 
 	@Inject
-	private UserConverter developerConverter;
+	private MappingService mappingService;
 
 	@Inject
 	private VotingDao votingDao;
@@ -117,7 +117,7 @@ public class DecisionService {
 	}
 
 	private void insertDeveloperPreferences(List<UserModel> developerModels, Map<Long, DecisionModel> decisions, User d) {
-		UserModel developerModel = developerConverter.toModel(d);
+		UserModel developerModel = mappingService.map(d, UserModel.class);
 
 		List<Vote> votes = votingDao.findLatestVotes(d);
 		boolean hasVotes = false;

@@ -1,6 +1,5 @@
 package org.diningdevelopers.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -18,18 +17,12 @@ public class UserService {
 	private UserDao userDao;
 
 	@Inject
-	private UserConverter userConverter;
+	private MappingService mappingService;
 
 	public List<UserModel> findAll() {
 		List<User> users = userDao.findAll();
-		List<UserModel> result = new ArrayList<>();
 
-		for (User d : users) {
-			UserModel model = userConverter.toModel(d);
-			result.add(model);
-		}
-
-		return result;
+		return mappingService.mapCollection(users, UserModel.class);
 	}
 
 	public User findByUsername(String username) {
@@ -39,10 +32,10 @@ public class UserService {
 	public void save(UserModel model) {
 		if (model.getId() != null) {
 			User user = userDao.findById(model.getId());
-			userConverter.updateEntity(user, model);
+			mappingService.map(model, user);
 		} else {
 			User user = new User();
-			userConverter.updateEntity(user, model);
+			mappingService.map(model, user);
 			user.setUsername(model.getUsername());
 			userDao.persist(user);
 		}

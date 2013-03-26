@@ -1,24 +1,25 @@
 package org.diningdevelopers.utils;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
 public class FacesUtils {
 
+	private static FacesHelper helper = new FacesHelper();
+
 	public static void addMessage(String message) {
-		FacesMessage facesMessage = new FacesMessage(message);
-		getContext().addMessage(null, facesMessage);
+		helper.addMessage(message);
 	}
 
 	public static FacesContext getContext() {
-		return FacesContext.getCurrentInstance();
+		return helper.getContext();
 	}
 
 	public static boolean isNotPostback() {
-		return isPostback() == false;
+		return helper.isNotPostback();
 	}
 
 	public static boolean isPostback() {
-		return getContext().isPostback();
+		return helper.isPostback();
 	}
+
 }
