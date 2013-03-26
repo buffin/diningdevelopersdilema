@@ -8,6 +8,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import org.apache.commons.lang3.StringUtils;
+import org.diningdevelopers.dao.EventDao;
 import org.diningdevelopers.dao.LocationDao;
 import org.diningdevelopers.dao.UserDao;
 import org.diningdevelopers.dao.VotingDao;
@@ -37,6 +38,9 @@ public class VoteService {
 
 	@Inject
 	private VotingDao votingDao;
+
+	@Inject
+	private EventDao eventDao;
 
 	@Inject
 	private UserDao developerDao;
@@ -93,7 +97,7 @@ public class VoteService {
 	}
 
 	public void save(String username, List<VoteModel> voteModels) {
-		Event event = votingDao.findLatestVoting();
+		Event event = eventDao.findLatestVoting();
 
 		for (VoteModel model : voteModels) {
 			User developer = developerDao.findByUsername(username);

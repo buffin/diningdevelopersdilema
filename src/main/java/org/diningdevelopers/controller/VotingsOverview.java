@@ -13,7 +13,6 @@ import org.diningdevelopers.model.DecisionTable;
 import org.diningdevelopers.model.ResultModel;
 import org.diningdevelopers.service.DecisionService;
 import org.diningdevelopers.service.EventService;
-import org.diningdevelopers.service.VoteService;
 import org.diningdevelopers.utils.FacesUtils;
 import org.primefaces.model.chart.PieChartModel;
 
@@ -25,16 +24,11 @@ public class VotingsOverview implements Serializable {
 	private DecisionService decisionService;
 
 	@Inject
-	private VoteService voteService;
-
-	@Inject
 	private EventService eventService;
 
 	private DecisionTable decisionTable;
 
 	private PieChartModel pieModel;
-
-	private ResultModel resultModel;
 
 	public DecisionTable getDecisionTable() {
 		return decisionTable;
