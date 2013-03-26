@@ -12,6 +12,7 @@ import org.diningdevelopers.model.DecisionModel;
 import org.diningdevelopers.model.DecisionTable;
 import org.diningdevelopers.model.ResultModel;
 import org.diningdevelopers.service.DecisionService;
+import org.diningdevelopers.service.EventService;
 import org.diningdevelopers.service.VoteService;
 import org.diningdevelopers.utils.FacesUtils;
 import org.primefaces.model.chart.PieChartModel;
@@ -25,6 +26,9 @@ public class VotingsOverview implements Serializable {
 
 	@Inject
 	private VoteService voteService;
+
+	@Inject
+	private EventService eventService;
 
 	private DecisionTable decisionTable;
 
@@ -64,7 +68,7 @@ public class VotingsOverview implements Serializable {
 	} 
 
 	public String getVotingState() {
-		VotingState state = voteService.getLatestVotingState();
+		VotingState state = eventService.getLatestVotingState();
 
 		if (state == VotingState.Open) {
 			return "aktiv";
@@ -78,7 +82,7 @@ public class VotingsOverview implements Serializable {
 	}
 
 	public boolean isVotingClosed() {
-		return voteService.getLatestVotingState() == VotingState.Closed;
+		return eventService.getLatestVotingState() == VotingState.Closed;
 	}
 
 	public ResultModel getResultModel() {
