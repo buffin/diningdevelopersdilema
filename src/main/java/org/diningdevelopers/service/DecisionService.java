@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
+import org.diningdevelopers.dao.EventDao;
 import org.diningdevelopers.dao.TransactionHelper;
 import org.diningdevelopers.dao.UserDao;
 import org.diningdevelopers.dao.VotingDao;
@@ -34,6 +35,9 @@ public class DecisionService {
 
 	@Inject
 	private VotingDao votingDao;
+
+	@Inject
+	private EventDao eventDao;
 
 	@Inject
 	private RandomOrgNumberGeneratorService randomService;
@@ -77,7 +81,7 @@ public class DecisionService {
 		} catch (Exception e) {
 			voting.setResult(-1);
 		} finally {
-			votingDao.save(voting);
+			eventDao.save(voting);
 		}
 	}
 
@@ -100,7 +104,7 @@ public class DecisionService {
 
 	public ResultModel getResultModelForLatestVote() {
 		ResultModel result = new ResultModel();
-		Event voting = votingDao.findLatestVoting();
+		Event voting = eventDao.findLatestVoting();
 		if (voting != null) {
 			Integer random = voting.getResult();
 			result.setRandomNumber(random);

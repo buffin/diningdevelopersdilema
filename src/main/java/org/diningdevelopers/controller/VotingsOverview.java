@@ -7,12 +7,11 @@ import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.diningdevelopers.entity.VotingState;
 import org.diningdevelopers.model.DecisionModel;
 import org.diningdevelopers.model.DecisionTable;
 import org.diningdevelopers.model.ResultModel;
 import org.diningdevelopers.service.DecisionService;
-import org.diningdevelopers.service.VoteService;
+import org.diningdevelopers.service.EventService;
 import org.diningdevelopers.utils.FacesUtils;
 import org.primefaces.model.chart.PieChartModel;
 
@@ -24,13 +23,11 @@ public class VotingsOverview implements Serializable {
 	private DecisionService decisionService;
 
 	@Inject
-	private VoteService voteService;
+	private EventService eventService;
 
 	private DecisionTable decisionTable;
 
 	private PieChartModel pieModel;
-
-	private ResultModel resultModel;
 
 	public DecisionTable getDecisionTable() {
 		return decisionTable;
@@ -64,21 +61,11 @@ public class VotingsOverview implements Serializable {
 	} 
 
 	public String getVotingState() {
-		VotingState state = voteService.getLatestVotingState();
-
-		if (state == VotingState.Open) {
-			return "aktiv";
-		} else if (state == VotingState.Closed) {
-			return "beendet";
-		} else if (state == VotingState.InProgress) {
-			return "Warte auf Random.org";
-		} else {
-			return "unbekannt";
-		}
+		return eventService.getLatestEventState();
 	}
 
 	public boolean isVotingClosed() {
-		return voteService.getLatestVotingState() == VotingState.Closed;
+		return eventService.isLatestEventClosed();
 	}
 
 	public ResultModel getResultModel() {

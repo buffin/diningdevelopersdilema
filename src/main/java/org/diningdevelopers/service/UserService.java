@@ -25,8 +25,9 @@ public class UserService {
 		return mappingService.mapCollection(users, UserModel.class);
 	}
 
-	public User findByUsername(String username) {
-		return userDao.findByUsername(username);
+	public UserModel findByUsername(String username) {
+		User user = userDao.findByUsername(username);
+		return mappingService.map(user, UserModel.class);
 	}
 
 	public void save(UserModel model) {
@@ -51,7 +52,7 @@ public class UserService {
 	}
 
 	public String getMailAddress(String username) {
-		User user = findByUsername(username);
+		User user = userDao.findByUsername(username);
 
 		if (user != null) {
 			return user.getEmail();
@@ -61,7 +62,7 @@ public class UserService {
 	}
 
 	public void updateMailAddress(String username, String email) {
-		User user = findByUsername(username);
+		User user = userDao.findByUsername(username);
 
 		if (user != null) {
 			user.setEmail(email);
