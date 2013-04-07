@@ -12,7 +12,9 @@ import org.diningdevelopers.model.DecisionTable;
 import org.diningdevelopers.model.ResultModel;
 import org.diningdevelopers.service.DecisionService;
 import org.diningdevelopers.service.EventService;
+import org.diningdevelopers.service.TimelineService;
 import org.diningdevelopers.utils.FacesUtils;
+import org.primefaces.model.chart.CartesianChartModel;
 import org.primefaces.model.chart.PieChartModel;
 
 @Named
@@ -25,11 +27,16 @@ public class VotingsOverview implements Serializable {
 	@Inject
 	private EventService eventService;
 
+    @Inject
+    private TimelineService timelineService;
+
 	private DecisionTable decisionTable;
 
 	private PieChartModel pieModel;
 
-	public DecisionTable getDecisionTable() {
+    private CartesianChartModel timelineModel;
+
+    public DecisionTable getDecisionTable() {
 		return decisionTable;
 	}
 
@@ -46,6 +53,7 @@ public class VotingsOverview implements Serializable {
 	public String update() {
 		decisionTable = decisionService.buildDecisionTable(null);
 		updatePieModel(decisionTable);
+        updateTimelineModel();
 		return null;
 	}
 
@@ -58,7 +66,15 @@ public class VotingsOverview implements Serializable {
 		for (DecisionModel d : decisionTable.getDecisions()) {
 			pieModel.getData().put(d.getLocationName(), d.getPointsTotal());
 		}
-	} 
+	}
+
+    private void updateTimelineModel() {
+        timelineModel = timelineService.buildTimelineModel();
+    }
+
+    public CartesianChartModel getTimelineModel() {
+        return timelineModel;
+    }
 
 	public String getVotingState() {
 		return eventService.getLatestEventState();

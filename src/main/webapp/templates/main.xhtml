@@ -12,7 +12,17 @@
 		<meta http-equiv="Content-Type" content="text/xhtml; charset=UTF-8" />
 		<ui:insert name="head" />
 		<link rel="stylesheet" type="text/css" href="#{contextPath}/resources/style/style.css" />
-
+        <script type="text/javascript">
+            function timelineJQPlotOptions() {
+                this.cfg.highlighter = {
+                    showTooltip: false
+                }
+                this.cfg.axesDefaults = {
+                    showTicks: false,
+                    showTickMarks: false
+                }
+            }
+        </script>
 	</h:head>
 
 	<h:body>
