@@ -1,4 +1,4 @@
-package org.diningdevelopers.entity;
+package org.diningdevelopers.core.database.entities;
 
 import java.util.Date;
 

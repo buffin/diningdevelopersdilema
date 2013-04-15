@@ -7,17 +7,17 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.diningdevelopers.core.business.persistence.AuditPersistence;
 import org.diningdevelopers.model.AuditModel;
-import org.diningdevelopers.service.AuditService;
 
 @Named
 @RequestScoped
 public class ViewAuditController implements Serializable {
 
 	@Inject
-	private AuditService auditService;
+	private AuditPersistence auditPersistence;
 
 	public List<AuditModel> getLatest() {
-		return auditService.findLatest(100);
+		return auditPersistence.findLatest(100);
 	}
 }

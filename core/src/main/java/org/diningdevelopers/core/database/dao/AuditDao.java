@@ -1,4 +1,4 @@
-package org.diningdevelopers.dao;
+package org.diningdevelopers.core.database.dao;
 
 import java.util.Date;
 import java.util.List;
@@ -7,7 +7,8 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.diningdevelopers.entity.Audit;
+import org.diningdevelopers.core.database.entities.Audit;
+import org.diningdevelopers.dao.CriteriaHelper;
 import org.diningdevelopers.entity.Audit_;
 
 @Named

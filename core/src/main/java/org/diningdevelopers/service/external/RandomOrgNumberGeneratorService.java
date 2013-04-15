@@ -16,7 +16,7 @@ import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.client.DefaultHttpRequestRetryHandler;
 import org.apache.http.util.EntityUtils;
-import org.diningdevelopers.service.AuditService;
+import org.diningdevelopers.core.business.persistence.AuditPersistence;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,7 +26,7 @@ public class RandomOrgNumberGeneratorService {
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@Inject
-	private AuditService auditService;
+	private AuditPersistence auditPersistence;
 	
 	public int generateRandomNumberBetween(int startOfInterval, int endOfInterval) throws ServiceUnavailableException {
 		DefaultHttpClient httpclient = new DefaultHttpClient();
@@ -73,7 +73,7 @@ public class RandomOrgNumberGeneratorService {
 	}
 
 	private void createAndSaveAudit(String message) {
-		auditService.createAudit("SYSTEM", message);
+		auditPersistence.createAudit("SYSTEM", message);
 	}
 	
 }

@@ -1,4 +1,4 @@
-package org.diningdevelopers.service;
+package org.diningdevelopers.core.database.gateways;
 
 import java.util.Date;
 import java.util.List;
@@ -6,13 +6,15 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
-import org.diningdevelopers.dao.AuditDao;
+import org.diningdevelopers.core.business.persistence.AuditPersistence;
+import org.diningdevelopers.core.database.dao.AuditDao;
+import org.diningdevelopers.core.database.entities.Audit;
 import org.diningdevelopers.dao.EventDao;
-import org.diningdevelopers.entity.Audit;
 import org.diningdevelopers.model.AuditModel;
+import org.diningdevelopers.service.MappingService;
 
 @Stateless
-public class AuditService {
+public class AuditService implements AuditPersistence {
 
 	@Inject
 	private AuditDao auditDao;
@@ -23,6 +25,7 @@ public class AuditService {
 	@Inject
 	private MappingService mappingService;
 
+	@Override
 	public void createAudit(String username, String message) {
 		Audit audit = new Audit();
 		audit.setDate(new Date());
@@ -32,6 +35,7 @@ public class AuditService {
 	}
 
 
+	@Override
 	public List<AuditModel> findLatest(int maxResult) {
 		Date filterDate = eventDao.findLatestActiveVoting();
 		List<Audit> audits = auditDao.findLatest(maxResult, filterDate);

@@ -8,6 +8,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import org.apache.commons.lang3.StringUtils;
+import org.diningdevelopers.core.business.persistence.AuditPersistence;
 import org.diningdevelopers.dao.EventDao;
 import org.diningdevelopers.dao.LocationDao;
 import org.diningdevelopers.dao.UserDao;
@@ -31,7 +32,7 @@ public class VoteService {
 	private Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Inject
-	private AuditService auditService;
+	private AuditPersistence auditPersistence;
 
 	@Inject
 	private LocationDao locationDao;
@@ -92,7 +93,7 @@ public class VoteService {
 		User developer = developerDao.findByUsername(username);
 		votingDao.removeVotes(developer);
 		String auditMessage = "%s hat sein Voting widerrufen";
-		auditService.createAudit(username, String.format(auditMessage, username));
+		auditPersistence.createAudit(username, String.format(auditMessage, username));
 
 	}
 
@@ -119,7 +120,7 @@ public class VoteService {
 
 				String auditMessage = "%s hat sein Voting für %s auf %d gesetzt";
 				if (vote.getVote() > 0) {
-					auditService.createAudit(username, String.format(auditMessage, username, location.getName(), vote.getVote()));
+					auditPersistence.createAudit(username, String.format(auditMessage, username, location.getName(), vote.getVote()));
 				}
 
 				vote.setEvent(event);
@@ -129,7 +130,7 @@ public class VoteService {
 				Integer oldVote = vote.getVote();
 				if (oldVote.equals(newVote) == false) {
 					String auditMessage = "%s hat sein Voting für %s geändert. Alt: %d, Neu: %d";
-					auditService.createAudit(username, String.format(auditMessage, username, location.getName(), oldVote, newVote));
+					auditPersistence.createAudit(username, String.format(auditMessage, username, location.getName(), oldVote, newVote));
 					vote.setVote(newVote);
 				}
 			}
