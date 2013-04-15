@@ -9,9 +9,9 @@ import javax.inject.Named;
 
 import org.diningdevelopers.core.business.DecisionService;
 import org.diningdevelopers.core.business.EventService;
-import org.diningdevelopers.model.DecisionModel;
-import org.diningdevelopers.model.DecisionTable;
-import org.diningdevelopers.model.ResultModel;
+import org.diningdevelopers.core.frontend.model.DecisionModel;
+import org.diningdevelopers.core.frontend.model.DecisionTable;
+import org.diningdevelopers.core.frontend.model.ResultModel;
 import org.diningdevelopers.utils.FacesUtils;
 import org.primefaces.model.chart.PieChartModel;
 

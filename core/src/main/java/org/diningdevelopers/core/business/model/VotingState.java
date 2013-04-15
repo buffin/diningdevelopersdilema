@@ -1,4 +1,4 @@
-package org.diningdevelopers.core.database.entities;
+package org.diningdevelopers.core.business.model;
 
 public enum VotingState {
 	Open, InProgress, Closed

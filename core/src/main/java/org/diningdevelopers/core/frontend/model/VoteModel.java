@@ -1,4 +1,4 @@
-package org.diningdevelopers.model;
+package org.diningdevelopers.core.frontend.model;
 
 import org.apache.commons.lang3.StringUtils;
 import org.primefaces.model.map.MapModel;

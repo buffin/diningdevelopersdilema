@@ -8,16 +8,16 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import org.apache.commons.lang3.StringUtils;
+import org.diningdevelopers.core.business.model.Event;
 import org.diningdevelopers.core.business.persistence.AuditPersistence;
 import org.diningdevelopers.core.business.persistence.EventPersistence;
 import org.diningdevelopers.core.business.persistence.LocationPersistence;
 import org.diningdevelopers.core.business.persistence.UserPersistence;
 import org.diningdevelopers.core.business.persistence.VotingPersistence;
-import org.diningdevelopers.core.database.entities.Event;
-import org.diningdevelopers.core.database.entities.Location;
-import org.diningdevelopers.core.database.entities.User;
-import org.diningdevelopers.core.database.entities.Vote;
-import org.diningdevelopers.model.VoteModel;
+import org.diningdevelopers.core.database.entities.LocationEntity;
+import org.diningdevelopers.core.database.entities.UserEntity;
+import org.diningdevelopers.core.database.entities.VoteEntity;
+import org.diningdevelopers.core.frontend.model.VoteModel;
 import org.diningdevelopers.utils.CoordinatesParser;
 import org.primefaces.model.map.DefaultMapModel;
 import org.primefaces.model.map.LatLng;
@@ -50,12 +50,12 @@ public class VoteService {
 	private CoordinatesParser coordinatesParser;
 
 	public List<VoteModel> getVoteModel(String username) {
-		List<Location> locations = locationPersistence.findActive();
+		List<LocationEntity> locations = locationPersistence.findActive();
 		List<VoteModel> result = new ArrayList<>();
 
-		User developer = userPersistence.findByUsername(username);
+		UserEntity developer = userPersistence.findByUsername(username);
 
-		for (Location l : locations) {
+		for (LocationEntity l : locations) {
 			VoteModel model = new VoteModel();
 			model.setLocationId(l.getId());
 			model.setLocationName(l.getName());
@@ -69,7 +69,7 @@ public class VoteService {
 				model.setLocationModel(locationModel);
 			}
 
-			Vote latestVote = votingPersistence.findLatestVote(developer, l);
+			VoteEntity latestVote = votingPersistence.findLatestVote(developer, l);
 			if (latestVote != null) {
 				model.setVote(latestVote.getVote());
 			}
@@ -80,7 +80,7 @@ public class VoteService {
 		return result;
 	}
 
-	private boolean needToCreateNewVote(Vote vote) {
+	private boolean needToCreateNewVote(VoteEntity vote) {
 		return vote == null;
 	}
 
@@ -90,7 +90,7 @@ public class VoteService {
 	}
 
 	public void removeVotes(String username) {
-		User developer = userPersistence.findByUsername(username);
+		UserEntity developer = userPersistence.findByUsername(username);
 		votingPersistence.removeVotes(developer);
 		String auditMessage = "%s hat sein Voting widerrufen";
 		auditPersistence.createAudit(username, String.format(auditMessage, username));
@@ -101,9 +101,9 @@ public class VoteService {
 		Event event = eventPersistence.findLatestVoting();
 
 		for (VoteModel model : voteModels) {
-			User developer = userPersistence.findByUsername(username);
-			Location location = locationPersistence.findById(model.getLocationId());
-			Vote vote = votingPersistence.findLatestVote(developer, location);
+			UserEntity developer = userPersistence.findByUsername(username);
+			LocationEntity location = locationPersistence.findById(model.getLocationId());
+			VoteEntity vote = votingPersistence.findLatestVote(developer, location);
 
 			Integer newVote = model.getVote();
 			if (newVote == null) {
@@ -112,7 +112,7 @@ public class VoteService {
 			}
 
 			if (needToCreateNewVote(vote)) {
-				vote = new Vote();
+				vote = new VoteEntity();
 				vote.setLocation(location);
 				vote.setDeveloper(developer);
 				vote.setDate(new Date());
@@ -123,7 +123,8 @@ public class VoteService {
 					auditPersistence.createAudit(username, String.format(auditMessage, username, location.getName(), vote.getVote()));
 				}
 
-				vote.setEvent(event);
+				// TODO: setter for event
+				// vote.setEvent(event);
 
 				votingPersistence.save(vote);
 			} else {

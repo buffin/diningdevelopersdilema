@@ -6,8 +6,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.diningdevelopers.core.database.dao.helper.CriteriaHelper;
-import org.diningdevelopers.core.database.entities.Event;
-import org.diningdevelopers.core.database.entities.VotingState;
+import org.diningdevelopers.core.database.entities.EventEntity;
+import org.diningdevelopers.core.database.entities.VotingStateEntity;
 import org.diningdevelopers.entity.Event_;
 
 public class EventDao {
@@ -15,31 +15,31 @@ public class EventDao {
 	@PersistenceContext
 	private EntityManager entityManager;
 
-	public void save(Event voting) {
+	public void save(EventEntity voting) {
 		entityManager.persist(voting);
 	}
 
-	public Event findVotingForDate(Date date) {
-		CriteriaHelper<Event> helper = new CriteriaHelper<>(entityManager, Event.class);
+	public EventEntity findVotingForDate(Date date) {
+		CriteriaHelper<EventEntity> helper = new CriteriaHelper<>(entityManager, EventEntity.class);
 		helper.addGreaterThanOrEqualTo(Event_.date, date);
 		helper.addOrder(Event_.date, false);
 		helper.setMaxResults(1);
 		return helper.getSingleResultOrNull();
 	}
 
-	public Event findLatestVoting() {
-		CriteriaHelper<Event> helper = new CriteriaHelper<>(entityManager, Event.class);
+	public EventEntity findLatestVoting() {
+		CriteriaHelper<EventEntity> helper = new CriteriaHelper<>(entityManager, EventEntity.class);
 		helper.addOrder(Event_.date, false);
 		helper.setMaxResults(1);
 		return helper.getSingleResultOrNull();
 	}
 
 	public Date findLatestActiveVoting() {
-		CriteriaHelper<Event> helper = new CriteriaHelper<>(entityManager, Event.class);
+		CriteriaHelper<EventEntity> helper = new CriteriaHelper<>(entityManager, EventEntity.class);
 		helper.addOrder(Event_.date, false);
-		helper.addEqual(Event_.state, VotingState.Open);
+		helper.addEqual(Event_.state, VotingStateEntity.Open);
 		helper.setMaxResults(1);
-		Event voting = helper.getSingleResultOrNull();
+		EventEntity voting = helper.getSingleResultOrNull();
 		return voting == null ? new Date() : voting.getDate();
 
 	}

@@ -7,7 +7,7 @@ import javax.inject.Inject;
 
 import org.diningdevelopers.core.business.persistence.UserPersistence;
 import org.diningdevelopers.core.database.dao.UserDao;
-import org.diningdevelopers.core.database.entities.User;
+import org.diningdevelopers.core.database.entities.UserEntity;
 
 @Stateless
 public class UserGateway implements UserPersistence {
@@ -16,22 +16,22 @@ public class UserGateway implements UserPersistence {
 	private UserDao userDao;
 	
 	@Override
-	public List<User> findAll() {
+	public List<UserEntity> findAll() {
 		return userDao.findAll();
 	}
 
 	@Override
-	public User findByUsername(String username) {
+	public UserEntity findByUsername(String username) {
 		return userDao.findByUsername(username);
 	}
 
 	@Override
-	public User findById(Long id) {
+	public UserEntity findById(Long id) {
 		return userDao.findById(id);
 	}
 
 	@Override
-	public void persist(User user) {
+	public void persist(UserEntity user) {
 		userDao.persist(user);
 	}
 

@@ -15,7 +15,7 @@ import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(name = "votes", uniqueConstraints = @UniqueConstraint(columnNames = { "developer_id", "location_id" }))
-public class Vote {
+public class VoteEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,15 +23,15 @@ public class Vote {
 
 	@ManyToOne(optional = false)
 	@JoinColumn(name="location_id")
-	private Location location;
+	private LocationEntity location;
 
 	@ManyToOne(optional=false)
 	@JoinColumn(name="event_id")
-	private Event event;
+	private EventEntity event;
 
 	@ManyToOne(optional = false)
 	@JoinColumn(name="developer_id")
-	private User developer;
+	private UserEntity developer;
 
 	@Column(nullable = false)
 	private Integer vote;
@@ -42,11 +42,11 @@ public class Vote {
 	public Date getDate() {
 		return date;
 	}
-	public User getDeveloper() {
+	public UserEntity getDeveloper() {
 		return developer;
 	}
 
-	public Event getEvent() {
+	public EventEntity getEvent() {
 		return event;
 	}
 
@@ -54,7 +54,7 @@ public class Vote {
 		return id;
 	}
 
-	public Location getLocation() {
+	public LocationEntity getLocation() {
 		return location;
 	}
 
@@ -66,11 +66,11 @@ public class Vote {
 		this.date = date;
 	}
 
-	public void setDeveloper(User developer) {
+	public void setDeveloper(UserEntity developer) {
 		this.developer = developer;
 	}
 
-	public void setEvent(Event event) {
+	public void setEvent(EventEntity event) {
 		this.event = event;
 	}
 
@@ -78,7 +78,7 @@ public class Vote {
 		this.id = id;
 	}
 
-	public void setLocation(Location location) {
+	public void setLocation(LocationEntity location) {
 		this.location = location;
 	}
 

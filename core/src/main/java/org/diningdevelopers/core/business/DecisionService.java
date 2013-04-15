@@ -12,17 +12,18 @@ import javax.inject.Inject;
 
 import org.diningdevelopers.core.business.external.RandomOrgNumberGeneratorService;
 import org.diningdevelopers.core.business.helper.TransactionHelper;
+import org.diningdevelopers.core.business.model.Event;
 import org.diningdevelopers.core.business.persistence.EventPersistence;
 import org.diningdevelopers.core.business.persistence.UserPersistence;
 import org.diningdevelopers.core.business.persistence.VotingPersistence;
-import org.diningdevelopers.core.database.entities.Event;
-import org.diningdevelopers.core.database.entities.Location;
-import org.diningdevelopers.core.database.entities.User;
-import org.diningdevelopers.core.database.entities.Vote;
-import org.diningdevelopers.model.DecisionModel;
-import org.diningdevelopers.model.DecisionTable;
-import org.diningdevelopers.model.ResultModel;
-import org.diningdevelopers.model.UserModel;
+import org.diningdevelopers.core.database.entities.EventEntity;
+import org.diningdevelopers.core.database.entities.LocationEntity;
+import org.diningdevelopers.core.database.entities.UserEntity;
+import org.diningdevelopers.core.database.entities.VoteEntity;
+import org.diningdevelopers.core.frontend.model.DecisionModel;
+import org.diningdevelopers.core.frontend.model.DecisionTable;
+import org.diningdevelopers.core.frontend.model.ResultModel;
+import org.diningdevelopers.core.frontend.model.UserModel;
 
 @Stateless
 public class DecisionService {
@@ -51,10 +52,10 @@ public class DecisionService {
 	public DecisionTable buildDecisionTable(Date date) {
 		DecisionTable decisionTable = new DecisionTable();
 
-		List<User> developers = userPersistence.findAll();
+		List<UserEntity> developers = userPersistence.findAll();
 		Map<Long, DecisionModel> decisions = new HashMap<>();
 
-		for (User d : developers) {
+		for (UserEntity d : developers) {
 			insertDeveloperPreferences(decisionTable.getDevelopers(), decisions, d);
 		}
 
@@ -85,7 +86,7 @@ public class DecisionService {
 		}
 	}
 
-	private DecisionModel getDecicionModel(Map<Long, DecisionModel> decisions, Location location) {
+	private DecisionModel getDecicionModel(Map<Long, DecisionModel> decisions, LocationEntity location) {
 		Long locationId = location.getId();
 
 		DecisionModel decisionModel = decisions.get(locationId);
@@ -120,13 +121,13 @@ public class DecisionService {
 		return result;
 	}
 
-	private void insertDeveloperPreferences(List<UserModel> developerModels, Map<Long, DecisionModel> decisions, User d) {
+	private void insertDeveloperPreferences(List<UserModel> developerModels, Map<Long, DecisionModel> decisions, UserEntity d) {
 		UserModel developerModel = mappingService.map(d, UserModel.class);
 
-		List<Vote> votes = votingPersistence.findLatestVotes(d);
+		List<VoteEntity> votes = votingPersistence.findLatestVotes(d);
 		boolean hasVotes = false;
 
-		for (Vote v : votes) {
+		for (VoteEntity v : votes) {
 			if ((v.getVote() != null) && (v.getVote().intValue() != 0)) {
 				DecisionModel decisionModel = getDecicionModel(decisions, v.getLocation());
 

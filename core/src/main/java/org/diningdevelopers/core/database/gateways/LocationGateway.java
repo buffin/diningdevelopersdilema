@@ -7,7 +7,7 @@ import javax.inject.Inject;
 
 import org.diningdevelopers.core.business.persistence.LocationPersistence;
 import org.diningdevelopers.core.database.dao.LocationDao;
-import org.diningdevelopers.core.database.entities.Location;
+import org.diningdevelopers.core.database.entities.LocationEntity;
 
 @Stateless
 public class LocationGateway implements LocationPersistence {
@@ -16,12 +16,12 @@ public class LocationGateway implements LocationPersistence {
 	private LocationDao locationDao;
 	
 	@Override
-	public List<Location> findActive() {
+	public List<LocationEntity> findActive() {
 		return locationDao.findActive();
 	}
 
 	@Override
-	public Location findById(Long locationId) {
+	public LocationEntity findById(Long locationId) {
 		return locationDao.findById(locationId);
 	}
 

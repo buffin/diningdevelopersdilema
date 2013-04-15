@@ -7,11 +7,11 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import org.diningdevelopers.core.business.MappingService;
+import org.diningdevelopers.core.business.model.Audit;
 import org.diningdevelopers.core.business.persistence.AuditPersistence;
 import org.diningdevelopers.core.database.dao.AuditDao;
 import org.diningdevelopers.core.database.dao.EventDao;
-import org.diningdevelopers.core.database.entities.Audit;
-import org.diningdevelopers.model.AuditModel;
+import org.diningdevelopers.core.database.entities.AuditEntity;
 
 @Stateless
 public class AuditGateway implements AuditPersistence {
@@ -27,7 +27,7 @@ public class AuditGateway implements AuditPersistence {
 
 	@Override
 	public void createAudit(String username, String message) {
-		Audit audit = new Audit();
+		AuditEntity audit = new AuditEntity();
 		audit.setDate(new Date());
 		audit.setMessage(message);
 		audit.setUsername(username);
@@ -36,11 +36,11 @@ public class AuditGateway implements AuditPersistence {
 
 
 	@Override
-	public List<AuditModel> findLatest(int maxResult) {
+	public List<Audit> findLatest(int maxResult) {
 		Date filterDate = eventDao.findLatestActiveVoting();
-		List<Audit> audits = auditDao.findLatest(maxResult, filterDate);
+		List<AuditEntity> audits = auditDao.findLatest(maxResult, filterDate);
 
-		return mappingService.mapCollection(audits, AuditModel.class);
+		return mappingService.mapCollection(audits, Audit.class);
 	}
 
 }

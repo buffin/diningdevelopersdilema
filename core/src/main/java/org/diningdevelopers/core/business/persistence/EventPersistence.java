@@ -2,7 +2,7 @@ package org.diningdevelopers.core.business.persistence;
 
 import java.util.Date;
 
-import org.diningdevelopers.core.database.entities.Event;
+import org.diningdevelopers.core.business.model.Event;
 
 public interface EventPersistence {
 

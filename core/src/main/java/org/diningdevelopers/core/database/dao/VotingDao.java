@@ -9,9 +9,9 @@ import javax.persistence.Query;
 
 import org.diningdevelopers.core.database.dao.helper.CriteriaHelper;
 import org.diningdevelopers.core.database.dao.helper.VotingCriteria;
-import org.diningdevelopers.core.database.entities.Location;
-import org.diningdevelopers.core.database.entities.User;
-import org.diningdevelopers.core.database.entities.Vote;
+import org.diningdevelopers.core.database.entities.LocationEntity;
+import org.diningdevelopers.core.database.entities.UserEntity;
+import org.diningdevelopers.core.database.entities.VoteEntity;
 import org.diningdevelopers.entity.Vote_;
 
 @Named
@@ -20,8 +20,8 @@ public class VotingDao {
 	@PersistenceContext
 	private EntityManager entityManager;
 
-	public List<Vote> findLatestByCriteria(VotingCriteria criteria) {
-		CriteriaHelper<Vote> helper = new CriteriaHelper<>(entityManager, Vote.class);
+	public List<VoteEntity> findLatestByCriteria(VotingCriteria criteria) {
+		CriteriaHelper<VoteEntity> helper = new CriteriaHelper<>(entityManager, VoteEntity.class);
 
 		if (criteria.getDeveloper() != null) {
 			helper.addEqual(Vote_.developer, criteria.getDeveloper());
@@ -36,8 +36,8 @@ public class VotingDao {
 		return helper.getResultList();
 	}
 
-	public Vote findLatestVote(User d, Location l) {
-		CriteriaHelper<Vote> helper = new CriteriaHelper<>(entityManager, Vote.class);
+	public VoteEntity findLatestVote(UserEntity d, LocationEntity l) {
+		CriteriaHelper<VoteEntity> helper = new CriteriaHelper<>(entityManager, VoteEntity.class);
 		helper.addEqual(Vote_.developer, d);
 		helper.addEqual(Vote_.location, l);
 		helper.setCacheable(true);
@@ -49,7 +49,7 @@ public class VotingDao {
 		return helper.getSingleResultOrNull();
 	}
 
-	public List<Vote> findLatestVotes(User developer) {
+	public List<VoteEntity> findLatestVotes(UserEntity developer) {
 		VotingCriteria votingCriteria = new VotingCriteria();
 		votingCriteria.setDeveloper(developer);
 
@@ -61,7 +61,7 @@ public class VotingDao {
 		entityManager.createQuery(queryString).executeUpdate();
 	}
 
-	public void removeVotes(User developer) {
+	public void removeVotes(UserEntity developer) {
 		String queryString = "delete from Vote v where v.developer = :d";
 
 		Query query = entityManager.createQuery(queryString);
@@ -70,7 +70,7 @@ public class VotingDao {
 		query.executeUpdate();
 	}
 
-	public void save(Vote vote) {
+	public void save(VoteEntity vote) {
 		entityManager.persist(vote);
 	}
 

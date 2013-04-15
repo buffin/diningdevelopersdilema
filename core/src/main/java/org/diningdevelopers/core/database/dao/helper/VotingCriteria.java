@@ -1,26 +1,26 @@
 package org.diningdevelopers.core.database.dao.helper;
 
-import org.diningdevelopers.core.database.entities.Location;
-import org.diningdevelopers.core.database.entities.User;
+import org.diningdevelopers.core.database.entities.LocationEntity;
+import org.diningdevelopers.core.database.entities.UserEntity;
 
 public class VotingCriteria {
 
-	private User developer;
-	private Location location;
+	private UserEntity developer;
+	private LocationEntity location;
 
-	public User getDeveloper() {
+	public UserEntity getDeveloper() {
 		return developer;
 	}
 
-	public Location getLocation() {
+	public LocationEntity getLocation() {
 		return location;
 	}
 
-	public void setDeveloper(User developer) {
+	public void setDeveloper(UserEntity developer) {
 		this.developer = developer;
 	}
 
-	public void setLocation(Location location) {
+	public void setLocation(LocationEntity location) {
 		this.location = location;
 	}
 }

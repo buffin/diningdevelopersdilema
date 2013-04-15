@@ -10,7 +10,7 @@ import javax.inject.Named;
 
 import org.diningdevelopers.core.business.EventService;
 import org.diningdevelopers.core.business.VoteService;
-import org.diningdevelopers.model.VoteModel;
+import org.diningdevelopers.core.frontend.model.VoteModel;
 import org.diningdevelopers.utils.Authentication;
 import org.diningdevelopers.utils.FacesUtils;
 import org.slf4j.Logger;

@@ -7,7 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.diningdevelopers.core.database.dao.helper.CriteriaHelper;
-import org.diningdevelopers.core.database.entities.Location;
+import org.diningdevelopers.core.database.entities.LocationEntity;
 import org.diningdevelopers.entity.Location_;
 
 @Named
@@ -16,8 +16,8 @@ public class LocationDao {
 	@PersistenceContext
 	private EntityManager entityManager;
 
-	public List<Location> findActive() {
-		CriteriaHelper<Location> helper = new CriteriaHelper<>(entityManager, Location.class);
+	public List<LocationEntity> findActive() {
+		CriteriaHelper<LocationEntity> helper = new CriteriaHelper<>(entityManager, LocationEntity.class);
 
 		helper.addOrder(Location_.name, true);
 		helper.setCacheable(true);
@@ -25,7 +25,7 @@ public class LocationDao {
 		return helper.getResultList();
 	}
 
-	public Location findById(Long id) {
-		return entityManager.find(Location.class, id);
+	public LocationEntity findById(Long id) {
+		return entityManager.find(LocationEntity.class, id);
 	}
 }

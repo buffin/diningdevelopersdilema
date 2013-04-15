@@ -13,7 +13,7 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import org.diningdevelopers.model.SimpleMail;
+import org.diningdevelopers.core.frontend.model.SimpleMail;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

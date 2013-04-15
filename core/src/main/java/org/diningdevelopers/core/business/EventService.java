@@ -7,10 +7,10 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import org.diningdevelopers.core.business.helper.TransactionHelper;
+import org.diningdevelopers.core.business.model.Event;
+import org.diningdevelopers.core.business.model.VotingState;
 import org.diningdevelopers.core.business.persistence.EventPersistence;
 import org.diningdevelopers.core.business.persistence.VotingPersistence;
-import org.diningdevelopers.core.database.entities.Event;
-import org.diningdevelopers.core.database.entities.VotingState;
 import org.diningdevelopers.utils.DateHelper;
 
 @Stateless

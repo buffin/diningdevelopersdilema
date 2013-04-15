@@ -8,7 +8,7 @@ import javax.persistence.PersistenceContext;
 
 import org.diningdevelopers.core.database.dao.helper.CriteriaHelper;
 import org.diningdevelopers.core.database.dao.helper.JpaUtils;
-import org.diningdevelopers.core.database.entities.User;
+import org.diningdevelopers.core.database.entities.UserEntity;
 import org.diningdevelopers.entity.User_;
 
 @Named
@@ -17,23 +17,23 @@ public class UserDao {
 	@PersistenceContext
 	private EntityManager entityManager;
 
-	public List<User> findAll() {
-		return JpaUtils.findAll(entityManager, User.class);
+	public List<UserEntity> findAll() {
+		return JpaUtils.findAll(entityManager, UserEntity.class);
 	}
 
-	public User findById(Long id) {
-		return entityManager.find(User.class, id);
+	public UserEntity findById(Long id) {
+		return entityManager.find(UserEntity.class, id);
 	}
 
-	public User findByUsername(String username) {
-		CriteriaHelper<User> helper = new CriteriaHelper<>(entityManager, User.class);
+	public UserEntity findByUsername(String username) {
+		CriteriaHelper<UserEntity> helper = new CriteriaHelper<>(entityManager, UserEntity.class);
 
 		helper.addEqual(User_.username, username);
 
 		return helper.getSingleResultOrNull();
 	}	
 
-	public void persist(User developer) {
+	public void persist(UserEntity developer) {
 		entityManager.persist(developer);
 	}
 

@@ -1,7 +1,8 @@
-package org.diningdevelopers.model;
+package org.diningdevelopers.core.frontend.model;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class DecisionTable {
 

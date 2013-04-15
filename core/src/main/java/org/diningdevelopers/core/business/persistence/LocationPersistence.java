@@ -2,12 +2,12 @@ package org.diningdevelopers.core.business.persistence;
 
 import java.util.List;
 
-import org.diningdevelopers.core.database.entities.Location;
+import org.diningdevelopers.core.database.entities.LocationEntity;
 
 public interface LocationPersistence {
 
-	List<Location> findActive();
+	List<LocationEntity> findActive();
 
-	Location findById(Long locationId);
+	LocationEntity findById(Long locationId);
 
 }

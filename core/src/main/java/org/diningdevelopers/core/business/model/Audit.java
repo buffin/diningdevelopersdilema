@@ -1,8 +1,8 @@
-package org.diningdevelopers.model;
+package org.diningdevelopers.core.business.model;
 
 import java.util.Date;
 
-public class AuditModel {
+public class Audit {
 
 	private Date date;
 	private String username;

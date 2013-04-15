@@ -14,7 +14,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "events")
-public class Event {
+public class EventEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,15 +25,15 @@ public class Event {
 
 	@Column(name = "state", nullable = false)
 	@Enumerated(EnumType.STRING)
-	private VotingState state = VotingState.Open;
+	private VotingStateEntity state = VotingStateEntity.Open;
 
 	@Column(name = "result")
 	private Integer result;
 
-	public Event() {
+	public EventEntity() {
 	}
 
-	public Event(Date date, VotingState state) {
+	public EventEntity(Date date, VotingStateEntity state) {
 		this.date = date;
 		this.state = state;
 	}
@@ -54,11 +54,11 @@ public class Event {
 		this.date = date;
 	}
 
-	public VotingState getState() {
+	public VotingStateEntity getState() {
 		return state;
 	}
 
-	public void setState(VotingState state) {
+	public void setState(VotingStateEntity state) {
 		this.state = state;
 	}
 

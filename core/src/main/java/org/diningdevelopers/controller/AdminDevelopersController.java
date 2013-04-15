@@ -8,7 +8,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.diningdevelopers.core.business.UserService;
-import org.diningdevelopers.model.UserModel;
+import org.diningdevelopers.core.frontend.model.UserModel;
 
 @Named
 @SessionScoped

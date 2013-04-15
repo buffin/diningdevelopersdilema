@@ -1,4 +1,4 @@
-package org.diningdevelopers.model;
+package org.diningdevelopers.core.frontend.model;
 
 import java.util.Date;
 

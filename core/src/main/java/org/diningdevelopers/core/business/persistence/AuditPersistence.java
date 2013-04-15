@@ -2,12 +2,12 @@ package org.diningdevelopers.core.business.persistence;
 
 import java.util.List;
 
-import org.diningdevelopers.model.AuditModel;
+import org.diningdevelopers.core.business.model.Audit;
 
 public interface AuditPersistence {
 
 	void createAudit(String username, String message);
 
-	List<AuditModel> findLatest(int maxResult);
+	List<Audit> findLatest(int maxResult);
 
 }

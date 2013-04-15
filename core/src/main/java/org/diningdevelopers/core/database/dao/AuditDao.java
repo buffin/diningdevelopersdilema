@@ -8,7 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.diningdevelopers.core.database.dao.helper.CriteriaHelper;
-import org.diningdevelopers.core.database.entities.Audit;
+import org.diningdevelopers.core.database.entities.AuditEntity;
 import org.diningdevelopers.entity.Audit_;
 
 @Named
@@ -17,8 +17,8 @@ public class AuditDao {
 	@PersistenceContext
 	private EntityManager entityManager;
 
-	public List<Audit> findLatest(int maxResult, Date filterDate) {
-		CriteriaHelper<Audit> helper = new CriteriaHelper<>(entityManager, Audit.class);
+	public List<AuditEntity> findLatest(int maxResult, Date filterDate) {
+		CriteriaHelper<AuditEntity> helper = new CriteriaHelper<>(entityManager, AuditEntity.class);
 
 		if (maxResult > 0) {
 			helper.setMaxResults(maxResult);
@@ -30,7 +30,7 @@ public class AuditDao {
 		return helper.getResultList();
 	}
 
-	public void save(Audit audit) {
+	public void save(AuditEntity audit) {
 		entityManager.persist(audit);
 	}
 }
