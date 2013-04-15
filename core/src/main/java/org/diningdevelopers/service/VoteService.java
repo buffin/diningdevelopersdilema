@@ -10,13 +10,13 @@ import javax.inject.Inject;
 import org.apache.commons.lang3.StringUtils;
 import org.diningdevelopers.core.business.persistence.AuditPersistence;
 import org.diningdevelopers.core.business.persistence.EventPersistence;
-import org.diningdevelopers.core.database.dao.VotingDao;
+import org.diningdevelopers.core.business.persistence.LocationPersistence;
+import org.diningdevelopers.core.business.persistence.UserPersistence;
+import org.diningdevelopers.core.business.persistence.VotingPersistence;
 import org.diningdevelopers.core.database.entities.Event;
-import org.diningdevelopers.dao.LocationDao;
-import org.diningdevelopers.dao.UserDao;
-import org.diningdevelopers.entity.Location;
-import org.diningdevelopers.entity.User;
-import org.diningdevelopers.entity.Vote;
+import org.diningdevelopers.core.database.entities.Location;
+import org.diningdevelopers.core.database.entities.User;
+import org.diningdevelopers.core.database.entities.Vote;
 import org.diningdevelopers.model.VoteModel;
 import org.diningdevelopers.utils.CoordinatesParser;
 import org.primefaces.model.map.DefaultMapModel;
@@ -35,25 +35,25 @@ public class VoteService {
 	private AuditPersistence auditPersistence;
 
 	@Inject
-	private LocationDao locationDao;
+	private LocationPersistence locationPersistence;
 
 	@Inject
-	private VotingDao votingDao;
+	private VotingPersistence votingPersistence;
 
 	@Inject
 	private EventPersistence eventPersistence;
 
 	@Inject
-	private UserDao developerDao;
+	private UserPersistence userPersistence;
 
 	@Inject
 	private CoordinatesParser coordinatesParser;
 
 	public List<VoteModel> getVoteModel(String username) {
-		List<Location> locations = locationDao.findActive();
+		List<Location> locations = locationPersistence.findActive();
 		List<VoteModel> result = new ArrayList<>();
 
-		User developer = developerDao.findByUsername(username);
+		User developer = userPersistence.findByUsername(username);
 
 		for (Location l : locations) {
 			VoteModel model = new VoteModel();
@@ -69,7 +69,7 @@ public class VoteService {
 				model.setLocationModel(locationModel);
 			}
 
-			Vote latestVote = votingDao.findLatestVote(developer, l);
+			Vote latestVote = votingPersistence.findLatestVote(developer, l);
 			if (latestVote != null) {
 				model.setVote(latestVote.getVote());
 			}
@@ -86,12 +86,12 @@ public class VoteService {
 
 	public void removeAllVotes() {
 		logger.info("Call to removeAllVotes()");
-		votingDao.removeAllVotes();
+		votingPersistence.removeAllVotes();
 	}
 
 	public void removeVotes(String username) {
-		User developer = developerDao.findByUsername(username);
-		votingDao.removeVotes(developer);
+		User developer = userPersistence.findByUsername(username);
+		votingPersistence.removeVotes(developer);
 		String auditMessage = "%s hat sein Voting widerrufen";
 		auditPersistence.createAudit(username, String.format(auditMessage, username));
 
@@ -101,9 +101,9 @@ public class VoteService {
 		Event event = eventPersistence.findLatestVoting();
 
 		for (VoteModel model : voteModels) {
-			User developer = developerDao.findByUsername(username);
-			Location location = locationDao.findById(model.getLocationId());
-			Vote vote = votingDao.findLatestVote(developer, location);
+			User developer = userPersistence.findByUsername(username);
+			Location location = locationPersistence.findById(model.getLocationId());
+			Vote vote = votingPersistence.findLatestVote(developer, location);
 
 			Integer newVote = model.getVote();
 			if (newVote == null) {
@@ -125,7 +125,7 @@ public class VoteService {
 
 				vote.setEvent(event);
 
-				votingDao.save(vote);
+				votingPersistence.save(vote);
 			} else {
 				Integer oldVote = vote.getVote();
 				if (oldVote.equals(newVote) == false) {

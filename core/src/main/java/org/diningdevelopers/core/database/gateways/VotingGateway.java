@@ -7,9 +7,9 @@ import javax.inject.Inject;
 
 import org.diningdevelopers.core.business.persistence.VotingPersistence;
 import org.diningdevelopers.core.database.dao.VotingDao;
-import org.diningdevelopers.entity.Location;
-import org.diningdevelopers.entity.User;
-import org.diningdevelopers.entity.Vote;
+import org.diningdevelopers.core.database.entities.Location;
+import org.diningdevelopers.core.database.entities.User;
+import org.diningdevelopers.core.database.entities.Vote;
 
 @Stateless
 public class VotingGateway implements VotingPersistence {

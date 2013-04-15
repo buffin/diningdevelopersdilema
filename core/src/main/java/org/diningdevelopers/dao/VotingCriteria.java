@@ -1,7 +1,7 @@
 package org.diningdevelopers.dao;
 
-import org.diningdevelopers.entity.User;
-import org.diningdevelopers.entity.Location;
+import org.diningdevelopers.core.database.entities.Location;
+import org.diningdevelopers.core.database.entities.User;
 
 public class VotingCriteria {
 

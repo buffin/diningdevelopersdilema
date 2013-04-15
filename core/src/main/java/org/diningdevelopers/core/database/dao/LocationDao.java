@@ -1,4 +1,4 @@
-package org.diningdevelopers.dao;
+package org.diningdevelopers.core.database.dao;
 
 import java.util.List;
 
@@ -6,7 +6,8 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.diningdevelopers.entity.Location;
+import org.diningdevelopers.core.database.entities.Location;
+import org.diningdevelopers.dao.CriteriaHelper;
 import org.diningdevelopers.entity.Location_;
 
 @Named

@@ -6,44 +6,44 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import org.apache.commons.codec.digest.DigestUtils;
-import org.diningdevelopers.dao.UserDao;
-import org.diningdevelopers.entity.User;
+import org.diningdevelopers.core.business.persistence.UserPersistence;
+import org.diningdevelopers.core.database.entities.User;
 import org.diningdevelopers.model.UserModel;
 
 @Stateless
 public class UserService {
 
 	@Inject
-	private UserDao userDao;
+	private UserPersistence userPersistence;
 
 	@Inject
 	private MappingService mappingService;
 
 	public List<UserModel> findAll() {
-		List<User> users = userDao.findAll();
+		List<User> users = userPersistence.findAll();
 
 		return mappingService.mapCollection(users, UserModel.class);
 	}
 
 	public UserModel findByUsername(String username) {
-		User user = userDao.findByUsername(username);
+		User user = userPersistence.findByUsername(username);
 		return mappingService.map(user, UserModel.class);
 	}
 
 	public void save(UserModel model) {
 		if (model.getId() != null) {
-			User user = userDao.findById(model.getId());
+			User user = userPersistence.findById(model.getId());
 			mappingService.map(model, user);
 		} else {
 			User user = new User();
 			mappingService.map(model, user);
 			user.setUsername(model.getUsername());
-			userDao.persist(user);
+			userPersistence.persist(user);
 		}
 	}
 
 	public void changePassword(String username, String password) {
-		User user = userDao.findByUsername(username);
+		User user = userPersistence.findByUsername(username);
 
 		if (user != null) {
 			String passwordSha = DigestUtils.shaHex(password);
@@ -52,7 +52,7 @@ public class UserService {
 	}
 
 	public String getMailAddress(String username) {
-		User user = userDao.findByUsername(username);
+		User user = userPersistence.findByUsername(username);
 
 		if (user != null) {
 			return user.getEmail();
@@ -62,7 +62,7 @@ public class UserService {
 	}
 
 	public void updateMailAddress(String username, String email) {
-		User user = userDao.findByUsername(username);
+		User user = userPersistence.findByUsername(username);
 
 		if (user != null) {
 			user.setEmail(email);

@@ -1,4 +1,4 @@
-package org.diningdevelopers.entity;
+package org.diningdevelopers.core.database.entities;
 
 import java.util.Date;
 
@@ -12,7 +12,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import org.diningdevelopers.core.database.entities.Event;
 
 @Entity
 @Table(name = "votes", uniqueConstraints = @UniqueConstraint(columnNames = { "developer_id", "location_id" }))

@@ -2,9 +2,9 @@ package org.diningdevelopers.core.business.persistence;
 
 import java.util.List;
 
-import org.diningdevelopers.entity.Location;
-import org.diningdevelopers.entity.User;
-import org.diningdevelopers.entity.Vote;
+import org.diningdevelopers.core.database.entities.Location;
+import org.diningdevelopers.core.database.entities.User;
+import org.diningdevelopers.core.database.entities.Vote;
 
 public interface VotingPersistence {
 

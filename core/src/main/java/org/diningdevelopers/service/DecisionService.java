@@ -11,13 +11,13 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import org.diningdevelopers.core.business.persistence.EventPersistence;
+import org.diningdevelopers.core.business.persistence.UserPersistence;
 import org.diningdevelopers.core.business.persistence.VotingPersistence;
 import org.diningdevelopers.core.database.entities.Event;
+import org.diningdevelopers.core.database.entities.Location;
+import org.diningdevelopers.core.database.entities.User;
+import org.diningdevelopers.core.database.entities.Vote;
 import org.diningdevelopers.dao.TransactionHelper;
-import org.diningdevelopers.dao.UserDao;
-import org.diningdevelopers.entity.Location;
-import org.diningdevelopers.entity.User;
-import org.diningdevelopers.entity.Vote;
 import org.diningdevelopers.model.DecisionModel;
 import org.diningdevelopers.model.DecisionTable;
 import org.diningdevelopers.model.ResultModel;
@@ -28,7 +28,7 @@ import org.diningdevelopers.service.external.RandomOrgNumberGeneratorService;
 public class DecisionService {
 
 	@Inject
-	private UserDao developerDao;
+	private UserPersistence userPersistence;
 
 	@Inject
 	private MappingService mappingService;
@@ -51,7 +51,7 @@ public class DecisionService {
 	public DecisionTable buildDecisionTable(Date date) {
 		DecisionTable decisionTable = new DecisionTable();
 
-		List<User> developers = developerDao.findAll();
+		List<User> developers = userPersistence.findAll();
 		Map<Long, DecisionModel> decisions = new HashMap<>();
 
 		for (User d : developers) {

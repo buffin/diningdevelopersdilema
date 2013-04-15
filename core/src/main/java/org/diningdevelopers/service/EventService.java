@@ -7,7 +7,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import org.diningdevelopers.core.business.persistence.EventPersistence;
-import org.diningdevelopers.core.database.dao.VotingDao;
+import org.diningdevelopers.core.business.persistence.VotingPersistence;
 import org.diningdevelopers.core.database.entities.Event;
 import org.diningdevelopers.dao.TransactionHelper;
 import org.diningdevelopers.entity.VotingState;
@@ -20,7 +20,7 @@ public class EventService {
 	private DateHelper dateHelper;
 
 	@Inject
-	private VotingDao votingDao;
+	private VotingPersistence votingPersistence;
 	
 	@Inject
 	private EventPersistence eventPersistence;
@@ -64,7 +64,7 @@ public class EventService {
 		Event voting = new Event(Calendar.getInstance().getTime(), VotingState.Open);
 		eventPersistence.save(voting);
 
-		votingDao.removeAllVotes();
+		votingPersistence.removeAllVotes();
 	}
 
 	public void closeVoting() {
