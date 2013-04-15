@@ -9,11 +9,11 @@ import javax.inject.Inject;
 
 import org.apache.commons.lang3.StringUtils;
 import org.diningdevelopers.core.business.persistence.AuditPersistence;
-import org.diningdevelopers.dao.EventDao;
+import org.diningdevelopers.core.database.dao.EventDao;
+import org.diningdevelopers.core.database.entities.Event;
 import org.diningdevelopers.dao.LocationDao;
 import org.diningdevelopers.dao.UserDao;
 import org.diningdevelopers.dao.VotingDao;
-import org.diningdevelopers.entity.Event;
 import org.diningdevelopers.entity.Location;
 import org.diningdevelopers.entity.User;
 import org.diningdevelopers.entity.Vote;

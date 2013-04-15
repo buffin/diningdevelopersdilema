@@ -6,10 +6,10 @@ import java.util.Date;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
-import org.diningdevelopers.dao.EventDao;
+import org.diningdevelopers.core.database.dao.EventDao;
+import org.diningdevelopers.core.database.entities.Event;
 import org.diningdevelopers.dao.TransactionHelper;
 import org.diningdevelopers.dao.VotingDao;
-import org.diningdevelopers.entity.Event;
 import org.diningdevelopers.entity.VotingState;
 import org.diningdevelopers.utils.DateHelper;
 

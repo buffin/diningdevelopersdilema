@@ -8,7 +8,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import org.apache.commons.lang3.StringUtils;
-import org.diningdevelopers.entity.Event;
+import org.diningdevelopers.core.database.entities.Event;
 import org.diningdevelopers.model.DecisionTable;
 import org.diningdevelopers.model.ResultModel;
 import org.diningdevelopers.model.SimpleMail;

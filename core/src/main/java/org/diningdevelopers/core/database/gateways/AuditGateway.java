@@ -8,13 +8,13 @@ import javax.inject.Inject;
 
 import org.diningdevelopers.core.business.persistence.AuditPersistence;
 import org.diningdevelopers.core.database.dao.AuditDao;
+import org.diningdevelopers.core.database.dao.EventDao;
 import org.diningdevelopers.core.database.entities.Audit;
-import org.diningdevelopers.dao.EventDao;
 import org.diningdevelopers.model.AuditModel;
 import org.diningdevelopers.service.MappingService;
 
 @Stateless
-public class AuditService implements AuditPersistence {
+public class AuditGateway implements AuditPersistence {
 
 	@Inject
 	private AuditDao auditDao;

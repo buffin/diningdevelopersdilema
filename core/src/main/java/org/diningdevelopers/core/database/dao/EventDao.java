@@ -1,11 +1,12 @@
-package org.diningdevelopers.dao;
+package org.diningdevelopers.core.database.dao;
 
 import java.util.Date;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.diningdevelopers.entity.Event;
+import org.diningdevelopers.core.database.entities.Event;
+import org.diningdevelopers.dao.CriteriaHelper;
 import org.diningdevelopers.entity.Event_;
 import org.diningdevelopers.entity.VotingState;
 

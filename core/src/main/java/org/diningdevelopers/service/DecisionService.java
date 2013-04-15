@@ -10,11 +10,11 @@ import java.util.Map;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
-import org.diningdevelopers.dao.EventDao;
+import org.diningdevelopers.core.database.dao.EventDao;
+import org.diningdevelopers.core.database.entities.Event;
 import org.diningdevelopers.dao.TransactionHelper;
 import org.diningdevelopers.dao.UserDao;
 import org.diningdevelopers.dao.VotingDao;
-import org.diningdevelopers.entity.Event;
 import org.diningdevelopers.entity.Location;
 import org.diningdevelopers.entity.User;
 import org.diningdevelopers.entity.Vote;
