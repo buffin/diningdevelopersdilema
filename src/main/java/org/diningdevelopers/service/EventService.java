@@ -42,6 +42,10 @@ public class EventService {
 
 	public String getLatestEventState() {
 		Event event = eventDao.findLatestVoting();
+		
+		if (event == null) {
+			return "noch keine events";
+		}
 
 		VotingState state = event.getState();
 
@@ -95,7 +99,7 @@ public class EventService {
 	public boolean isLatestEventClosed() {
 		Event event = eventDao.findLatestVoting();
 
-		if (event.getState() == VotingState.Closed) {
+		if ((event != null) && (event.getState() == VotingState.Closed)) {
 			return true;
 		} else {
 			return false;
