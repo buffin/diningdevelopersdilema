@@ -1,4 +1,4 @@
-package org.diningdevelopers.dao;
+package org.diningdevelopers.core.database.dao.helper;
 
 import java.util.Collection;
 import java.util.List;
@@ -11,6 +11,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
+
 
 public class JpaUtils {
 

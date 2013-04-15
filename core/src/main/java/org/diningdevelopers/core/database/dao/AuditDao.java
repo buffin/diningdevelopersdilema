@@ -7,8 +7,8 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.diningdevelopers.core.database.dao.helper.CriteriaHelper;
 import org.diningdevelopers.core.database.entities.Audit;
-import org.diningdevelopers.dao.CriteriaHelper;
 import org.diningdevelopers.entity.Audit_;
 
 @Named

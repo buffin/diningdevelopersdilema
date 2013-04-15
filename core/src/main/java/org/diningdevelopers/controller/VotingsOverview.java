@@ -7,11 +7,11 @@ import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.diningdevelopers.core.business.DecisionService;
+import org.diningdevelopers.core.business.EventService;
 import org.diningdevelopers.model.DecisionModel;
 import org.diningdevelopers.model.DecisionTable;
 import org.diningdevelopers.model.ResultModel;
-import org.diningdevelopers.service.DecisionService;
-import org.diningdevelopers.service.EventService;
 import org.diningdevelopers.utils.FacesUtils;
 import org.primefaces.model.chart.PieChartModel;
 

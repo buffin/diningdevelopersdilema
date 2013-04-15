@@ -6,8 +6,8 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.diningdevelopers.core.database.dao.helper.CriteriaHelper;
 import org.diningdevelopers.core.database.entities.Location;
-import org.diningdevelopers.dao.CriteriaHelper;
 import org.diningdevelopers.entity.Location_;
 
 @Named

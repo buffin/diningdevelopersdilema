@@ -6,12 +6,12 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
+import org.diningdevelopers.core.business.MappingService;
 import org.diningdevelopers.core.business.persistence.AuditPersistence;
 import org.diningdevelopers.core.database.dao.AuditDao;
 import org.diningdevelopers.core.database.dao.EventDao;
 import org.diningdevelopers.core.database.entities.Audit;
 import org.diningdevelopers.model.AuditModel;
-import org.diningdevelopers.service.MappingService;
 
 @Stateless
 public class AuditGateway implements AuditPersistence {

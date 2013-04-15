@@ -1,4 +1,4 @@
-package org.diningdevelopers.dao;
+package org.diningdevelopers.core.business.helper;
 
 import javax.inject.Named;
 import javax.persistence.EntityManager;

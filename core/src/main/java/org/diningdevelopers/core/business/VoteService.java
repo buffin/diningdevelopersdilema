@@ -1,4 +1,4 @@
-package org.diningdevelopers.service;
+package org.diningdevelopers.core.business;
 
 import java.util.ArrayList;
 import java.util.Date;

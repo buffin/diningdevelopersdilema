@@ -10,7 +10,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.commons.lang3.StringUtils;
-import org.diningdevelopers.service.UserService;
+import org.diningdevelopers.core.business.UserService;
 import org.diningdevelopers.utils.Authentication;
 import org.diningdevelopers.utils.FacesHelper;
 import org.diningdevelopers.utils.FacesUtils;

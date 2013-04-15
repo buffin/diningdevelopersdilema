@@ -9,13 +9,13 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.diningdevelopers.dao.JpaUtils;
+import org.diningdevelopers.core.business.EventService;
+import org.diningdevelopers.core.business.MailService;
+import org.diningdevelopers.core.business.UserService;
+import org.diningdevelopers.core.business.VoteService;
+import org.diningdevelopers.core.database.dao.helper.JpaUtils;
 import org.diningdevelopers.model.SimpleMail;
 import org.diningdevelopers.model.UserModel;
-import org.diningdevelopers.service.EventService;
-import org.diningdevelopers.service.MailService;
-import org.diningdevelopers.service.UserService;
-import org.diningdevelopers.service.VoteService;
 import org.diningdevelopers.utils.Authentication;
 import org.diningdevelopers.utils.FacesUtils;
 import org.slf4j.Logger;

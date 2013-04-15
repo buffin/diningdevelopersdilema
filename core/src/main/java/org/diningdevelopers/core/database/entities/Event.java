@@ -11,7 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.diningdevelopers.entity.VotingState;
 
 @Entity
 @Table(name = "events")

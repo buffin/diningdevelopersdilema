@@ -8,9 +8,9 @@ import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.diningdevelopers.core.business.EventService;
+import org.diningdevelopers.core.business.VoteService;
 import org.diningdevelopers.model.VoteModel;
-import org.diningdevelopers.service.EventService;
-import org.diningdevelopers.service.VoteService;
 import org.diningdevelopers.utils.Authentication;
 import org.diningdevelopers.utils.FacesUtils;
 import org.slf4j.Logger;

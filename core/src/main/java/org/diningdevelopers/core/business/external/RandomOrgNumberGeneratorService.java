@@ -1,4 +1,4 @@
-package org.diningdevelopers.service.external;
+package org.diningdevelopers.core.business.external;
 
 import java.io.IOException;
 import java.net.URI;

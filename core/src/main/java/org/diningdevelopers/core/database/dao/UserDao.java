@@ -6,9 +6,9 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.diningdevelopers.core.database.dao.helper.CriteriaHelper;
+import org.diningdevelopers.core.database.dao.helper.JpaUtils;
 import org.diningdevelopers.core.database.entities.User;
-import org.diningdevelopers.dao.CriteriaHelper;
-import org.diningdevelopers.dao.JpaUtils;
 import org.diningdevelopers.entity.User_;
 
 @Named

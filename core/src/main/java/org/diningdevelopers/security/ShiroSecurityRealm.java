@@ -19,8 +19,8 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.Initializable;
+import org.diningdevelopers.core.business.UserService;
 import org.diningdevelopers.model.UserModel;
-import org.diningdevelopers.service.UserService;
 
 @Stateless
 @Local(Realm.class)

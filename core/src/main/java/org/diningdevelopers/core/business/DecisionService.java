@@ -1,4 +1,4 @@
-package org.diningdevelopers.service;
+package org.diningdevelopers.core.business;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -10,6 +10,8 @@ import java.util.Map;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
+import org.diningdevelopers.core.business.external.RandomOrgNumberGeneratorService;
+import org.diningdevelopers.core.business.helper.TransactionHelper;
 import org.diningdevelopers.core.business.persistence.EventPersistence;
 import org.diningdevelopers.core.business.persistence.UserPersistence;
 import org.diningdevelopers.core.business.persistence.VotingPersistence;
@@ -17,12 +19,10 @@ import org.diningdevelopers.core.database.entities.Event;
 import org.diningdevelopers.core.database.entities.Location;
 import org.diningdevelopers.core.database.entities.User;
 import org.diningdevelopers.core.database.entities.Vote;
-import org.diningdevelopers.dao.TransactionHelper;
 import org.diningdevelopers.model.DecisionModel;
 import org.diningdevelopers.model.DecisionTable;
 import org.diningdevelopers.model.ResultModel;
 import org.diningdevelopers.model.UserModel;
-import org.diningdevelopers.service.external.RandomOrgNumberGeneratorService;
 
 @Stateless
 public class DecisionService {

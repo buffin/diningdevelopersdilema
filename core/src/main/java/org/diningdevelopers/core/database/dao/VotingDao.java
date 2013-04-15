@@ -7,11 +7,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.diningdevelopers.core.database.dao.helper.CriteriaHelper;
+import org.diningdevelopers.core.database.dao.helper.VotingCriteria;
 import org.diningdevelopers.core.database.entities.Location;
 import org.diningdevelopers.core.database.entities.User;
 import org.diningdevelopers.core.database.entities.Vote;
-import org.diningdevelopers.dao.CriteriaHelper;
-import org.diningdevelopers.dao.VotingCriteria;
 import org.diningdevelopers.entity.Vote_;
 
 @Named

@@ -1,4 +1,4 @@
-package org.diningdevelopers.dao;
+package org.diningdevelopers.core.database.dao.helper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +13,7 @@ import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.persistence.metamodel.SingularAttribute;
+
 
 public class CriteriaHelper<T> {
 

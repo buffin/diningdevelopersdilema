@@ -1,4 +1,4 @@
-package org.diningdevelopers.dao;
+package org.diningdevelopers.core.database.dao.helper;
 
 import org.diningdevelopers.core.database.entities.Location;
 import org.diningdevelopers.core.database.entities.User;

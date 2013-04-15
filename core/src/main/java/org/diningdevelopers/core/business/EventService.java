@@ -1,4 +1,4 @@
-package org.diningdevelopers.service;
+package org.diningdevelopers.core.business;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -6,11 +6,11 @@ import java.util.Date;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
+import org.diningdevelopers.core.business.helper.TransactionHelper;
 import org.diningdevelopers.core.business.persistence.EventPersistence;
 import org.diningdevelopers.core.business.persistence.VotingPersistence;
 import org.diningdevelopers.core.database.entities.Event;
-import org.diningdevelopers.dao.TransactionHelper;
-import org.diningdevelopers.entity.VotingState;
+import org.diningdevelopers.core.database.entities.VotingState;
 import org.diningdevelopers.utils.DateHelper;
 
 @Stateless
