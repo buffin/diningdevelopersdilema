@@ -1,4 +1,4 @@
-package org.diningdevelopers.dao;
+package org.diningdevelopers.core.database.dao;
 
 import java.util.List;
 
@@ -7,6 +7,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.diningdevelopers.dao.CriteriaHelper;
+import org.diningdevelopers.dao.VotingCriteria;
 import org.diningdevelopers.entity.Location;
 import org.diningdevelopers.entity.User;
 import org.diningdevelopers.entity.Vote;

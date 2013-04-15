@@ -9,11 +9,11 @@ import javax.inject.Inject;
 
 import org.apache.commons.lang3.StringUtils;
 import org.diningdevelopers.core.business.persistence.AuditPersistence;
-import org.diningdevelopers.core.database.dao.EventDao;
+import org.diningdevelopers.core.business.persistence.EventPersistence;
+import org.diningdevelopers.core.database.dao.VotingDao;
 import org.diningdevelopers.core.database.entities.Event;
 import org.diningdevelopers.dao.LocationDao;
 import org.diningdevelopers.dao.UserDao;
-import org.diningdevelopers.dao.VotingDao;
 import org.diningdevelopers.entity.Location;
 import org.diningdevelopers.entity.User;
 import org.diningdevelopers.entity.Vote;
@@ -41,7 +41,7 @@ public class VoteService {
 	private VotingDao votingDao;
 
 	@Inject
-	private EventDao eventDao;
+	private EventPersistence eventPersistence;
 
 	@Inject
 	private UserDao developerDao;
@@ -98,7 +98,7 @@ public class VoteService {
 	}
 
 	public void save(String username, List<VoteModel> voteModels) {
-		Event event = eventDao.findLatestVoting();
+		Event event = eventPersistence.findLatestVoting();
 
 		for (VoteModel model : voteModels) {
 			User developer = developerDao.findByUsername(username);

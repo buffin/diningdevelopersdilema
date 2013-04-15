@@ -10,11 +10,11 @@ import java.util.Map;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
-import org.diningdevelopers.core.database.dao.EventDao;
+import org.diningdevelopers.core.business.persistence.EventPersistence;
+import org.diningdevelopers.core.business.persistence.VotingPersistence;
 import org.diningdevelopers.core.database.entities.Event;
 import org.diningdevelopers.dao.TransactionHelper;
 import org.diningdevelopers.dao.UserDao;
-import org.diningdevelopers.dao.VotingDao;
 import org.diningdevelopers.entity.Location;
 import org.diningdevelopers.entity.User;
 import org.diningdevelopers.entity.Vote;
@@ -34,10 +34,10 @@ public class DecisionService {
 	private MappingService mappingService;
 
 	@Inject
-	private VotingDao votingDao;
+	private VotingPersistence votingPersistence;
 
 	@Inject
-	private EventDao eventDao;
+	private EventPersistence eventPersistence;
 
 	@Inject
 	private RandomOrgNumberGeneratorService randomService;
@@ -81,7 +81,7 @@ public class DecisionService {
 		} catch (Exception e) {
 			voting.setResult(-1);
 		} finally {
-			eventDao.save(voting);
+			eventPersistence.save(voting);
 		}
 	}
 
@@ -104,7 +104,7 @@ public class DecisionService {
 
 	public ResultModel getResultModelForLatestVote() {
 		ResultModel result = new ResultModel();
-		Event voting = eventDao.findLatestVoting();
+		Event voting = eventPersistence.findLatestVoting();
 		if (voting != null) {
 			Integer random = voting.getResult();
 			result.setRandomNumber(random);
@@ -123,7 +123,7 @@ public class DecisionService {
 	private void insertDeveloperPreferences(List<UserModel> developerModels, Map<Long, DecisionModel> decisions, User d) {
 		UserModel developerModel = mappingService.map(d, UserModel.class);
 
-		List<Vote> votes = votingDao.findLatestVotes(d);
+		List<Vote> votes = votingPersistence.findLatestVotes(d);
 		boolean hasVotes = false;
 
 		for (Vote v : votes) {

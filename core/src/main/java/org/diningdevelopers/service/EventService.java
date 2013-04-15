@@ -6,10 +6,10 @@ import java.util.Date;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
-import org.diningdevelopers.core.database.dao.EventDao;
+import org.diningdevelopers.core.business.persistence.EventPersistence;
+import org.diningdevelopers.core.database.dao.VotingDao;
 import org.diningdevelopers.core.database.entities.Event;
 import org.diningdevelopers.dao.TransactionHelper;
-import org.diningdevelopers.dao.VotingDao;
 import org.diningdevelopers.entity.VotingState;
 import org.diningdevelopers.utils.DateHelper;
 
@@ -21,9 +21,9 @@ public class EventService {
 
 	@Inject
 	private VotingDao votingDao;
-
+	
 	@Inject
-	private EventDao eventDao;
+	private EventPersistence eventPersistence;
 
 	@Inject
 	private TransactionHelper transactionHelper;
@@ -33,7 +33,7 @@ public class EventService {
 
 	public void reopenVoting() {
 		Date today = dateHelper.getDateForTodayWithNulledHoursMinutesAndMiliseconds();
-		Event voting = eventDao.findVotingForDate(today);
+		Event voting = eventPersistence.findVotingForDate(today);
 
 		if (voting != null) {
 			voting.setState(VotingState.Open);
@@ -41,7 +41,7 @@ public class EventService {
 	}
 
 	public String getLatestEventState() {
-		Event event = eventDao.findLatestVoting();
+		Event event = eventPersistence.findLatestVoting();
 		
 		if (event == null) {
 			return "noch keine events";
@@ -62,17 +62,17 @@ public class EventService {
 
 	public void openVoting() {
 		Event voting = new Event(Calendar.getInstance().getTime(), VotingState.Open);
-		eventDao.save(voting);
+		eventPersistence.save(voting);
 
 		votingDao.removeAllVotes();
 	}
 
 	public void closeVoting() {
 		Date today = dateHelper.getDateForTodayWithNulledHoursMinutesAndMiliseconds();
-		Event voting = eventDao.findVotingForDate(today);
+		Event voting = eventPersistence.findVotingForDate(today);
 		if (voting == null) {
 			voting = new Event(Calendar.getInstance().getTime(), VotingState.Open);
-			eventDao.save(voting);
+			eventPersistence.save(voting);
 		}
 
 		transactionHelper.lockWritePessimistic(voting);
@@ -87,7 +87,7 @@ public class EventService {
 	}
 
 	public boolean isVotingOpen() {
-		Event voting = eventDao.findLatestVoting();
+		Event voting = eventPersistence.findLatestVoting();
 
 		if ((voting != null) && (voting.getState() != null)) {
 			return voting.getState() == VotingState.Open;
@@ -97,7 +97,7 @@ public class EventService {
 	}
 
 	public boolean isLatestEventClosed() {
-		Event event = eventDao.findLatestVoting();
+		Event event = eventPersistence.findLatestVoting();
 
 		if ((event != null) && (event.getState() == VotingState.Closed)) {
 			return true;
