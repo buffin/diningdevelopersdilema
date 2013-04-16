@@ -187,4 +187,8 @@ public class CriteriaHelper<T> {
 	public void setMaxResults(Integer maxResults) {
 		this.maxResults = maxResults;
 	}
+
+	public void setDistinct(boolean distinct) {
+		query.distinct(distinct);
+	}
 }
