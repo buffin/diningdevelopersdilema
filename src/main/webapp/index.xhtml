@@ -50,17 +50,19 @@
 				</p:column>
 			</p:dataTable>
 
-			<h:panelGroup rendered="#{not votingsOverview.votingClosed}">
-				<h2>Diese Entwickler haben bereits abgestimmt:</h2>
-				<!-- List of developers if voting is active-->
-				<p:dataList var="dev" value="#{votingsOverview.decisionTable.developers}" itemType="disc" styleClass="datalist-noborder">
-					<h:outputText value="#{dev.name}" />
-				</p:dataList>
-			</h:panelGroup>
+            <p:pieChart id="custom" value="#{votingsOverview.pieModel}" legendPosition="e" fill="false" showDataLabels="true"
+                        rendered="#{votingsOverview.votingClosed}" title="Chart for this voting"
+                        style="width:600px;height:400px;display: block; margin-left: auto; margin-right: auto" sliceMargin="5" diameter="250" />
 
-			<p:pieChart id="custom" value="#{votingsOverview.pieModel}" legendPosition="e" fill="false" showDataLabels="true"
-				rendered="#{votingsOverview.votingClosed}" title="Chart for this voting"
-				style="width:600px;height:400px;display: block; margin-left: auto; margin-right: auto" sliceMargin="5" diameter="250" />
+            <h2>Zeitgeist</h2>
+            <p:lineChart id="filled" value="#{votingsOverview.timelineModel}"
+                         rendered="#{not empty votingsOverview.timelineModel.series}"
+                         legendPosition="nw" fill="true"
+                         style="height:300px;margin-top:20px"
+                         extender="timelineJQPlotOptions"
+                         xaxisLabel="Time" yaxisLabel="Points" minY="0" maxX="0" stacked="true"/>
+            <h:outputText value="N/A" rendered="#{empty votingsOverview.timelineModel.series}"/>
+
 		</h:form>
 	</ui:define>
 </ui:composition>

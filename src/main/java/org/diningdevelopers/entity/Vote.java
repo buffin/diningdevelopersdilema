@@ -13,7 +13,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "votes", uniqueConstraints = @UniqueConstraint(columnNames = { "developer_id", "location_id" }))
+@Table(name = "votes")
 public class Vote {
 
 	@Id
@@ -38,6 +38,9 @@ public class Vote {
 	@Column(name = "vote_date", nullable = false)
 	private Date date;
 
+    @Column(name = "current", nullable = false)
+    private Boolean current;
+
 	public Date getDate() {
 		return date;
 	}
@@ -60,6 +63,10 @@ public class Vote {
 	public Integer getVote() {
 		return vote;
 	}
+
+    public Boolean getCurrent() {
+        return current;
+    }
 
 	public void setDate(Date date) {
 		this.date = date;
@@ -85,4 +92,7 @@ public class Vote {
 		this.vote = vote;
 	}
 
+    public void setCurrent(Boolean current) {
+        this.current = current;
+    }
 }

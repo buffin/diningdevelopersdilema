@@ -79,10 +79,6 @@ public class VoteService {
 		return result;
 	}
 
-	private boolean needToCreateNewVote(Vote vote) {
-		return vote == null;
-	}
-
 	public void removeAllVotes() {
 		logger.info("Call to removeAllVotes()");
 		votingDao.removeAllVotes();
@@ -102,7 +98,10 @@ public class VoteService {
 		for (VoteModel model : voteModels) {
 			User developer = developerDao.findByUsername(username);
 			Location location = locationDao.findById(model.getLocationId());
-			Vote vote = votingDao.findLatestVote(developer, location);
+            Vote oldVote = votingDao.findLatestVote(developer, location);
+            if (oldVote != null) {
+                oldVote.setCurrent(false);
+            }
 
 			Integer newVote = model.getVote();
 			if (newVote == null) {
@@ -110,29 +109,21 @@ public class VoteService {
 				newVote = 0;
 			}
 
-			if (needToCreateNewVote(vote)) {
-				vote = new Vote();
-				vote.setLocation(location);
-				vote.setDeveloper(developer);
-				vote.setDate(new Date());
-				vote.setVote(newVote);
+            Vote vote = new Vote();
+            vote.setLocation(location);
+            vote.setDeveloper(developer);
+            vote.setDate(new Date());
+            vote.setVote(newVote);
+            vote.setCurrent(true);
 
-				String auditMessage = "%s hat sein Voting für %s auf %d gesetzt";
-				if (vote.getVote() > 0) {
-					auditService.createAudit(username, String.format(auditMessage, username, location.getName(), vote.getVote()));
-				}
+            String auditMessage = "%s hat sein Voting für %s auf %d gesetzt";
+            if (vote.getVote() > 0) {
+                auditService.createAudit(username, String.format(auditMessage, username, location.getName(), vote.getVote()));
+            }
 
-				vote.setEvent(event);
+            vote.setEvent(event);
 
-				votingDao.save(vote);
-			} else {
-				Integer oldVote = vote.getVote();
-				if (oldVote.equals(newVote) == false) {
-					String auditMessage = "%s hat sein Voting für %s geändert. Alt: %d, Neu: %d";
-					auditService.createAudit(username, String.format(auditMessage, username, location.getName(), oldVote, newVote));
-					vote.setVote(newVote);
-				}
-			}
+            votingDao.save(vote);
 		}
 	}
 }
