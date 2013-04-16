@@ -27,7 +27,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Stateless
-public class VoteService {
+public class VoteInteractor {
 
 	private Logger logger = LoggerFactory.getLogger(getClass());
 

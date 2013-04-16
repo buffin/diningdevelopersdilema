@@ -7,7 +7,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.diningdevelopers.core.business.AuditService;
+import org.diningdevelopers.core.business.AuditInteractor;
 import org.diningdevelopers.core.business.MappingService;
 import org.diningdevelopers.core.business.model.Audit;
 import org.diningdevelopers.core.frontend.model.AuditModel;
@@ -17,7 +17,7 @@ import org.diningdevelopers.core.frontend.model.AuditModel;
 public class ViewAuditController implements Serializable {
 
 	@Inject
-	private AuditService auditService;
+	private AuditInteractor auditService;
 	
 	@Inject
 	private MappingService mappingService;

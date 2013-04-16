@@ -25,7 +25,7 @@ import org.diningdevelopers.core.frontend.model.ResultModel;
 import org.diningdevelopers.core.frontend.model.UserModel;
 
 @Stateless
-public class DecisionService {
+public class DecisionInteractor {
 
 	@Inject
 	private UserPersistence userPersistence;

@@ -9,10 +9,10 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.diningdevelopers.core.business.EventService;
+import org.diningdevelopers.core.business.EventInteractor;
 import org.diningdevelopers.core.business.MailService;
-import org.diningdevelopers.core.business.UserService;
-import org.diningdevelopers.core.business.VoteService;
+import org.diningdevelopers.core.business.UserInteractor;
+import org.diningdevelopers.core.business.VoteInteractor;
 import org.diningdevelopers.core.database.dao.helper.JpaUtils;
 import org.diningdevelopers.core.frontend.model.SimpleMail;
 import org.diningdevelopers.core.frontend.model.UserModel;
@@ -29,15 +29,15 @@ public class AdminController implements Serializable {
 	private EntityManager entityManager;
 
 	@Inject
-	private VoteService voteService;
+	private VoteInteractor voteService;
 
 	@Inject
-	private EventService eventService;
+	private EventInteractor eventService;
 
 	@Inject
 	private MailService mailService;
 
-	@Inject UserService developerService;
+	@Inject UserInteractor developerService;
 
 	private Logger logger = LoggerFactory.getLogger(getClass());
 

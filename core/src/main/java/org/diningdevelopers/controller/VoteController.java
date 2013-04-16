@@ -8,8 +8,8 @@ import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.diningdevelopers.core.business.EventService;
-import org.diningdevelopers.core.business.VoteService;
+import org.diningdevelopers.core.business.EventInteractor;
+import org.diningdevelopers.core.business.VoteInteractor;
 import org.diningdevelopers.core.frontend.model.VoteModel;
 import org.diningdevelopers.utils.Authentication;
 import org.diningdevelopers.utils.FacesUtils;
@@ -25,10 +25,10 @@ public class VoteController implements Serializable {
 	private List<VoteModel> voteModels;
 
 	@Inject
-	private VoteService voteService;
+	private VoteInteractor voteService;
 
 	@Inject
-	private EventService eventService;
+	private EventInteractor eventService;
 
 	public String computeAdditionalStylesForSumPoints(int sumPoints) {
 		if (sumPoints > 100) {

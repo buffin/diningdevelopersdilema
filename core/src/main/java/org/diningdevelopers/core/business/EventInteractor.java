@@ -14,7 +14,7 @@ import org.diningdevelopers.core.business.persistence.VotingPersistence;
 import org.diningdevelopers.utils.DateHelper;
 
 @Stateless
-public class EventService {
+public class EventInteractor {
 
 	@Inject
 	private DateHelper dateHelper;
@@ -29,7 +29,7 @@ public class EventService {
 	private TransactionHelper transactionHelper;
 
 	@Inject
-	private DecisionService decisionService;
+	private DecisionInteractor decisionService;
 
 	public void reopenVoting() {
 		Date today = dateHelper.getDateForTodayWithNulledHoursMinutesAndMiliseconds();

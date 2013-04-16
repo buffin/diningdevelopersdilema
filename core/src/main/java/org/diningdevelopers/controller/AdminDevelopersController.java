@@ -7,7 +7,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.diningdevelopers.core.business.UserService;
+import org.diningdevelopers.core.business.UserInteractor;
 import org.diningdevelopers.core.frontend.model.UserModel;
 
 @Named
@@ -19,7 +19,7 @@ public class AdminDevelopersController implements Serializable {
 	private UserModel current;
 
 	@Inject
-	private UserService developerService;
+	private UserInteractor developerService;
 
 	public UserModel getCurrent() {
 		return current;

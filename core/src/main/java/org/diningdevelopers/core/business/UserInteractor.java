@@ -11,7 +11,7 @@ import org.diningdevelopers.core.business.persistence.UserPersistence;
 import org.diningdevelopers.core.frontend.model.UserModel;
 
 @Stateless
-public class UserService {
+public class UserInteractor {
 
 	@Inject
 	private UserPersistence userPersistence;

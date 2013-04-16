@@ -7,8 +7,8 @@ import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.diningdevelopers.core.business.DecisionService;
-import org.diningdevelopers.core.business.EventService;
+import org.diningdevelopers.core.business.DecisionInteractor;
+import org.diningdevelopers.core.business.EventInteractor;
 import org.diningdevelopers.core.frontend.model.DecisionModel;
 import org.diningdevelopers.core.frontend.model.DecisionTable;
 import org.diningdevelopers.core.frontend.model.ResultModel;
@@ -20,10 +20,10 @@ import org.primefaces.model.chart.PieChartModel;
 public class VotingsOverview implements Serializable {
 
 	@Inject
-	private DecisionService decisionService;
+	private DecisionInteractor decisionService;
 
 	@Inject
-	private EventService eventService;
+	private EventInteractor eventService;
 
 	private DecisionTable decisionTable;
 

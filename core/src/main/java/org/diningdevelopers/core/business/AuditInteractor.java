@@ -7,7 +7,7 @@ import javax.inject.Inject;
 import org.diningdevelopers.core.business.model.Audit;
 import org.diningdevelopers.core.business.persistence.AuditPersistence;
 
-public class AuditService {
+public class AuditInteractor {
 
 	@Inject
 	private AuditPersistence auditPersistence;

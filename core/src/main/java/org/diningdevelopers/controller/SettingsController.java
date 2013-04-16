@@ -10,7 +10,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.commons.lang3.StringUtils;
-import org.diningdevelopers.core.business.UserService;
+import org.diningdevelopers.core.business.UserInteractor;
 import org.diningdevelopers.utils.Authentication;
 import org.diningdevelopers.utils.FacesHelper;
 import org.diningdevelopers.utils.FacesUtils;
@@ -20,7 +20,7 @@ import org.diningdevelopers.utils.FacesUtils;
 public class SettingsController implements Serializable {
 
 	@Inject
-	private UserService developerService;
+	private UserInteractor developerService;
 
 	@Inject
 	private Conversation conversation;
