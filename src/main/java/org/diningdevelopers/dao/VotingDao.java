@@ -1,20 +1,24 @@
 package org.diningdevelopers.dao;
 
 import java.util.List;
-import java.util.Set;
 
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
-import org.diningdevelopers.entity.*;
+import org.diningdevelopers.entity.Event;
+import org.diningdevelopers.entity.Location;
+import org.diningdevelopers.entity.User;
+import org.diningdevelopers.entity.Vote;
+import org.diningdevelopers.entity.Vote_;
 
 /* OLD VOTES TABLE EQUALED:
-* SELECT (ID, VOTE, DEVELOPER_ID, LOCATION_ID, VOTE_DATE, EVENT_ID)
-* FROM votes
-* WHERE (developer_id, vote_date) IN
-* (SELECT developer_id, MAX(vote_date) FROM votes GROUP BY developer_id);
+ * SELECT (ID, VOTE, DEVELOPER_ID, LOCATION_ID, VOTE_DATE, EVENT_ID)
+ * FROM votes
+ * WHERE (developer_id, vote_date) IN
+ * (SELECT developer_id, MAX(vote_date) FROM votes GROUP BY developer_id);
  */
 
 @Named
@@ -34,8 +38,8 @@ public class VotingDao {
 			helper.addEqual(Vote_.location, criteria.getLocation());
 		}
 
-        helper.addOrder(Vote_.date, false);
-        helper.addEqual(Vote_.current, true);
+		helper.addOrder(Vote_.date, false);
+		helper.addEqual(Vote_.current, true);
 
 		return helper.getResultList();
 	}
@@ -48,7 +52,7 @@ public class VotingDao {
 		helper.addOrder(Vote_.date, false);
 		helper.setMaxResults(1);
 		helper.setCacheable(true);
-        helper.addEqual(Vote_.current, true);
+		helper.addEqual(Vote_.current, true);
 
 		return helper.getSingleResultOrNull();
 	}
@@ -78,26 +82,25 @@ public class VotingDao {
 		entityManager.persist(vote);
 	}
 
-    public List<User> getAllParticipants(Event event) {
-        String queryString = "select distinct v.developer from Vote v where v.event= :e";
-        Query query = entityManager.createQuery(queryString);
-        query.setParameter("e", event);
-        return (List<User>) query.getResultList();
-    }
+	public List<User> getAllParticipants(Event event) {
+		String queryString = "select distinct v.developer from Vote v where v.event= :e";
+		TypedQuery<User> query = entityManager.createQuery(queryString, User.class);
+		query.setParameter("e", event);
+		return query.getResultList();
+	}
 
-    public List<Location> getAllCandidateLocations(Event event) {
-        String queryString = "select distinct v.location from Vote v where v.event= :e";
-        Query query = entityManager.createQuery(queryString);
-        query.setParameter("e", event);
-        return (List<Location>) query.getResultList();
-    }
+	public List<Location> getAllCandidateLocations(Event event) {
+		String queryString = "select distinct v.location from Vote v where v.event= :e";
+		TypedQuery<Location> query = entityManager.createQuery(queryString, Location.class);
+		query.setParameter("e", event);
+		return query.getResultList();
+	}
 
-    public List<Vote> getAllVotesOfUserSubmittedTowardsEvent(Event event, User user) {
-        String queryString = "select v from Vote v where v.event= :e and v.developer= :u";
-        Query query = entityManager.createQuery(queryString);
-        query.setParameter("e", event);
-        query.setParameter("u", user);
-        return (List<Vote>) query.getResultList();
-    }
+	public List<Vote> getAllVotesOfUserSubmittedTowardsEvent(Event event, User user) {
+		CriteriaHelper<Vote> helper = new CriteriaHelper<>(entityManager, Vote.class);
+		helper.addEqual(Vote_.event, event);
+		helper.addEqual(Vote_.developer, user);
+		return helper.getResultList();
+	}
 
 }
