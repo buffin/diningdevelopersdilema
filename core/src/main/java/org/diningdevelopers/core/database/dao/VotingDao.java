@@ -12,7 +12,7 @@ import org.diningdevelopers.core.database.dao.helper.VotingCriteria;
 import org.diningdevelopers.core.database.entities.LocationEntity;
 import org.diningdevelopers.core.database.entities.UserEntity;
 import org.diningdevelopers.core.database.entities.VoteEntity;
-import org.diningdevelopers.entity.Vote_;
+import org.diningdevelopers.core.database.entities.VoteEntity_;
 
 @Named
 public class VotingDao {
@@ -24,24 +24,24 @@ public class VotingDao {
 		CriteriaHelper<VoteEntity> helper = new CriteriaHelper<>(entityManager, VoteEntity.class);
 
 		if (criteria.getDeveloper() != null) {
-			helper.addEqual(Vote_.developer, criteria.getDeveloper());
+			helper.addEqual(VoteEntity_.developer, criteria.getDeveloper());
 		}
 
 		if (criteria.getLocation() != null) {
-			helper.addEqual(Vote_.location, criteria.getLocation());
+			helper.addEqual(VoteEntity_.location, criteria.getLocation());
 		}
 
-		helper.addOrder(Vote_.date, false);
+		helper.addOrder(VoteEntity_.date, false);
 
 		return helper.getResultList();
 	}
 
 	public VoteEntity findLatestVote(UserEntity d, LocationEntity l) {
 		CriteriaHelper<VoteEntity> helper = new CriteriaHelper<>(entityManager, VoteEntity.class);
-		helper.addEqual(Vote_.developer, d);
-		helper.addEqual(Vote_.location, l);
+		helper.addEqual(VoteEntity_.developer, d);
+		helper.addEqual(VoteEntity_.location, l);
 		helper.setCacheable(true);
-		helper.addOrder(Vote_.date, false);
+		helper.addOrder(VoteEntity_.date, false);
 		helper.setMaxResults(1);
 
 		helper.setCacheable(true);

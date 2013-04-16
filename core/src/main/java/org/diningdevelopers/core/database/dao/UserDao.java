@@ -9,7 +9,7 @@ import javax.persistence.PersistenceContext;
 import org.diningdevelopers.core.database.dao.helper.CriteriaHelper;
 import org.diningdevelopers.core.database.dao.helper.JpaUtils;
 import org.diningdevelopers.core.database.entities.UserEntity;
-import org.diningdevelopers.entity.User_;
+import org.diningdevelopers.core.database.entities.UserEntity_;
 
 @Named
 public class UserDao {
@@ -28,7 +28,7 @@ public class UserDao {
 	public UserEntity findByUsername(String username) {
 		CriteriaHelper<UserEntity> helper = new CriteriaHelper<>(entityManager, UserEntity.class);
 
-		helper.addEqual(User_.username, username);
+		helper.addEqual(UserEntity_.username, username);
 
 		return helper.getSingleResultOrNull();
 	}	

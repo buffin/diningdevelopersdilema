@@ -8,7 +8,7 @@ import javax.persistence.PersistenceContext;
 
 import org.diningdevelopers.core.database.dao.helper.CriteriaHelper;
 import org.diningdevelopers.core.database.entities.LocationEntity;
-import org.diningdevelopers.entity.Location_;
+import org.diningdevelopers.core.database.entities.LocationEntity_;
 
 @Named
 public class LocationDao {
@@ -19,7 +19,7 @@ public class LocationDao {
 	public List<LocationEntity> findActive() {
 		CriteriaHelper<LocationEntity> helper = new CriteriaHelper<>(entityManager, LocationEntity.class);
 
-		helper.addOrder(Location_.name, true);
+		helper.addOrder(LocationEntity_.name, true);
 		helper.setCacheable(true);
 
 		return helper.getResultList();

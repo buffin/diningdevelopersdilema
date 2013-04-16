@@ -2,9 +2,10 @@ package org.diningdevelopers.core.business;
 
 import static junit.framework.Assert.assertEquals;
 
+import org.diningdevelopers.core.business.MappingService;
+
 import java.math.BigDecimal;
 
-import org.diningdevelopers.core.business.MappingService;
 import org.junit.Test;
 
 public class MappingServiceTest {

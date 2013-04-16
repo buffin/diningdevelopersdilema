@@ -2,20 +2,20 @@ package org.diningdevelopers.core.business.persistence;
 
 import java.util.List;
 
-import org.diningdevelopers.core.database.entities.LocationEntity;
-import org.diningdevelopers.core.database.entities.UserEntity;
-import org.diningdevelopers.core.database.entities.VoteEntity;
+import org.diningdevelopers.core.business.model.Location;
+import org.diningdevelopers.core.business.model.User;
+import org.diningdevelopers.core.business.model.Vote;
 
 public interface VotingPersistence {
 
 	void removeAllVotes();
 
-	VoteEntity findLatestVote(UserEntity developer, LocationEntity l);
+	Vote findLatestVote(User developer, Location l);
 
-	void removeVotes(UserEntity developer);
+	void removeVotes(User developer);
 
-	void save(VoteEntity vote);
+	void save(Vote vote);
 
-	List<VoteEntity> findLatestVotes(UserEntity d);
+	List<Vote> findLatestVotes(User d);
 
 }

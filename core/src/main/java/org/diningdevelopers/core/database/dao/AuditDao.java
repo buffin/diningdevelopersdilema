@@ -9,7 +9,7 @@ import javax.persistence.PersistenceContext;
 
 import org.diningdevelopers.core.database.dao.helper.CriteriaHelper;
 import org.diningdevelopers.core.database.entities.AuditEntity;
-import org.diningdevelopers.entity.Audit_;
+import org.diningdevelopers.core.database.entities.AuditEntity_;
 
 @Named
 public class AuditDao {
@@ -24,8 +24,8 @@ public class AuditDao {
 			helper.setMaxResults(maxResult);
 		}
 
-		helper.addOrder(Audit_.date, false);
-		helper.addLessThanOrEqualTo(Audit_.date, filterDate);
+		helper.addOrder(AuditEntity_.date, false);
+		helper.addLessThanOrEqualTo(AuditEntity_.date, filterDate);
 
 		return helper.getResultList();
 	}

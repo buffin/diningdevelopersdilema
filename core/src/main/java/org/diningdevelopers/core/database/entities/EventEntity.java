@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.diningdevelopers.core.business.model.VotingState;
+
 
 @Entity
 @Table(name = "events")
@@ -25,7 +27,7 @@ public class EventEntity {
 
 	@Column(name = "state", nullable = false)
 	@Enumerated(EnumType.STRING)
-	private VotingStateEntity state = VotingStateEntity.Open;
+	private VotingState state = VotingState.Open;
 
 	@Column(name = "result")
 	private Integer result;
@@ -33,7 +35,7 @@ public class EventEntity {
 	public EventEntity() {
 	}
 
-	public EventEntity(Date date, VotingStateEntity state) {
+	public EventEntity(Date date, VotingState state) {
 		this.date = date;
 		this.state = state;
 	}
@@ -54,11 +56,11 @@ public class EventEntity {
 		this.date = date;
 	}
 
-	public VotingStateEntity getState() {
+	public VotingState getState() {
 		return state;
 	}
 
-	public void setState(VotingStateEntity state) {
+	public void setState(VotingState state) {
 		this.state = state;
 	}
 

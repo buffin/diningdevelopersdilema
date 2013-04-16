@@ -2,16 +2,16 @@ package org.diningdevelopers.core.business.persistence;
 
 import java.util.List;
 
-import org.diningdevelopers.core.database.entities.UserEntity;
+import org.diningdevelopers.core.business.model.User;
 
 public interface UserPersistence {
 
-	List<UserEntity> findAll();
+	List<User> findAll();
 
-	UserEntity findByUsername(String username);
+	User findByUsername(String username);
 
-	UserEntity findById(Long id);
+	User findById(Long id);
 
-	void persist(UserEntity user);
+	void persist(User user);
 
 }
