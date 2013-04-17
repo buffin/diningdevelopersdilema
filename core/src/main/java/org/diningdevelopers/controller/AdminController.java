@@ -10,9 +10,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.diningdevelopers.core.business.EventInteractor;
-import org.diningdevelopers.core.business.MailService;
 import org.diningdevelopers.core.business.UserInteractor;
 import org.diningdevelopers.core.business.VoteInteractor;
+import org.diningdevelopers.core.business.boundary.MailerBoundary;
 import org.diningdevelopers.core.database.dao.helper.JpaUtils;
 import org.diningdevelopers.core.frontend.model.SimpleMail;
 import org.diningdevelopers.core.frontend.model.UserModel;
@@ -35,7 +35,7 @@ public class AdminController implements Serializable {
 	private EventInteractor eventService;
 
 	@Inject
-	private MailService mailService;
+	private MailerBoundary mailerBoundary;
 
 	@Inject UserInteractor developerService;
 
@@ -79,7 +79,7 @@ public class AdminController implements Serializable {
 		mail.setSubject("DDD Testmail");
 		mail.setBody("Theaterhaus rockt!");
 
-		mailService.sendMail(mail);
+		mailerBoundary.sendMail(mail);
 
 		FacesUtils.addMessage("Testmail verschickt");
 

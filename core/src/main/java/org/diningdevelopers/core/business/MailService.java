@@ -13,18 +13,20 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.diningdevelopers.core.business.boundary.MailerBoundary;
 import org.diningdevelopers.core.frontend.model.SimpleMail;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Stateless
-public class MailService {
+public class MailService implements MailerBoundary {
 
 	@Resource(lookup = "java:/mail/ddd")
 	private Session session;
 
 	private Logger logger = LoggerFactory.getLogger(getClass());
 
+	@Override
 	public void sendMail(SimpleMail mail) {
 		logger.debug("sending mail");
 		Message msg = new MimeMessage(session);

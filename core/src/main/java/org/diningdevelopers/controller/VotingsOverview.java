@@ -19,8 +19,8 @@ import org.diningdevelopers.core.business.boundary.DecisionBoundary;
 import org.diningdevelopers.core.business.model.Location;
 import org.diningdevelopers.core.business.model.User;
 import org.diningdevelopers.core.business.model.Vote;
-import org.diningdevelopers.core.business.requestmodels.LatestVotesRequestModel;
-import org.diningdevelopers.core.business.requestmodels.ResultRequestModel;
+import org.diningdevelopers.core.business.responsemodels.LatestVotesResponseModel;
+import org.diningdevelopers.core.business.responsemodels.ResultReponseModel;
 import org.diningdevelopers.core.frontend.model.DecisionModel;
 import org.diningdevelopers.core.frontend.model.DecisionTable;
 import org.diningdevelopers.core.frontend.model.ResultModel;
@@ -65,7 +65,7 @@ public class VotingsOverview implements Serializable {
 		return null;
 	}
 	
-	private DecisionTable buildDecisionTable(LatestVotesRequestModel requestModel) {
+	private DecisionTable buildDecisionTable(LatestVotesResponseModel requestModel) {
 		DecisionTable decisionTable = new DecisionTable();
 
 		Collection<User> developers = requestModel.getUsers();
@@ -163,7 +163,7 @@ public class VotingsOverview implements Serializable {
 	}
 
 	public ResultModel getResultModel() {
-		ResultRequestModel result = decisionBoundary.getResultModelForLatestVote();
+		ResultReponseModel result = decisionBoundary.getResultModelForLatestVote();
 		ResultModel resultModel = new ResultModel();
 		resultModel.setLocationName(result.getLocationName());
 		resultModel.setRandomNumber(result.getRandom());

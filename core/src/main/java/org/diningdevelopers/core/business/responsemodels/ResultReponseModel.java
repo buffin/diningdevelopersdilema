@@ -1,11 +1,11 @@
-package org.diningdevelopers.core.business.requestmodels;
+package org.diningdevelopers.core.business.responsemodels;
 
-public class ResultRequestModel {
+public class ResultReponseModel {
 
 	private Integer random;
 	private String locationName;
 
-	public ResultRequestModel(Integer random, String locationName) {
+	public ResultReponseModel(Integer random, String locationName) {
 		this.random = random;
 		this.locationName = locationName;
 	}

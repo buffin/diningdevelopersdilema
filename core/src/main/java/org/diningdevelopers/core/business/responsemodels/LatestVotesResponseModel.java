@@ -1,4 +1,4 @@
-package org.diningdevelopers.core.business.requestmodels;
+package org.diningdevelopers.core.business.responsemodels;
 
 import java.util.Collection;
 import java.util.List;
@@ -7,11 +7,11 @@ import java.util.Map;
 import org.diningdevelopers.core.business.model.User;
 import org.diningdevelopers.core.business.model.Vote;
 
-public class LatestVotesRequestModel {
+public class LatestVotesResponseModel {
 	
 	private Map<User, List<Vote>> userToVotes;
 
-	public LatestVotesRequestModel(Map<User, List<Vote>> userToVotes) {
+	public LatestVotesResponseModel(Map<User, List<Vote>> userToVotes) {
 		this.userToVotes = userToVotes;
 	}
 

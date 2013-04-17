@@ -1,12 +1,12 @@
 package org.diningdevelopers.core.business.boundary;
 
-import org.diningdevelopers.core.business.requestmodels.LatestVotesRequestModel;
-import org.diningdevelopers.core.business.requestmodels.ResultRequestModel;
+import org.diningdevelopers.core.business.responsemodels.LatestVotesResponseModel;
+import org.diningdevelopers.core.business.responsemodels.ResultReponseModel;
 
 public interface DecisionBoundary {
 
-	ResultRequestModel getResultModelForLatestVote();
+	ResultReponseModel getResultModelForLatestVote();
 
-	LatestVotesRequestModel findLatestVotesOfUsers();
+	LatestVotesResponseModel findLatestVotesOfUsers();
 
 }

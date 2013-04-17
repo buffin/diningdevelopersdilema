@@ -17,8 +17,8 @@ import org.diningdevelopers.core.business.model.Vote;
 import org.diningdevelopers.core.business.persistence.EventPersistence;
 import org.diningdevelopers.core.business.persistence.UserPersistence;
 import org.diningdevelopers.core.business.persistence.VotingPersistence;
-import org.diningdevelopers.core.business.requestmodels.LatestVotesRequestModel;
-import org.diningdevelopers.core.business.requestmodels.ResultRequestModel;
+import org.diningdevelopers.core.business.responsemodels.LatestVotesResponseModel;
+import org.diningdevelopers.core.business.responsemodels.ResultReponseModel;
 
 @Stateless
 public class DecisionInteractor implements DecisionBoundary {
@@ -45,14 +45,14 @@ public class DecisionInteractor implements DecisionBoundary {
 	private EventResultEvaluator resultEvaluator;
 
 	@Override
-	public LatestVotesRequestModel findLatestVotesOfUsers() {
+	public LatestVotesResponseModel findLatestVotesOfUsers() {
 		Map<User, List<Vote>> userToVotes = new HashMap<User, List<Vote>>();
 		List<User> developers = userPersistence.findAll();
 		for (User d : developers) {
 			userToVotes.put(d, votingPersistence.findLatestVotesForUser(d));
 		}
 		
-		return new LatestVotesRequestModel(userToVotes);
+		return new LatestVotesResponseModel(userToVotes);
 	}
 
 	public void determineResultForVoting(Event event) {
@@ -78,7 +78,7 @@ public class DecisionInteractor implements DecisionBoundary {
 	}
 
 	private int getTotalPointsForLastEvent() {
-		LatestVotesRequestModel model = findLatestVotesOfUsers();
+		LatestVotesResponseModel model = findLatestVotesOfUsers();
 		int total = 0;
 		for (User user : model.getUsers()) {
 			int sum = 0;
@@ -91,11 +91,11 @@ public class DecisionInteractor implements DecisionBoundary {
 	}
 
 	@Override
-	public ResultRequestModel getResultModelForLatestVote() {
-		ResultRequestModel result = null;
+	public ResultReponseModel getResultModelForLatestVote() {
+		ResultReponseModel result = null;
 		Event voting = eventPersistence.findLatestVoting();
 		if (voting != null) {
-			result = new ResultRequestModel(voting.getResult(), voting.getWinningLocation().getName());
+			result = new ResultReponseModel(voting.getResult(), voting.getWinningLocation().getName());
 		}
 		return result;
 	}
