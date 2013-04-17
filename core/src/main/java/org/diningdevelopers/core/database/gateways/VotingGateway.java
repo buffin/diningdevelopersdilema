@@ -48,8 +48,14 @@ public class VotingGateway implements VotingPersistence {
 	}
 
 	@Override
-	public List<Vote> findLatestVotes(User d) {
+	public List<Vote> findLatestVotesForUser(User d) {
 		List<VoteEntity> votes = votingDao.findLatestVotes(mappingService.map(d, UserEntity.class));
+		return mappingService.mapCollection(votes, Vote.class);
+	}
+	
+	@Override
+	public List<Vote> findLatesVotes() {
+		List<VoteEntity> votes = votingDao.findLatestVotes();
 		return mappingService.mapCollection(votes, Vote.class);
 	}
 

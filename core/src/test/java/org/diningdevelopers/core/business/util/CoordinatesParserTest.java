@@ -1,4 +1,4 @@
-package org.diningdevelopers.utils;
+package org.diningdevelopers.core.business.util;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

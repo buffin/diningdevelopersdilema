@@ -6,9 +6,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.diningdevelopers.core.business.model.VotingState;
@@ -31,6 +34,10 @@ public class EventEntity {
 
 	@Column(name = "result")
 	private Integer result;
+	
+	@OneToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="winning_location_id")
+	private LocationEntity winningLocation;
 
 	public EventEntity() {
 	}
@@ -70,5 +77,13 @@ public class EventEntity {
 
 	public void setResult(Integer result) {
 		this.result = result;
+	}
+
+	public LocationEntity getWinningLocation() {
+		return winningLocation;
+	}
+
+	public void setWinningLocation(LocationEntity winningLocation) {
+		this.winningLocation = winningLocation;
 	}
 }

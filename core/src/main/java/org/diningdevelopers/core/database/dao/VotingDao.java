@@ -55,6 +55,10 @@ public class VotingDao {
 
 		return findLatestByCriteria(votingCriteria);
 	}
+	
+	public List<VoteEntity> findLatestVotes() {
+		return findLatestByCriteria(new VotingCriteria());
+	}
 
 	public void removeAllVotes() {
 		String queryString = "delete from Vote";

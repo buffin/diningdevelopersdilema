@@ -1,11 +1,11 @@
-package org.diningdevelopers.utils;
+package org.diningdevelopers.core.business.util;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import junit.framework.Assert;
 
-import org.diningdevelopers.core.business.TemplateService;
+import org.diningdevelopers.core.business.util.TemplateService;
 import org.junit.Test;
 
 public class TemplateServiceTest {

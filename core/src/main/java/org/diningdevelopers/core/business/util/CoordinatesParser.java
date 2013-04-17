@@ -1,4 +1,4 @@
-package org.diningdevelopers.utils;
+package org.diningdevelopers.core.business.util;
 
 import org.apache.commons.lang3.StringUtils;
 import org.primefaces.model.map.LatLng;

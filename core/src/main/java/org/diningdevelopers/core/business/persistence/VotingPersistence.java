@@ -16,6 +16,8 @@ public interface VotingPersistence {
 
 	void save(Vote vote);
 
-	List<Vote> findLatestVotes(User d);
+	List<Vote> findLatestVotesForUser(User d);
+
+	List<Vote> findLatesVotes();
 
 }

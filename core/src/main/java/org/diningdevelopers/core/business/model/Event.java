@@ -10,6 +10,8 @@ public class Event {
 	private VotingState state = VotingState.Open;
 
 	private Integer result;
+	
+	private Location winningLocation;
 
 	public Event() {
 	}
@@ -41,5 +43,13 @@ public class Event {
 
 	public void setResult(Integer result) {
 		this.result = result;
+	}
+
+	public Location getWinningLocation() {
+		return winningLocation;
+	}
+
+	public void setWinningLocation(Location winningLocation) {
+		this.winningLocation = winningLocation;
 	}
 }

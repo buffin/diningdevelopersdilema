@@ -7,8 +7,8 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.diningdevelopers.core.business.AuditInteractor;
 import org.diningdevelopers.core.business.MappingService;
+import org.diningdevelopers.core.business.boundary.AuditBoundary;
 import org.diningdevelopers.core.business.model.Audit;
 import org.diningdevelopers.core.frontend.model.AuditModel;
 
@@ -17,13 +17,13 @@ import org.diningdevelopers.core.frontend.model.AuditModel;
 public class ViewAuditController implements Serializable {
 
 	@Inject
-	private AuditInteractor auditService;
+	private AuditBoundary auditBoundary;
 	
 	@Inject
 	private MappingService mappingService;
 
 	public List<AuditModel> getLatest() {
-		List<Audit> audits = auditService.findLatest();
+		List<Audit> audits = auditBoundary.findLatest();
 		return mappingService.mapCollection(audits, AuditModel.class);
 	}
 }

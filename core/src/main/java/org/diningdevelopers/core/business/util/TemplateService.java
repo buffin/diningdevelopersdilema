@@ -1,4 +1,4 @@
-package org.diningdevelopers.core.business;
+package org.diningdevelopers.core.business.util;
 
 import java.io.StringWriter;
 import java.io.Writer;

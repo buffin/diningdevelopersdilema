@@ -9,10 +9,9 @@ import javax.inject.Inject;
 
 import org.apache.commons.lang3.StringUtils;
 import org.diningdevelopers.core.business.model.Event;
-import org.diningdevelopers.core.frontend.model.DecisionTable;
-import org.diningdevelopers.core.frontend.model.ResultModel;
+import org.diningdevelopers.core.business.model.User;
+import org.diningdevelopers.core.business.util.TemplateService;
 import org.diningdevelopers.core.frontend.model.SimpleMail;
-import org.diningdevelopers.core.frontend.model.UserModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,28 +25,29 @@ public class NotificationService {
 
 	@Inject
 	private TemplateService templateService;
-
-	public void notifiyParticipatingUsers(Event voting, DecisionTable table, ResultModel resultModel) {
-		List<UserModel> developers = table.getDevelopers();
-		for (UserModel model : developers) {
+	
+	public void notifiyParticipatingUsers(Event event) {
+		// TODO: method in persistence for participants of event
+		List<User> developers = null;
+		for (User user : developers) {
 			try {
-				notifyUserVotingResult(model, voting, resultModel);
+				notifyUserVotingResult(user, event);
 			} catch (Exception e) {
 				logger.error("Notification of user {} ({}) failed with exception {}",
-						new Object[] { model.getName(), model.getEmail(), e.getMessage() });
+						new Object[] { user.getName(), user.getEmail(), e.getMessage() });
 			}
 		}
 	}
 
-	private void notifyUserVotingResult(UserModel developer, Event voting, ResultModel resultModel) {
+	private void notifyUserVotingResult(User developer, Event event) {
 		if (StringUtils.isBlank(developer.getEmail())) {
 			return;
 		}
 
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", developer.getName());
-		params.put("result", voting.getResult());
-		params.put("locationName", resultModel.getLocationName());
+		params.put("result", event.getResult());
+		params.put("locationName", event.getWinningLocation().getName());
 
 		String message = templateService.findTemplateByNameAndProcess("votingResultNotificationBody.ftl", params);
 		String subject = templateService.findTemplateByNameAndProcess("votingResultNotificationSubject.ftl", params);
