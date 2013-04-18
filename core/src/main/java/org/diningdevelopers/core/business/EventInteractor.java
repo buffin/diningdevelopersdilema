@@ -6,6 +6,7 @@ import java.util.Date;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
+import org.diningdevelopers.core.business.boundary.EventBoundary;
 import org.diningdevelopers.core.business.helper.TransactionHelper;
 import org.diningdevelopers.core.business.model.Event;
 import org.diningdevelopers.core.business.model.VotingState;
@@ -14,7 +15,7 @@ import org.diningdevelopers.core.business.persistence.VotingPersistence;
 import org.diningdevelopers.utils.DateHelper;
 
 @Stateless
-public class EventInteractor {
+public class EventInteractor implements EventBoundary {
 
 	@Inject
 	private DateHelper dateHelper;
@@ -31,6 +32,7 @@ public class EventInteractor {
 	@Inject
 	private DecisionInteractor decisionService;
 
+	@Override
 	public void reopenVoting() {
 		Date today = dateHelper.getDateForTodayWithNulledHoursMinutesAndMiliseconds();
 		Event voting = eventPersistence.findVotingForDate(today);
@@ -40,6 +42,7 @@ public class EventInteractor {
 		}
 	}
 
+	@Override
 	public String getLatestEventState() {
 		Event event = eventPersistence.findLatestVoting();
 		
@@ -60,6 +63,7 @@ public class EventInteractor {
 		}
 	}
 
+	@Override
 	public void openVoting() {
 		Event voting = new Event(Calendar.getInstance().getTime(), VotingState.Open);
 		eventPersistence.save(voting);
@@ -67,6 +71,7 @@ public class EventInteractor {
 		votingPersistence.removeAllVotes();
 	}
 
+	@Override
 	public void closeVoting() {
 		Date today = dateHelper.getDateForTodayWithNulledHoursMinutesAndMiliseconds();
 		Event voting = eventPersistence.findVotingForDate(today);
@@ -86,6 +91,7 @@ public class EventInteractor {
 		voting.setState(VotingState.Closed);
 	}
 
+	@Override
 	public boolean isVotingOpen() {
 		Event voting = eventPersistence.findLatestVoting();
 
@@ -96,6 +102,7 @@ public class EventInteractor {
 		}
 	}
 
+	@Override
 	public boolean isLatestEventClosed() {
 		Event event = eventPersistence.findLatestVoting();
 

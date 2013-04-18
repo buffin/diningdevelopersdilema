@@ -13,9 +13,9 @@ import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.diningdevelopers.core.business.EventInteractor;
 import org.diningdevelopers.core.business.MappingService;
 import org.diningdevelopers.core.business.boundary.DecisionBoundary;
+import org.diningdevelopers.core.business.boundary.EventBoundary;
 import org.diningdevelopers.core.business.model.Location;
 import org.diningdevelopers.core.business.model.User;
 import org.diningdevelopers.core.business.model.Vote;
@@ -36,7 +36,7 @@ public class VotingsOverview implements Serializable {
 	private DecisionBoundary decisionBoundary;
 
 	@Inject
-	private EventInteractor eventService;
+	private EventBoundary eventBoundary;
 	
 	@Inject
 	private MappingService mappingService;
@@ -155,11 +155,11 @@ public class VotingsOverview implements Serializable {
 	} 
 
 	public String getVotingState() {
-		return eventService.getLatestEventState();
+		return eventBoundary.getLatestEventState();
 	}
 
 	public boolean isVotingClosed() {
-		return eventService.isLatestEventClosed();
+		return eventBoundary.isLatestEventClosed();
 	}
 
 	public ResultModel getResultModel() {

@@ -9,9 +9,9 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.diningdevelopers.core.business.EventInteractor;
 import org.diningdevelopers.core.business.UserInteractor;
 import org.diningdevelopers.core.business.VoteInteractor;
+import org.diningdevelopers.core.business.boundary.EventBoundary;
 import org.diningdevelopers.core.business.boundary.MailerBoundary;
 import org.diningdevelopers.core.database.dao.helper.JpaUtils;
 import org.diningdevelopers.core.frontend.model.SimpleMail;
@@ -32,7 +32,7 @@ public class AdminController implements Serializable {
 	private VoteInteractor voteService;
 
 	@Inject
-	private EventInteractor eventService;
+	private EventBoundary eventBoundary;
 
 	@Inject
 	private MailerBoundary mailerBoundary;
@@ -55,17 +55,17 @@ public class AdminController implements Serializable {
 	}
 
 	public String openVoting() {
-		eventService.openVoting();
+		eventBoundary.openVoting();
 		return null;
 	}
 
 	public String reopenVoting() {
-		eventService.reopenVoting();
+		eventBoundary.reopenVoting();
 		return null;
 	}
 
 	public String closeVoting() {
-		eventService.closeVoting();
+		eventBoundary.closeVoting();
 		return null;
 	}
 
