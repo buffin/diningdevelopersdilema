@@ -6,42 +6,27 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.diningdevelopers.core.business.boundary.UserBoundary;
 import org.diningdevelopers.core.business.model.User;
 import org.diningdevelopers.core.business.persistence.UserPersistence;
-import org.diningdevelopers.core.frontend.model.UserModel;
 
 @Stateless
-public class UserInteractor {
+public class UserInteractor implements UserBoundary {
 
 	@Inject
 	private UserPersistence userPersistence;
 
-	@Inject
-	private MappingService mappingService;
-
-	public List<UserModel> findAll() {
-		List<User> users = userPersistence.findAll();
-
-		return mappingService.mapCollection(users, UserModel.class);
+	@Override
+	public List<User> findAll() {
+		return userPersistence.findAll();
 	}
 
-	public UserModel findByUsername(String username) {
-		User user = userPersistence.findByUsername(username);
-		return mappingService.map(user, UserModel.class);
+	@Override
+	public User findByUsername(String username) {
+		return userPersistence.findByUsername(username);
 	}
 
-	public void save(UserModel model) {
-		if (model.getId() != null) {
-			User user = userPersistence.findById(model.getId());
-			mappingService.map(model, user);
-		} else {
-			User user = new User();
-			mappingService.map(model, user);
-			user.setUsername(model.getUsername());
-			userPersistence.persist(user);
-		}
-	}
-
+	@Override
 	public void changePassword(String username, String password) {
 		User user = userPersistence.findByUsername(username);
 
@@ -51,6 +36,7 @@ public class UserInteractor {
 		}
 	}
 
+	@Override
 	public String getMailAddress(String username) {
 		User user = userPersistence.findByUsername(username);
 
@@ -61,6 +47,7 @@ public class UserInteractor {
 		return null;
 	}
 
+	@Override
 	public void updateMailAddress(String username, String email) {
 		User user = userPersistence.findByUsername(username);
 

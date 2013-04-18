@@ -9,10 +9,11 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.diningdevelopers.core.business.UserInteractor;
+import org.diningdevelopers.core.business.MappingService;
 import org.diningdevelopers.core.business.VoteInteractor;
 import org.diningdevelopers.core.business.boundary.EventBoundary;
 import org.diningdevelopers.core.business.boundary.MailerBoundary;
+import org.diningdevelopers.core.business.boundary.UserBoundary;
 import org.diningdevelopers.core.database.dao.helper.JpaUtils;
 import org.diningdevelopers.core.frontend.model.SimpleMail;
 import org.diningdevelopers.core.frontend.model.UserModel;
@@ -37,7 +38,12 @@ public class AdminController implements Serializable {
 	@Inject
 	private MailerBoundary mailerBoundary;
 
-	@Inject UserInteractor developerService;
+	@Inject 
+	private UserBoundary userBoundary;
+	
+	@Inject
+	private MappingService mappingService;
+	
 
 	private Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -73,7 +79,7 @@ public class AdminController implements Serializable {
 		SimpleMail mail = new SimpleMail();
 
 		String username = Authentication.getUsername();
-		UserModel developer = developerService.findByUsername(username);
+		UserModel developer = mappingService.map(userBoundary.findByUsername(username), UserModel.class);
 
 		mail.setTo(Arrays.asList(developer.getEmail()));
 		mail.setSubject("DDD Testmail");

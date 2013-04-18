@@ -10,7 +10,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.commons.lang3.StringUtils;
-import org.diningdevelopers.core.business.UserInteractor;
+import org.diningdevelopers.core.business.boundary.UserBoundary;
 import org.diningdevelopers.utils.Authentication;
 import org.diningdevelopers.utils.FacesHelper;
 import org.diningdevelopers.utils.FacesUtils;
@@ -20,7 +20,7 @@ import org.diningdevelopers.utils.FacesUtils;
 public class SettingsController implements Serializable {
 
 	@Inject
-	private UserInteractor developerService;
+	private UserBoundary userBoundary;
 
 	@Inject
 	private Conversation conversation;
@@ -37,19 +37,19 @@ public class SettingsController implements Serializable {
 		facesHelper.beginConversation(conversation);
 
 		if (FacesUtils.isNotPostback()) {
-			email = developerService.getMailAddress(Authentication.getUsername());
+			email = userBoundary.getMailAddress(Authentication.getUsername());
 		}
 	}
 
 	public String updateMailAddress() {
 		try {
-			developerService.updateMailAddress(Authentication.getUsername(), email);
+			userBoundary.updateMailAddress(Authentication.getUsername(), email);
 			FacesUtils.addMessage("Die E-Mail Adresse wurde geändert.");
 		} catch (Exception e) {
 			FacesUtils.addMessage("Fehler beim Ändern der E-Mail Adresse");
 		}
 
-		email = developerService.getMailAddress(Authentication.getUsername());
+		email = userBoundary.getMailAddress(Authentication.getUsername());
 
 		return null;
 	}
@@ -72,7 +72,7 @@ public class SettingsController implements Serializable {
 
 	public void changePassword() {
 		if (StringUtils.equals(password, passwordRepeated)) {
-			developerService.changePassword(Authentication.getUsername(), password);
+			userBoundary.changePassword(Authentication.getUsername(), password);
 		} else {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Die Passwörter stimmen nicht überein", null);
 			FacesContext.getCurrentInstance().addMessage(null, msg);
