@@ -1,4 +1,4 @@
-package org.diningdevelopers.utils;
+package org.diningdevelopers.core.frontend.util;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;

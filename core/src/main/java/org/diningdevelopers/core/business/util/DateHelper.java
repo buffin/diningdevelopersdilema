@@ -1,4 +1,4 @@
-package org.diningdevelopers.utils;
+package org.diningdevelopers.core.business.util;
 
 import java.util.Calendar;
 import java.util.Date;

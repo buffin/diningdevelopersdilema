@@ -1,4 +1,4 @@
-package org.diningdevelopers.utils;
+package org.diningdevelopers.core.frontend.util;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.Conversation;

@@ -6,12 +6,12 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
-import org.diningdevelopers.core.business.MappingService;
 import org.diningdevelopers.core.business.model.Event;
 import org.diningdevelopers.core.business.model.User;
 import org.diningdevelopers.core.business.persistence.EventPersistence;
 import org.diningdevelopers.core.database.dao.EventDao;
 import org.diningdevelopers.core.database.entities.EventEntity;
+import org.diningdevelopers.core.util.MappingService;
 
 @Stateless
 public class EventGateway implements EventPersistence {

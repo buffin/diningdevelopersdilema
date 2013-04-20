@@ -1,4 +1,4 @@
-package org.diningdevelopers.component;
+package org.diningdevelopers.core.frontend.component;
 
 import javax.inject.Named;
 

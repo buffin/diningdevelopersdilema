@@ -1,4 +1,4 @@
-package org.diningdevelopers.core.business;
+package org.diningdevelopers.core.business.interactor;
 
 import java.util.Date;
 import java.util.List;

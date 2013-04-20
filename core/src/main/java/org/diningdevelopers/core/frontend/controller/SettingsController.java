@@ -1,4 +1,4 @@
-package org.diningdevelopers.controller;
+package org.diningdevelopers.core.frontend.controller;
 
 import java.io.Serializable;
 
@@ -11,9 +11,9 @@ import javax.inject.Named;
 
 import org.apache.commons.lang3.StringUtils;
 import org.diningdevelopers.core.business.boundary.UserBoundary;
-import org.diningdevelopers.utils.Authentication;
-import org.diningdevelopers.utils.FacesHelper;
-import org.diningdevelopers.utils.FacesUtils;
+import org.diningdevelopers.core.frontend.util.Authentication;
+import org.diningdevelopers.core.frontend.util.FacesHelper;
+import org.diningdevelopers.core.frontend.util.FacesUtils;
 
 @Named
 @ConversationScoped

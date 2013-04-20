@@ -1,4 +1,4 @@
-package org.diningdevelopers.controller;
+package org.diningdevelopers.core.frontend.controller;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -13,7 +13,6 @@ import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.diningdevelopers.core.business.MappingService;
 import org.diningdevelopers.core.business.boundary.DecisionBoundary;
 import org.diningdevelopers.core.business.boundary.EventBoundary;
 import org.diningdevelopers.core.business.model.Location;
@@ -25,7 +24,8 @@ import org.diningdevelopers.core.frontend.model.DecisionModel;
 import org.diningdevelopers.core.frontend.model.DecisionTable;
 import org.diningdevelopers.core.frontend.model.ResultModel;
 import org.diningdevelopers.core.frontend.model.UserModel;
-import org.diningdevelopers.utils.FacesUtils;
+import org.diningdevelopers.core.frontend.util.FacesUtils;
+import org.diningdevelopers.core.util.MappingService;
 import org.primefaces.model.chart.PieChartModel;
 
 @Named

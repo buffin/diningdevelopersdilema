@@ -1,4 +1,4 @@
-package org.diningdevelopers.core.business;
+package org.diningdevelopers.core.util;
 
 import java.util.ArrayList;
 import java.util.Collection;

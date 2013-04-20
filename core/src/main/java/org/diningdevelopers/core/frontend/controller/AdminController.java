@@ -1,4 +1,4 @@
-package org.diningdevelopers.controller;
+package org.diningdevelopers.core.frontend.controller;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -9,7 +9,6 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.diningdevelopers.core.business.MappingService;
 import org.diningdevelopers.core.business.boundary.EventBoundary;
 import org.diningdevelopers.core.business.boundary.MailerBoundary;
 import org.diningdevelopers.core.business.boundary.UserBoundary;
@@ -17,8 +16,9 @@ import org.diningdevelopers.core.business.boundary.VoteBoundary;
 import org.diningdevelopers.core.database.dao.helper.JpaUtils;
 import org.diningdevelopers.core.frontend.model.SimpleMail;
 import org.diningdevelopers.core.frontend.model.UserModel;
-import org.diningdevelopers.utils.Authentication;
-import org.diningdevelopers.utils.FacesUtils;
+import org.diningdevelopers.core.frontend.util.Authentication;
+import org.diningdevelopers.core.frontend.util.FacesUtils;
+import org.diningdevelopers.core.util.MappingService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

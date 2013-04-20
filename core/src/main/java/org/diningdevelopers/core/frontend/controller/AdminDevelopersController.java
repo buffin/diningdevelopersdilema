@@ -1,4 +1,4 @@
-package org.diningdevelopers.controller;
+package org.diningdevelopers.core.frontend.controller;
 
 import java.io.Serializable;
 import java.util.List;
@@ -7,9 +7,9 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.diningdevelopers.core.business.MappingService;
 import org.diningdevelopers.core.business.boundary.UserBoundary;
 import org.diningdevelopers.core.frontend.model.UserModel;
+import org.diningdevelopers.core.util.MappingService;
 
 @Named
 @SessionScoped

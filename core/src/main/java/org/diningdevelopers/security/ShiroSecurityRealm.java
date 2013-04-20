@@ -19,7 +19,7 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.Initializable;
-import org.diningdevelopers.core.business.UserInteractor;
+import org.diningdevelopers.core.business.interactor.UserInteractor;
 import org.diningdevelopers.core.business.model.User;
 
 @Stateless

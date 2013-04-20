@@ -1,4 +1,4 @@
-package org.diningdevelopers.controller;
+package org.diningdevelopers.core.frontend.controller;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -17,9 +17,9 @@ import org.diningdevelopers.core.business.model.Location;
 import org.diningdevelopers.core.business.model.Vote;
 import org.diningdevelopers.core.business.responsemodels.VotesOfUserResponseModel;
 import org.diningdevelopers.core.frontend.model.VoteModel;
+import org.diningdevelopers.core.frontend.util.Authentication;
 import org.diningdevelopers.core.frontend.util.CoordinatesParser;
-import org.diningdevelopers.utils.Authentication;
-import org.diningdevelopers.utils.FacesUtils;
+import org.diningdevelopers.core.frontend.util.FacesUtils;
 import org.primefaces.model.map.DefaultMapModel;
 import org.primefaces.model.map.LatLng;
 import org.primefaces.model.map.MapModel;

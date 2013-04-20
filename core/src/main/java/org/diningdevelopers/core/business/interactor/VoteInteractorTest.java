@@ -1,4 +1,4 @@
-package org.diningdevelopers.core.business;
+package org.diningdevelopers.core.business.interactor;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -9,6 +9,7 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.diningdevelopers.core.business.interactor.VoteInteractor;
 import org.diningdevelopers.core.business.model.Location;
 import org.diningdevelopers.core.business.model.User;
 import org.diningdevelopers.core.business.model.Vote;

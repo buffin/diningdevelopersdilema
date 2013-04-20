@@ -1,8 +1,8 @@
-package org.diningdevelopers.core.business;
+package org.diningdevelopers.core.util;
 
 import static junit.framework.Assert.assertEquals;
 
-import org.diningdevelopers.core.business.MappingService;
+import org.diningdevelopers.core.util.MappingService;
 
 import java.math.BigDecimal;
 

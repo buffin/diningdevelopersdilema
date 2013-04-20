@@ -5,11 +5,11 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
-import org.diningdevelopers.core.business.MappingService;
 import org.diningdevelopers.core.business.model.Location;
 import org.diningdevelopers.core.business.persistence.LocationPersistence;
 import org.diningdevelopers.core.database.dao.LocationDao;
 import org.diningdevelopers.core.database.entities.LocationEntity;
+import org.diningdevelopers.core.util.MappingService;
 
 @Stateless
 public class LocationGateway implements LocationPersistence {

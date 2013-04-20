@@ -4,7 +4,7 @@ import javax.ejb.Schedule;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
-import org.diningdevelopers.core.business.EventInteractor;
+import org.diningdevelopers.core.business.interactor.EventInteractor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

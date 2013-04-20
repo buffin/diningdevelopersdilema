@@ -5,7 +5,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
-import org.diningdevelopers.core.business.MappingService;
 import org.diningdevelopers.core.business.model.Location;
 import org.diningdevelopers.core.business.model.User;
 import org.diningdevelopers.core.business.model.Vote;
@@ -14,6 +13,7 @@ import org.diningdevelopers.core.database.dao.VotingDao;
 import org.diningdevelopers.core.database.entities.LocationEntity;
 import org.diningdevelopers.core.database.entities.UserEntity;
 import org.diningdevelopers.core.database.entities.VoteEntity;
+import org.diningdevelopers.core.util.MappingService;
 
 @Stateless
 public class VotingGateway implements VotingPersistence {

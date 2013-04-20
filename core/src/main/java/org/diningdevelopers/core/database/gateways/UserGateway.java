@@ -5,11 +5,11 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
-import org.diningdevelopers.core.business.MappingService;
 import org.diningdevelopers.core.business.model.User;
 import org.diningdevelopers.core.business.persistence.UserPersistence;
 import org.diningdevelopers.core.database.dao.UserDao;
 import org.diningdevelopers.core.database.entities.UserEntity;
+import org.diningdevelopers.core.util.MappingService;
 
 @Stateless
 public class UserGateway implements UserPersistence {

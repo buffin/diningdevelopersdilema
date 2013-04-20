@@ -1,4 +1,4 @@
-package org.diningdevelopers.core.business;
+package org.diningdevelopers.core.business.interactor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Stateless
-public class MailService implements MailerBoundary {
+public class MailInteractor implements MailerBoundary {
 
 	@Resource(lookup = "java:/mail/ddd")
 	private Session session;

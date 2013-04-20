@@ -8,6 +8,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import org.apache.commons.lang3.StringUtils;
+import org.diningdevelopers.core.business.interactor.MailInteractor;
 import org.diningdevelopers.core.business.model.Event;
 import org.diningdevelopers.core.business.model.User;
 import org.diningdevelopers.core.business.util.TemplateService;
@@ -21,7 +22,7 @@ public class NotificationService {
 	private Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Inject
-	private MailService mailService;
+	private MailInteractor mailService;
 
 	@Inject
 	private TemplateService templateService;

@@ -1,4 +1,4 @@
-package org.diningdevelopers.core.business;
+package org.diningdevelopers.core.business.interactor;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -12,7 +12,7 @@ import org.diningdevelopers.core.business.model.Event;
 import org.diningdevelopers.core.business.model.VotingState;
 import org.diningdevelopers.core.business.persistence.EventPersistence;
 import org.diningdevelopers.core.business.persistence.VotingPersistence;
-import org.diningdevelopers.utils.DateHelper;
+import org.diningdevelopers.core.business.util.DateHelper;
 
 @Stateless
 public class EventInteractor implements EventBoundary {

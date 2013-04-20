@@ -1,6 +1,7 @@
-package org.diningdevelopers.utils;
+package org.diningdevelopers.core.frontend.util;
 
 import javax.faces.context.FacesContext;
+
 
 public class FacesUtils {
 
