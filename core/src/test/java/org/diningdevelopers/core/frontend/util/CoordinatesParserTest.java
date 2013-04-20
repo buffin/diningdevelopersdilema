@@ -1,8 +1,9 @@
-package org.diningdevelopers.core.business.util;
+package org.diningdevelopers.core.frontend.util;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import org.diningdevelopers.core.frontend.util.CoordinatesParser;
 import org.junit.Before;
 import org.junit.Test;
 import org.primefaces.model.map.LatLng;

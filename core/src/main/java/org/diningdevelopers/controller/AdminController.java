@@ -10,10 +10,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.diningdevelopers.core.business.MappingService;
-import org.diningdevelopers.core.business.VoteInteractor;
 import org.diningdevelopers.core.business.boundary.EventBoundary;
 import org.diningdevelopers.core.business.boundary.MailerBoundary;
 import org.diningdevelopers.core.business.boundary.UserBoundary;
+import org.diningdevelopers.core.business.boundary.VoteBoundary;
 import org.diningdevelopers.core.database.dao.helper.JpaUtils;
 import org.diningdevelopers.core.frontend.model.SimpleMail;
 import org.diningdevelopers.core.frontend.model.UserModel;
@@ -30,7 +30,7 @@ public class AdminController implements Serializable {
 	private EntityManager entityManager;
 
 	@Inject
-	private VoteInteractor voteService;
+	private VoteBoundary voteBoundary;
 
 	@Inject
 	private EventBoundary eventBoundary;
@@ -49,7 +49,7 @@ public class AdminController implements Serializable {
 
 	public String deleteVotes() {
 		logger.info("Admin: User removed all votes");
-		voteService.removeAllVotes();
+		voteBoundary.removeAllVotes();
 		FacesUtils.addMessage("Alle Votings gelöscht.");
 		return null;
 	}

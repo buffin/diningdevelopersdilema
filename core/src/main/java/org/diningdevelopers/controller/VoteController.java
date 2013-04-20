@@ -1,6 +1,7 @@
 package org.diningdevelopers.controller;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.enterprise.context.SessionScoped;
@@ -8,11 +9,21 @@ import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.diningdevelopers.core.business.VoteInteractor;
+import org.apache.commons.lang3.StringUtils;
 import org.diningdevelopers.core.business.boundary.EventBoundary;
+import org.diningdevelopers.core.business.boundary.LocationBoundary;
+import org.diningdevelopers.core.business.boundary.VoteBoundary;
+import org.diningdevelopers.core.business.model.Location;
+import org.diningdevelopers.core.business.model.Vote;
+import org.diningdevelopers.core.business.responsemodels.VotesOfUserResponseModel;
 import org.diningdevelopers.core.frontend.model.VoteModel;
+import org.diningdevelopers.core.frontend.util.CoordinatesParser;
 import org.diningdevelopers.utils.Authentication;
 import org.diningdevelopers.utils.FacesUtils;
+import org.primefaces.model.map.DefaultMapModel;
+import org.primefaces.model.map.LatLng;
+import org.primefaces.model.map.MapModel;
+import org.primefaces.model.map.Marker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,8 +36,14 @@ public class VoteController implements Serializable {
 	private List<VoteModel> voteModels;
 
 	@Inject
-	private VoteInteractor voteService;
-
+	private VoteBoundary voteBoundary;
+	
+	@Inject
+	private LocationBoundary locationBoundary;
+	
+	@Inject
+	private CoordinatesParser coordinateParser;
+	
 	@Inject
 	private EventBoundary eventBoundary;
 
@@ -55,8 +72,38 @@ public class VoteController implements Serializable {
 
 	public void init(ComponentSystemEvent event) {
 		if (FacesUtils.isNotPostback()) {
-			voteModels = voteService.getVoteModel(Authentication.getUsername());
+			voteModels = createVoteModels();
 		}
+	}
+
+	private List<VoteModel> createVoteModels() {
+		VotesOfUserResponseModel votesOfUser = voteBoundary.getVotesOfUser(Authentication.getUsername());
+		List<Location> activeLocations = locationBoundary.getActiveLocations();
+		
+		List<VoteModel> newVoteModels = new ArrayList<VoteModel>();
+		
+		for (Location l : activeLocations) {
+			VoteModel model = new VoteModel();
+			model.setLocationId(l.getId());
+			model.setLocationName(l.getName());
+			model.setLocationDescription(l.getDescription());
+			model.setLocationUrl(l.getUrl());
+			model.setLocationCoordinates(l.getCoordinates());
+			if (StringUtils.isNotBlank(l.getCoordinates())) {
+				MapModel locationModel = new DefaultMapModel();
+				LatLng coordinates = coordinateParser.parseCoordinates(l.getCoordinates());
+				locationModel.addOverlay(new Marker(coordinates));
+				model.setLocationModel(locationModel);
+			}
+
+			Vote latestVote = votesOfUser.getVoteForLocation(l.getName());
+			if (latestVote != null) {
+				model.setVote(latestVote.getVote());
+			}
+
+			newVoteModels.add(model);
+		}
+		return newVoteModels;
 	}
 
 	private boolean isSumValid(List<VoteModel> voteModels) {
@@ -74,11 +121,11 @@ public class VoteController implements Serializable {
 	}
 
 	public String reset() {
-		voteService.removeVotes(Authentication.getUsername());
+		voteBoundary.removeVotes(Authentication.getUsername());
 
 		FacesUtils.addMessage("Ihr Voting wurde widerrufen.");
 
-		voteModels = voteService.getVoteModel(Authentication.getUsername());
+		voteModels = createVoteModels();
 		return null;
 	}
 
@@ -89,8 +136,21 @@ public class VoteController implements Serializable {
 		}
 
 		try {
-
-			voteService.save(Authentication.getUsername(), voteModels);
+			
+			List<Vote> votes = new ArrayList<Vote>();
+			for (VoteModel voteModel : voteModels) {
+				Vote vote = new Vote();
+				Location location = new Location();
+				location.setId(voteModel.getLocationId());
+				location.setName(voteModel.getLocationName());
+				location.setUrl(voteModel.getLocationUrl());
+				vote.setLocation(location);
+				vote.setVote(voteModel.getVote());
+				
+				votes.add(vote);
+			}
+			
+			voteBoundary.save(Authentication.getUsername(), votes);
 			FacesUtils.addMessage("Das Voting wurde gespeichert!");
 		} catch (Exception e) {
 			logger.error("Fehler beim Speichern", e);
