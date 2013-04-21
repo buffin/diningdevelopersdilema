@@ -8,6 +8,7 @@ import javax.persistence.PersistenceContext;
 
 import org.diningdevelopers.core.database.dao.helper.CriteriaHelper;
 import org.diningdevelopers.core.database.dao.helper.JpaUtils;
+import org.diningdevelopers.core.database.entities.EventEntity;
 import org.diningdevelopers.core.database.entities.UserEntity;
 import org.diningdevelopers.core.database.entities.UserEntity_;
 
@@ -35,6 +36,11 @@ public class UserDao {
 
 	public void persist(UserEntity developer) {
 		entityManager.persist(developer);
+	}
+
+	public List<UserEntity> findUsersOfEvent(EventEntity map) {
+		// TODO find Participants of Event
+		return null;
 	}
 
 }

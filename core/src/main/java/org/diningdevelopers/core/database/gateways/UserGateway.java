@@ -5,9 +5,11 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
+import org.diningdevelopers.core.business.model.Event;
 import org.diningdevelopers.core.business.model.User;
 import org.diningdevelopers.core.business.persistence.UserPersistence;
 import org.diningdevelopers.core.database.dao.UserDao;
+import org.diningdevelopers.core.database.entities.EventEntity;
 import org.diningdevelopers.core.database.entities.UserEntity;
 import org.diningdevelopers.core.util.MappingService;
 
@@ -38,6 +40,12 @@ public class UserGateway implements UserPersistence {
 	@Override
 	public void persist(User user) {
 		userDao.persist(mappingService.map(user, UserEntity.class));
+	}
+
+	@Override
+	public List<User> findParticipatingUsersOfEvent(Event event) {
+		List<UserEntity> users = userDao.findUsersOfEvent(mappingService.map(event, EventEntity.class));
+		return mappingService.mapCollection(users, User.class);
 	}
 
 }

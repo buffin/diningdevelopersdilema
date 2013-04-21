@@ -11,6 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.diningdevelopers.core.business.interactor.MailInteractor;
 import org.diningdevelopers.core.business.model.Event;
 import org.diningdevelopers.core.business.model.User;
+import org.diningdevelopers.core.business.persistence.UserPersistence;
 import org.diningdevelopers.core.business.util.TemplateService;
 import org.diningdevelopers.core.frontend.model.SimpleMail;
 import org.slf4j.Logger;
@@ -23,13 +24,15 @@ public class NotificationService {
 
 	@Inject
 	private MailInteractor mailService;
+	
+	@Inject
+	private UserPersistence userPersistence;
 
 	@Inject
 	private TemplateService templateService;
 	
 	public void notifiyParticipatingUsers(Event event) {
-		// TODO: method in persistence for participants of event
-		List<User> developers = null;
+		List<User> developers = userPersistence.findParticipatingUsersOfEvent(event);
 		for (User user : developers) {
 			try {
 				notifyUserVotingResult(user, event);
