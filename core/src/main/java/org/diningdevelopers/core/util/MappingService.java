@@ -15,14 +15,22 @@ public class MappingService {
 	private Mapper mapper = new DozerBeanMapper();
 
 	public <S, D> void map(S source, D destination) {
-		mapper.map(source, destination);
+		if (source != null) {
+			mapper.map(source, destination);
+		}
 	}
 
 	public <S, D> D map(S source, Class<D> destinationClass) {
+		if (source == null) {
+			return null;
+		}
 		return mapper.map(source, destinationClass);
 	}
 
 	public <S, D> List<D> mapCollection(Collection<S> sourceList, Class<D> destinationClass) {
+		if (sourceList == null) {
+			return null;
+		}
 		List<D> list = new ArrayList<D>();
 
 		for (S source : sourceList) {

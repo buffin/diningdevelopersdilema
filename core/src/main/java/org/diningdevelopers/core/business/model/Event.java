@@ -4,6 +4,8 @@ import java.util.Date;
 
 
 public class Event {
+	
+	private Long id;
 
 	private Date date;
 
@@ -15,10 +17,18 @@ public class Event {
 
 	public Event() {
 	}
-
+	
 	public Event(Date date, VotingState state) {
 		this.date = date;
 		this.state = state;
+	}
+	
+	public Long getId() {
+		return id;
+	}
+	
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public Date getDate() {

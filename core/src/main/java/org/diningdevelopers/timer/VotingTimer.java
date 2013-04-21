@@ -1,5 +1,7 @@
 package org.diningdevelopers.timer;
 
+import java.io.Serializable;
+
 import javax.ejb.Schedule;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -9,7 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Stateless
-public class VotingTimer {
+public class VotingTimer implements Serializable {
 
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 

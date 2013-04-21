@@ -1,5 +1,6 @@
 package org.diningdevelopers.core.business;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,7 +9,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import org.apache.commons.lang3.StringUtils;
-import org.diningdevelopers.core.business.interactor.MailInteractor;
+import org.diningdevelopers.core.business.boundary.MailerBoundary;
 import org.diningdevelopers.core.business.model.Event;
 import org.diningdevelopers.core.business.model.User;
 import org.diningdevelopers.core.business.persistence.UserPersistence;
@@ -18,12 +19,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Stateless
-public class NotificationService {
+public class NotificationService implements Serializable {
 
 	private Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Inject
-	private MailInteractor mailService;
+	private MailerBoundary mailService;
 	
 	@Inject
 	private UserPersistence userPersistence;

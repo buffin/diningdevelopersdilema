@@ -1,5 +1,6 @@
 package org.diningdevelopers.core.business.interactor;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -22,7 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Stateless
-public class VoteInteractor implements VoteBoundary {
+public class VoteInteractor implements VoteBoundary, Serializable {
 
 	private Logger logger = LoggerFactory.getLogger(getClass());
 

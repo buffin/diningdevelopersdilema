@@ -3,12 +3,10 @@ package org.diningdevelopers.core.database.dao;
 import java.util.List;
 
 import javax.inject.Named;
-import javax.mail.Address;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
 
 import org.diningdevelopers.core.database.dao.helper.CriteriaHelper;

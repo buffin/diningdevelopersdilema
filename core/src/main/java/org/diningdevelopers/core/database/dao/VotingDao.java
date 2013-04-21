@@ -61,12 +61,12 @@ public class VotingDao {
 	}
 
 	public void removeAllVotes() {
-		String queryString = "delete from Vote";
+		String queryString = "delete from VoteEntity";
 		entityManager.createQuery(queryString).executeUpdate();
 	}
 
 	public void removeVotes(UserEntity developer) {
-		String queryString = "delete from Vote v where v.developer = :d";
+		String queryString = "delete from VoteEntity v where v.developer = :d";
 
 		Query query = entityManager.createQuery(queryString);
 		query.setParameter("d", developer);

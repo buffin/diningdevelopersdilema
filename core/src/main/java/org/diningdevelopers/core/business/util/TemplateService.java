@@ -1,5 +1,6 @@
 package org.diningdevelopers.core.business.util;
 
+import java.io.Serializable;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Locale;
@@ -12,7 +13,7 @@ import freemarker.cache.ClassTemplateLoader;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 
-public class TemplateService {
+public class TemplateService implements Serializable {
 
 	private Logger logger = LoggerFactory.getLogger(getClass());
 

@@ -1,5 +1,6 @@
 package org.diningdevelopers.core.business.interactor;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -10,7 +11,7 @@ import org.diningdevelopers.core.business.model.Location;
 import org.diningdevelopers.core.business.persistence.LocationPersistence;
 
 @Stateless
-public class LocationInteractor implements LocationBoundary {
+public class LocationInteractor implements LocationBoundary, Serializable {
 
 	@Inject
 	private LocationPersistence locationPersistence;

@@ -1,6 +1,7 @@
 package org.diningdevelopers.core.util;
 
 import static junit.framework.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import org.diningdevelopers.core.util.MappingService;
 
@@ -20,6 +21,16 @@ public class MappingServiceTest {
 		assertEquals(entity.getId(), model.getId());
 		assertEquals(entity.getString(), model.getString());
 		assertEquals(entity.getAmount().doubleValue(), model.getAmount());
+	}
+	
+	@Test
+	public void onNullSourceMapReturnsNull() throws Exception {
+		assertNull(mappingService.map(null, Model.class));
+	}
+	
+	@Test
+	public void onNullSourceMapCollectionReturnsNull() throws Exception {
+		assertNull(mappingService.mapCollection(null, Model.class));
 	}
 
 	private Entity createEntity(long id) {

@@ -1,5 +1,6 @@
 package org.diningdevelopers.core.business.interactor;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -11,7 +12,7 @@ import org.diningdevelopers.core.business.model.User;
 import org.diningdevelopers.core.business.persistence.UserPersistence;
 
 @Stateless
-public class UserInteractor implements UserBoundary {
+public class UserInteractor implements UserBoundary, Serializable {
 
 	@Inject
 	private UserPersistence userPersistence;

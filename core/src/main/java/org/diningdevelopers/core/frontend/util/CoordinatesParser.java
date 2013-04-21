@@ -1,9 +1,11 @@
 package org.diningdevelopers.core.frontend.util;
 
+import java.io.Serializable;
+
 import org.apache.commons.lang3.StringUtils;
 import org.primefaces.model.map.LatLng;
 
-public class CoordinatesParser {
+public class CoordinatesParser implements Serializable {
 
 	private static final String COORDINATES_PATTERN = "^\\d+.\\d+\\s*,\\s*\\d+.\\d+$";
 	private static final String DELIMITER_SYMBOL = ",";

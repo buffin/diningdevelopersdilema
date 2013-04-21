@@ -1,5 +1,6 @@
 package org.diningdevelopers.core.business.interactor;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +24,7 @@ import org.diningdevelopers.core.business.responsemodels.LatestVotesResponseMode
 import org.diningdevelopers.core.business.responsemodels.ResultReponseModel;
 
 @Stateless
-public class DecisionInteractor implements DecisionBoundary {
+public class DecisionInteractor implements DecisionBoundary, Serializable {
 
 	@Inject
 	private UserPersistence userPersistence;
@@ -57,6 +58,7 @@ public class DecisionInteractor implements DecisionBoundary {
 		return new LatestVotesResponseModel(userToVotes);
 	}
 
+	@Override
 	public void determineResultForVoting(Event event) {
 		int totalPoints = getTotalPointsForLastEvent();
 		

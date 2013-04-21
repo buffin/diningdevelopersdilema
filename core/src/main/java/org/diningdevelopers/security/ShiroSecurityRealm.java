@@ -19,7 +19,7 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.Initializable;
-import org.diningdevelopers.core.business.interactor.UserInteractor;
+import org.diningdevelopers.core.business.boundary.UserBoundary;
 import org.diningdevelopers.core.business.model.User;
 
 @Stateless
@@ -27,7 +27,7 @@ import org.diningdevelopers.core.business.model.User;
 public class ShiroSecurityRealm extends AuthorizingRealm implements Authorizer, Initializable, PermissionResolverAware, RolePermissionResolverAware {
 
 	@EJB
-	private UserInteractor developerService;
+	private UserBoundary developerService;
 
 	public ShiroSecurityRealm() {
 		CredentialsMatcher credentialsMatcher = new HashedCredentialsMatcher("SHA-1");
