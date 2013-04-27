@@ -1,0 +1,31 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+
+<f:metadata>
+	<f:event listener="#{voteController.init}" type="preRenderView" />
+</f:metadata>
+
+<ui:composition template="/templates/main.xhtml">
+	<ui:define name="body">
+		<h1>Protokoll</h1>
+		
+		<h:messages />
+
+		<h:form>
+			<p:dataTable var="audit" value="#{viewAuditController.latest}">
+				<p:column headerText="Datum">
+					<h:outputText value="#{audit.date}">
+
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Benutzer">
+					<h:outputText value="#{audit.username}" />
+				</p:column>
+				<p:column headerText="Aktion">
+					<h:outputText value="#{audit.message}" />
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>
