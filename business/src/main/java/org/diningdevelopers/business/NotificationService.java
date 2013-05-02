@@ -12,9 +12,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.diningdevelopers.business.boundary.MailerBoundary;
 import org.diningdevelopers.business.helper.TemplateService;
 import org.diningdevelopers.business.model.Event;
+import org.diningdevelopers.business.model.SimpleMail;
 import org.diningdevelopers.business.model.User;
 import org.diningdevelopers.business.persistence.UserPersistence;
-import org.diningdevelopers.core.frontend.model.SimpleMail;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

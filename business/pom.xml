@@ -99,7 +99,6 @@
             <artifactId>el-impl</artifactId>
             <scope>runtime</scope>
             <!-- FIXME this version should be in the Weld API BOM -->
-            <version>2.2.1-b05</version>
             <exclusions>
                 <exclusion>
                     <groupId>javax.el</groupId>

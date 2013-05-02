@@ -18,7 +18,6 @@ import org.diningdevelopers.business.persistence.LocationPersistence;
 import org.diningdevelopers.business.persistence.UserPersistence;
 import org.diningdevelopers.business.persistence.VotingPersistence;
 import org.diningdevelopers.business.responsemodels.VotesOfUserResponseModel;
-import org.diningdevelopers.core.frontend.util.CoordinatesParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,9 +40,6 @@ public class VoteInteractor implements VoteBoundary, Serializable {
 
 	@Inject
 	private UserPersistence userPersistence;
-
-	@Inject
-	private CoordinatesParser coordinatesParser;
 
 	@Override
 	public VotesOfUserResponseModel getVotesOfUser(String username) {

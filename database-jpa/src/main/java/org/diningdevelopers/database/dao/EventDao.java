@@ -5,7 +5,7 @@ import java.util.Date;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.diningdevelopers.core.business.model.VotingState;
+import org.diningdevelopers.business.model.VotingState;
 import org.diningdevelopers.database.dao.helper.CriteriaHelper;
 import org.diningdevelopers.database.entities.EventEntity;
 import org.diningdevelopers.database.entities.EventEntity_;

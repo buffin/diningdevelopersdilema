@@ -1,4 +1,4 @@
-package org.diningdevelopers.frontend.model;
+package org.diningdevelopers.business.model;
 
 import java.util.ArrayList;
 import java.util.List;

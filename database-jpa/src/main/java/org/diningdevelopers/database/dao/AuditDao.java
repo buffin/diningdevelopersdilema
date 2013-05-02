@@ -9,6 +9,7 @@ import javax.persistence.PersistenceContext;
 
 import org.diningdevelopers.database.dao.helper.CriteriaHelper;
 import org.diningdevelopers.database.entities.AuditEntity;
+import org.diningdevelopers.database.entities.AuditEntity_;
 
 @Named
 public class AuditDao {

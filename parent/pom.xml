@@ -32,63 +32,62 @@
         <pluginManagement>
             <plugins>
                 <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.0</version>
-                <configuration>
-                    <encoding>UTF-8</encoding>
-                    <source>1.7</source>
-                    <target>1.7</target>
-                    <compilerArgument>-proc:none</compilerArgument>
-                </configuration>
-            </plugin>                
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.0</version>
+                    <configuration>
+                        <encoding>UTF-8</encoding>
+                        <source>1.7</source>
+                        <target>1.7</target>
+                        <compilerArgument>-proc:none</compilerArgument>
+                    </configuration>
+                </plugin>
+                
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>buildnumber-maven-plugin</artifactId>
+                    <version>1.2</version>
+                    <executions>
+                        <execution>
+                            <id>generate-datetime</id>
+                            <phase>validate</phase>
+                            <goals>
+                                <goal>create</goal>
+                            </goals>
+                            <configuration>
+                                <format>{0,date,dd.MM.yyyy HH:mm:ss}</format>
+                                <items>
+                                    <item>timestamp</item>
+                                </items>
+                                <buildNumberPropertyName>buildDateTime</buildNumberPropertyName>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>generate-timestamp</id>
+                            <phase>validate</phase>
+                            <goals>
+                                <goal>create</goal>
+                            </goals>
+                            <configuration>
+                                <timestampPropertyName>buildTimestamp</timestampPropertyName>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>generate-buildnumber</id>
+                            <phase>validate</phase>
+                            <goals>
+                                <goal>create</goal>
+                            </goals>
+                            <configuration>
+                                <!-- <revisionOnScmFailure>UNKNOWN</revisionOnScmFailure> -->
+                                <useLastCommittedRevision>true</useLastCommittedRevision>
+                                <buildNumberPropertyName>buildRevision</buildNumberPropertyName>
+                                <shortRevisionLength>8</shortRevisionLength>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>                
             </plugins>
         </pluginManagement>
-
-<plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>buildnumber-maven-plugin</artifactId>
-                <version>1.2</version>
-                <executions>
-                    <execution>
-                        <id>generate-datetime</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>create</goal>
-                        </goals>
-                        <configuration>
-                            <format>{0,date,dd.MM.yyyy HH:mm:ss}</format>
-                            <items>
-                                <item>timestamp</item>
-                            </items>
-                            <buildNumberPropertyName>buildDateTime</buildNumberPropertyName>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>generate-timestamp</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>create</goal>
-                        </goals>
-                        <configuration>
-                            <timestampPropertyName>buildTimestamp</timestampPropertyName>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>generate-buildnumber</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>create</goal>
-                        </goals>
-                        <configuration>
-                            <!-- <revisionOnScmFailure>UNKNOWN</revisionOnScmFailure> -->
-                            <useLastCommittedRevision>true</useLastCommittedRevision>
-                            <buildNumberPropertyName>buildRevision</buildNumberPropertyName>
-                            <shortRevisionLength>8</shortRevisionLength>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
     </build>
 
     <dependencyManagement>

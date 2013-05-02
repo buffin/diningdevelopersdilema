@@ -5,7 +5,6 @@ import java.util.Map;
 
 import junit.framework.Assert;
 
-import org.diningdevelopers.business.helper.TemplateService;
 import org.junit.Test;
 
 public class TemplateServiceTest {

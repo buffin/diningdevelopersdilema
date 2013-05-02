@@ -1,6 +1,7 @@
 package org.diningdevelopers.business.boundary;
 
-import org.diningdevelopers.core.frontend.model.SimpleMail;
+import org.diningdevelopers.business.model.SimpleMail;
+
 
 public interface MailerBoundary {
 
