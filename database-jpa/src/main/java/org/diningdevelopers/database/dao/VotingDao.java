@@ -2,7 +2,7 @@ package org.diningdevelopers.database.dao;
 
 import java.util.List;
 
-import javax.inject.Named;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -14,7 +14,7 @@ import org.diningdevelopers.database.entities.UserEntity;
 import org.diningdevelopers.database.entities.VoteEntity;
 import org.diningdevelopers.database.entities.VoteEntity_;
 
-@Named
+@Stateless
 public class VotingDao {
 
 	@PersistenceContext

@@ -78,6 +78,9 @@ public class VoteInteractor implements VoteBoundary, Serializable {
 			Vote loadedVote = votingPersistence.findLatestVote(developer, location);
 
 			Integer newVoteValue = vote.getVote();
+			if (newVoteValue == null) {
+				newVoteValue = 0;
+			}
 			
 			if (needToCreateNewVote(loadedVote)) {
 				Vote newVote = new Vote();

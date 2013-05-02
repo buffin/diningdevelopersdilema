@@ -6,7 +6,7 @@ import javax.ejb.Schedule;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
-import org.diningdevelopers.business.interactor.EventInteractor;
+import org.diningdevelopers.business.boundary.EventBoundary;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,7 +16,7 @@ public class VotingTimer implements Serializable {
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Inject
-	private EventInteractor eventService;
+	private EventBoundary eventService;
 
 	@Schedule(dayOfWeek="1-5", hour="11", minute="15", persistent=false)
 	public void closeVoting() {

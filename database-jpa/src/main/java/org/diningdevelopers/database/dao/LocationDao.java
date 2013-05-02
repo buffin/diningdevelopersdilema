@@ -2,7 +2,7 @@ package org.diningdevelopers.database.dao;
 
 import java.util.List;
 
-import javax.inject.Named;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -10,7 +10,7 @@ import org.diningdevelopers.database.dao.helper.CriteriaHelper;
 import org.diningdevelopers.database.entities.LocationEntity;
 import org.diningdevelopers.database.entities.LocationEntity_;
 
-@Named
+@Stateless
 public class LocationDao {
 
 	@PersistenceContext
