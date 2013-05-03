@@ -14,19 +14,19 @@ import org.diningdevelopers.service.UserService;
 @SessionScoped
 public class AdminDevelopersController implements Serializable {
 
-	private List<UserModel> developers;
+	private List<UserModel> users;
 
 	private UserModel current;
 
 	@Inject
-	private UserService developerService;
+	private UserService userService;
 
 	public UserModel getCurrent() {
 		return current;
 	}
 
-	public List<UserModel> getDevelopers() {
-		return developers;
+	public List<UserModel> getUsers() {
+		return users;
 	}
 
 	public String open() {
@@ -35,7 +35,7 @@ public class AdminDevelopersController implements Serializable {
 	}
 
 	public String refresh() {
-		developers = developerService.findAll();
+		users = userService.findAll();
 
 		return null;
 	}
@@ -49,7 +49,7 @@ public class AdminDevelopersController implements Serializable {
 		this.current = current;
 	}
 
-	public void setDevelopers(List<UserModel> developers) {
-		this.developers = developers;
+	public void setUsers(List<UserModel> developers) {
+		this.users = developers;
 	}
 }

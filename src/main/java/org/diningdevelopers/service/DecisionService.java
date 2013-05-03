@@ -28,7 +28,7 @@ import org.diningdevelopers.service.external.RandomOrgNumberGeneratorService;
 public class DecisionService {
 
 	@Inject
-	private UserDao developerDao;
+	private UserDao userDao;
 
 	@Inject
 	private MappingService mappingService;
@@ -51,11 +51,11 @@ public class DecisionService {
 	public DecisionTable buildDecisionTable(Date date) {
 		DecisionTable decisionTable = new DecisionTable();
 
-		List<User> developers = developerDao.findAll();
+		List<User> users = userDao.findAll();
 		Map<Long, DecisionModel> decisions = new HashMap<>();
 
-		for (User d : developers) {
-			insertDeveloperPreferences(decisionTable.getDevelopers(), decisions, d);
+		for (User u : users) {
+			insertDeveloperPreferences(decisionTable.getDevelopers(), decisions, u);
 		}
 
 		decisionTable.setDecisions(new ArrayList<>(decisions.values()));

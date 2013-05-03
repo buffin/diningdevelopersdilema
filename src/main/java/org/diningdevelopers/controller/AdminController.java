@@ -37,7 +37,8 @@ public class AdminController implements Serializable {
 	@Inject
 	private MailService mailService;
 
-	@Inject UserService developerService;
+	@Inject
+	private UserService userService;
 
 	private Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -73,9 +74,9 @@ public class AdminController implements Serializable {
 		SimpleMail mail = new SimpleMail();
 
 		String username = Authentication.getUsername();
-		UserModel developer = developerService.findByUsername(username);
+		UserModel user = userService.findByUsername(username);
 
-		mail.setTo(Arrays.asList(developer.getEmail()));
+		mail.setTo(Arrays.asList(user.getEmail()));
 		mail.setSubject("DDD Testmail");
 		mail.setBody("Theaterhaus rockt!");
 
