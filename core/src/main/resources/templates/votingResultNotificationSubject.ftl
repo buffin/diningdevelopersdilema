@@ -1,1 +1,0 @@
-Das Voting wurde beendet
