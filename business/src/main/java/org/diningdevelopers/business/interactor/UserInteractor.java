@@ -34,6 +34,7 @@ public class UserInteractor implements UserBoundary, Serializable {
 		if (user != null) {
 			String passwordSha = DigestUtils.shaHex(password);
 			user.setPassword(passwordSha);
+			userPersistence.persist(user);
 		}
 	}
 
@@ -54,6 +55,7 @@ public class UserInteractor implements UserBoundary, Serializable {
 
 		if (user != null) {
 			user.setEmail(email);
+			userPersistence.persist(user);
 		}
 	}
 

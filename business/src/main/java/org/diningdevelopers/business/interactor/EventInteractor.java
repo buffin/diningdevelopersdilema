@@ -37,10 +37,11 @@ public class EventInteractor implements EventBoundary, Serializable {
 	@Override
 	public void reopenVoting() {
 		Date today = dateHelper.getDateForTodayWithNulledHoursMinutesAndMiliseconds();
-		Event voting = eventPersistence.findVotingForDate(today);
+		Event event = eventPersistence.findVotingForDate(today);
 
-		if (voting != null) {
-			voting.setState(VotingState.Open);
+		if (event != null) {
+			event.setState(VotingState.Open);
+			eventPersistence.save(event);
 		}
 	}
 
@@ -76,22 +77,24 @@ public class EventInteractor implements EventBoundary, Serializable {
 	@Override
 	public void closeVoting() {
 		Date today = dateHelper.getDateForTodayWithNulledHoursMinutesAndMiliseconds();
-		Event voting = eventPersistence.findVotingForDate(today);
-		if (voting == null) {
-			voting = new Event(Calendar.getInstance().getTime(), VotingState.Open);
-			eventPersistence.save(voting);
+		Event event = eventPersistence.findVotingForDate(today);
+		if (event == null) {
+			event = new Event(Calendar.getInstance().getTime(), VotingState.Open);
+			eventPersistence.save(event);
 		}
 
 		// TODO: this works only on entities, move to persistence?
 		// transactionHelper.lockWritePessimistic(voting);
 
-		voting.setState(VotingState.InProgress);
+		event.setState(VotingState.InProgress);
 
 		// transactionHelper.flush();
 
-		decisionService.determineResultForVoting(voting);
+		decisionService.determineResultForVoting(event);
 
-		voting.setState(VotingState.Closed);
+		event.setState(VotingState.Closed);
+		
+		eventPersistence.save(event);
 	}
 
 	@Override

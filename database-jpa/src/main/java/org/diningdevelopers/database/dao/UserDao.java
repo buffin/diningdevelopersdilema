@@ -41,7 +41,7 @@ public class UserDao {
 	}
 
 	public void persist(UserEntity developer) {
-		entityManager.persist(developer);
+		entityManager.merge(developer);
 	}
 
 	public List<UserEntity> findUsersOfEvent(EventEntity event) {

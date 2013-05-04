@@ -75,7 +75,7 @@ public class VotingDao {
 	}
 
 	public void save(VoteEntity vote) {
-		entityManager.persist(vote);
+		entityManager.merge(vote);
 	}
 
 }

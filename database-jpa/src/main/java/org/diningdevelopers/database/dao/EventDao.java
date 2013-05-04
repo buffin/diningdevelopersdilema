@@ -5,7 +5,6 @@ import java.util.Date;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceContextType;
 
 import org.diningdevelopers.business.model.VotingState;
 import org.diningdevelopers.database.dao.helper.CriteriaHelper;
@@ -15,11 +14,11 @@ import org.diningdevelopers.database.entities.EventEntity_;
 @Stateless
 public class EventDao {
 
-	@PersistenceContext(type=PersistenceContextType.EXTENDED)
+	@PersistenceContext
 	private EntityManager entityManager;
 
 	public void save(EventEntity voting) {
-		entityManager.persist(voting);
+		entityManager.merge(voting);
 	}
 
 	public EventEntity findVotingForDate(Date date) {

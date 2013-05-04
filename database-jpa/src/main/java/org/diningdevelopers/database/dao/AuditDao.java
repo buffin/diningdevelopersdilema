@@ -3,7 +3,7 @@ package org.diningdevelopers.database.dao;
 import java.util.Date;
 import java.util.List;
 
-import javax.inject.Named;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -11,7 +11,7 @@ import org.diningdevelopers.database.dao.helper.CriteriaHelper;
 import org.diningdevelopers.database.entities.AuditEntity;
 import org.diningdevelopers.database.entities.AuditEntity_;
 
-@Named
+@Stateless
 public class AuditDao {
 
 	@PersistenceContext
@@ -31,7 +31,7 @@ public class AuditDao {
 	}
 
 	public void save(AuditEntity audit) {
-		entityManager.persist(audit);
+		entityManager.merge(audit);
 	}
 }
 

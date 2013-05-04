@@ -12,7 +12,6 @@ import org.diningdevelopers.business.EventResultEvaluator;
 import org.diningdevelopers.business.NotificationService;
 import org.diningdevelopers.business.boundary.DecisionBoundary;
 import org.diningdevelopers.business.external.RandomOrgNumberGeneratorService;
-import org.diningdevelopers.business.helper.TransactionHelper;
 import org.diningdevelopers.business.model.Event;
 import org.diningdevelopers.business.model.Location;
 import org.diningdevelopers.business.model.User;
@@ -42,9 +41,6 @@ public class DecisionInteractor implements DecisionBoundary, Serializable {
 	private NotificationService notificationService;
 
 	@Inject
-	private TransactionHelper transactionHelper;
-	
-	@Inject
 	private EventResultEvaluator resultEvaluator;
 
 	@Override
@@ -70,8 +66,6 @@ public class DecisionInteractor implements DecisionBoundary, Serializable {
 			
 			Location winner = resultEvaluator.evaluateWinningLocation(number, votes);
 			event.setWinningLocation(winner);
-
-			transactionHelper.flush();
 
 			notificationService.notifiyParticipatingUsers(event);
 		} catch (Exception e) {

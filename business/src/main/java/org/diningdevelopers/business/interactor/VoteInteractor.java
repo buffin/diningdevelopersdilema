@@ -65,7 +65,6 @@ public class VoteInteractor implements VoteBoundary, Serializable {
 		votingPersistence.removeVotes(developer);
 		String auditMessage = "%s hat sein Voting widerrufen";
 		auditPersistence.createAudit(username, String.format(auditMessage, username));
-
 	}
 
 	@Override
@@ -82,29 +81,30 @@ public class VoteInteractor implements VoteBoundary, Serializable {
 				newVoteValue = 0;
 			}
 			
+			Vote voteToSave = null;
+			
 			if (needToCreateNewVote(loadedVote)) {
-				Vote newVote = new Vote();
-				newVote.setLocation(location);
-				newVote.setDeveloper(developer);
-				newVote.setDate(new Date());
-				newVote.setVote(newVoteValue);
+				voteToSave = new Vote();
+				voteToSave.setLocation(location);
+				voteToSave.setDeveloper(developer);
+				voteToSave.setDate(new Date());
+				voteToSave.setVote(newVoteValue);
 
 				String auditMessage = "%s hat sein Voting für %s auf %d gesetzt";
-				if (newVote.getVote() > 0) {
+				if (voteToSave.getVote() > 0) {
 					auditPersistence.createAudit(username, String.format(auditMessage, username, location.getName(), vote.getVote()));
 				}
-
-				newVote.setEvent(event);
-
-				votingPersistence.save(newVote);
+				voteToSave.setEvent(event);
 			} else {
-				Integer oldVote = loadedVote.getVote();
+				voteToSave = loadedVote;
+				Integer oldVote = voteToSave.getVote();
 				if (oldVote.equals(newVoteValue) == false) {
 					String auditMessage = "%s hat sein Voting für %s geändert. Alt: %d, Neu: %d";
 					auditPersistence.createAudit(username, String.format(auditMessage, username, location.getName(), oldVote, newVoteValue));
-					loadedVote.setVote(newVoteValue);
+					voteToSave.setVote(newVoteValue);
 				}
 			}
+			votingPersistence.save(voteToSave);
 		}
 	}
 }
