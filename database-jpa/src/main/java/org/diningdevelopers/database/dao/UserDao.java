@@ -40,8 +40,8 @@ public class UserDao {
 		return helper.getSingleResultOrNull();
 	}
 
-	public void persist(UserEntity developer) {
-		entityManager.merge(developer);
+	public void persist(UserEntity user) {
+		entityManager.merge(user);
 	}
 
 	public List<UserEntity> findUsersOfEvent(EventEntity event) {
@@ -52,7 +52,7 @@ public class UserDao {
 		query.select(users)
 				.distinct(true)
 				.where(builder.and(
-						builder.equal(users, votes.get(VoteEntity_.developer)),
+						builder.equal(users, votes.get(VoteEntity_.user)),
 						builder.equal(votes.get(VoteEntity_.event), event)));
 
 		return entityManager.createQuery(query).getResultList();

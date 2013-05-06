@@ -16,10 +16,14 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.Initializable;
 import org.diningdevelopers.business.boundary.UserBoundary;
 import org.diningdevelopers.business.model.User;
-
+import org.diningdevelopers.util.InitialContextUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ShiroSecurityRealm extends AuthorizingRealm implements Authorizer, Initializable, PermissionResolverAware, RolePermissionResolverAware {
 
+	private static final Logger logger = LoggerFactory.getLogger(ShiroSecurityRealm.class);
+	
 	public ShiroSecurityRealm() {
 		CredentialsMatcher credentialsMatcher = new HashedCredentialsMatcher("SHA-1");
 		setCredentialsMatcher(credentialsMatcher);
@@ -30,10 +34,9 @@ public class ShiroSecurityRealm extends AuthorizingRealm implements Authorizer, 
 		UsernamePasswordToken upToken = (UsernamePasswordToken) token;
 		String username = upToken.getUsername();
 
-		UserService userService = InitialContextUtils.doLookup("java:module/UserService");
-
-		User user = userService.findByUsername(username);
-
+		UserBoundary userBoundary = InitialContextUtils.doLookup("java:module/UserInteractor");
+		User user = userBoundary.findByUsername(username);
+		
 		if (user == null) {
 			throw new AuthenticationException();
 		}
@@ -43,7 +46,7 @@ public class ShiroSecurityRealm extends AuthorizingRealm implements Authorizer, 
 		return account;
 
 	}
-
+	
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 		return null;

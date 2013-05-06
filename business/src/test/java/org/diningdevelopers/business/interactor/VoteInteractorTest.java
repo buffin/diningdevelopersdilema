@@ -1,5 +1,6 @@
 package org.diningdevelopers.business.interactor;
 
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
@@ -90,18 +91,20 @@ public class VoteInteractorTest {
 		
 		when(votingPersistence.findLatestVote(testUser, vote.getLocation())).thenReturn(existingVote);
 		interactor.save("test", votes);
-		assertEquals(10, (int) existingVote.getVote());
+		
+		verify(votingPersistence, times(2)).save(arg.capture());
+		assertEquals(10, (int) arg.getAllValues().get(1).getVote());
 	}
 	
 	@Test
-	public void noUpdateForExistingVoteIfVoteValueIsEqual() throws Exception {
+	public void existingVoteIsDeactivatedOnSave() throws Exception {
 		Vote existingVote = mock(Vote.class);
-		when(existingVote.getVote()).thenReturn(10);
 		
-		when(votingPersistence.findLatestVote(testUser, vote.getLocation())).thenReturn(existingVote);
+		when (votingPersistence.findLatestVote(testUser, vote.getLocation())).thenReturn(existingVote);
 		interactor.save("test", votes);
 		
-		verify(existingVote, times(0)).setVote(Matchers.anyInt());
+		verify(votingPersistence, times(2)).save(arg.capture());
+		assertEquals(false, arg.getAllValues().get(0).isCurrent());
 	}
 
 }

@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
 
 import org.apache.commons.lang3.StringUtils;
@@ -31,10 +33,11 @@ public class NotificationService implements Serializable {
 
 	@Inject
 	private TemplateService templateService;
-	
+
+	@TransactionAttribute(value = TransactionAttributeType.REQUIRES_NEW)
 	public void notifiyParticipatingUsers(Event event) {
-		List<User> developers = userPersistence.findParticipatingUsersOfEvent(event);
-		for (User user : developers) {
+		List<User> users = userPersistence.findParticipatingUsersOfEvent(event);
+		for (User user : users) {
 			try {
 				notifyUserVotingResult(user, event);
 			} catch (Exception e) {
@@ -44,13 +47,13 @@ public class NotificationService implements Serializable {
 		}
 	}
 
-	private void notifyUserVotingResult(User developer, Event event) {
-		if (StringUtils.isBlank(developer.getEmail())) {
+	private void notifyUserVotingResult(User user, Event event) {
+		if (StringUtils.isBlank(user.getEmail())) {
 			return;
 		}
 
 		Map<String, Object> params = new HashMap<>();
-		params.put("name", developer.getName());
+		params.put("name", user.getName());
 		params.put("result", event.getResult());
 		params.put("locationName", event.getWinningLocation().getName());
 
@@ -61,7 +64,7 @@ public class NotificationService implements Serializable {
 		mail.setBody(message);
 		mail.setContentType("text/plain");
 		mail.setSubject(subject);
-		mail.addTo(developer.getEmail());
+		mail.addTo(user.getEmail());
 
 		mailService.sendMail(mail);
 	}

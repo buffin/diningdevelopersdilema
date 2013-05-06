@@ -15,7 +15,7 @@ import org.diningdevelopers.util.MappingService;
 @SessionScoped
 public class AdminDevelopersController implements Serializable {
 
-	private List<UserModel> users;
+	private List<UserModel> developers;
 
 	private UserModel current;
 	
@@ -29,8 +29,8 @@ public class AdminDevelopersController implements Serializable {
 		return current;
 	}
 
-	public List<UserModel> getUsers() {
-		return users;
+	public List<UserModel> getDevelopers() {
+		return developers;
 	}
 
 	public String open() {
@@ -39,11 +39,13 @@ public class AdminDevelopersController implements Serializable {
 	}
 
 	public String refresh() {
-		users = mappingService.mapCollection(userBoundary.findAll(), UserModel.class);
+		developers = mappingService.mapCollection(userBoundary.findAll(), UserModel.class);
+
 		return null;
 	}
 
 	public String save() {
+
 		return null;
 	}
 
@@ -51,7 +53,7 @@ public class AdminDevelopersController implements Serializable {
 		this.current = current;
 	}
 
-	public void setUsers(List<UserModel> developers) {
-		this.users = developers;
+	public void setDevelopers(List<UserModel> developers) {
+		this.developers = developers;
 	}
 }

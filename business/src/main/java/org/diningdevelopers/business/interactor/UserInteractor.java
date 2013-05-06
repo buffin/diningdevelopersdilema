@@ -8,6 +8,7 @@ import javax.inject.Inject;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.diningdevelopers.business.boundary.UserBoundary;
+import org.diningdevelopers.business.model.Event;
 import org.diningdevelopers.business.model.User;
 import org.diningdevelopers.business.persistence.UserPersistence;
 
@@ -57,6 +58,11 @@ public class UserInteractor implements UserBoundary, Serializable {
 			user.setEmail(email);
 			userPersistence.persist(user);
 		}
+	}
+
+	@Override
+	public List<User> findParticipantsOfEvent(Event event) {
+		return userPersistence.findParticipatingUsersOfEvent(event);
 	}
 
 }

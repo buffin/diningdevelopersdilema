@@ -1,4 +1,4 @@
-package org.diningdevelopers.model;
+package org.diningdevelopers.frontend.model;
 
 public class TimelineLocationModel {
 

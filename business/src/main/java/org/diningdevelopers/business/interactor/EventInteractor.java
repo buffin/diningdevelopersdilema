@@ -9,7 +9,6 @@ import javax.inject.Inject;
 
 import org.diningdevelopers.business.boundary.DecisionBoundary;
 import org.diningdevelopers.business.boundary.EventBoundary;
-import org.diningdevelopers.business.helper.TransactionHelper;
 import org.diningdevelopers.business.model.Event;
 import org.diningdevelopers.business.model.VotingState;
 import org.diningdevelopers.business.persistence.EventPersistence;
@@ -27,9 +26,6 @@ public class EventInteractor implements EventBoundary, Serializable {
 	
 	@Inject
 	private EventPersistence eventPersistence;
-
-	@Inject
-	private TransactionHelper transactionHelper;
 
 	@Inject
 	private DecisionBoundary decisionService;
@@ -119,5 +115,9 @@ public class EventInteractor implements EventBoundary, Serializable {
 		}
 	}
 
+	@Override
+	public Event getLatestEvent() {
+		return eventPersistence.findLatestVoting();
+	}
 
 }

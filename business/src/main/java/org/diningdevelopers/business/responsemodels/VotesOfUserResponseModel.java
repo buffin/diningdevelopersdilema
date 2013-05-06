@@ -21,6 +21,8 @@ public class VotesOfUserResponseModel {
 		}
 		return null;
 	}
-	
 
+	public List<Vote> getVotes() {
+		return votes;
+	}
 }

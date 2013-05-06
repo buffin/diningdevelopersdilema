@@ -11,11 +11,13 @@ public class Vote {
 
 	private Event event;
 
-	private User developer;
+	private User user;
 
 	private Integer vote;
 
 	private Date date;
+	
+	private boolean current;
 
 	public Long getId() {
 		return id;
@@ -41,12 +43,12 @@ public class Vote {
 		this.event = event;
 	}
 
-	public User getDeveloper() {
-		return developer;
+	public User getUser() {
+		return user;
 	}
 
-	public void setDeveloper(User developer) {
-		this.developer = developer;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public Integer getVote() {
@@ -63,6 +65,14 @@ public class Vote {
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	public boolean isCurrent() {
+		return current;
+	}
+
+	public void setCurrent(boolean current) {
+		this.current = current;
 	}
 
 }

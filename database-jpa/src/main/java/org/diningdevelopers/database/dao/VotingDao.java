@@ -23,8 +23,8 @@ public class VotingDao {
 	public List<VoteEntity> findLatestByCriteria(VotingCriteria criteria) {
 		CriteriaHelper<VoteEntity> helper = new CriteriaHelper<>(entityManager, VoteEntity.class);
 
-		if (criteria.getDeveloper() != null) {
-			helper.addEqual(VoteEntity_.developer, criteria.getDeveloper());
+		if (criteria.getUser() != null) {
+			helper.addEqual(VoteEntity_.user, criteria.getUser());
 		}
 
 		if (criteria.getLocation() != null) {
@@ -32,13 +32,14 @@ public class VotingDao {
 		}
 
 		helper.addOrder(VoteEntity_.date, false);
+		helper.addEqual(VoteEntity_.current, true);
 
 		return helper.getResultList();
 	}
 
 	public VoteEntity findLatestVote(UserEntity d, LocationEntity l) {
 		CriteriaHelper<VoteEntity> helper = new CriteriaHelper<>(entityManager, VoteEntity.class);
-		helper.addEqual(VoteEntity_.developer, d);
+		helper.addEqual(VoteEntity_.user, d);
 		helper.addEqual(VoteEntity_.location, l);
 		helper.setCacheable(true);
 		helper.addOrder(VoteEntity_.date, false);
@@ -49,9 +50,9 @@ public class VotingDao {
 		return helper.getSingleResultOrNull();
 	}
 
-	public List<VoteEntity> findLatestVotes(UserEntity developer) {
+	public List<VoteEntity> findLatestVotes(UserEntity user) {
 		VotingCriteria votingCriteria = new VotingCriteria();
-		votingCriteria.setDeveloper(developer);
+		votingCriteria.setUser(user);
 
 		return findLatestByCriteria(votingCriteria);
 	}
@@ -65,11 +66,11 @@ public class VotingDao {
 		entityManager.createQuery(queryString).executeUpdate();
 	}
 
-	public void removeVotes(UserEntity developer) {
-		String queryString = "delete from VoteEntity v where v.developer = :d";
+	public void removeVotes(UserEntity user) {
+		String queryString = "delete from VoteEntity v where v.user = :u";
 
 		Query query = entityManager.createQuery(queryString);
-		query.setParameter("d", developer);
+		query.setParameter("u", user);
 
 		query.executeUpdate();
 	}

@@ -10,9 +10,9 @@ public interface VotingPersistence {
 
 	void removeAllVotes();
 
-	Vote findLatestVote(User developer, Location l);
+	Vote findLatestVote(User user, Location l);
 
-	void removeVotes(User developer);
+	void removeVotes(User user);
 
 	void save(Vote vote);
 

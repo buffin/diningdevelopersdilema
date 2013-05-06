@@ -1,12 +1,4 @@
-package org.diningdevelopers.utils;
-
-import org.diningdevelopers.model.TimelineLocationModel;
-import org.diningdevelopers.model.TimelineUserModel;
-import org.diningdevelopers.model.TimelineVoteModel;
-import org.primefaces.model.chart.CartesianChartModel;
-import org.primefaces.model.chart.ChartSeries;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+package org.diningdevelopers.frontend.helper;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -19,6 +11,14 @@ import java.util.Set;
 import java.util.Stack;
 import java.util.TreeMap;
 import java.util.TreeSet;
+
+import org.diningdevelopers.frontend.model.TimelineLocationModel;
+import org.diningdevelopers.frontend.model.TimelineUserModel;
+import org.diningdevelopers.frontend.model.TimelineVoteModel;
+import org.primefaces.model.chart.CartesianChartModel;
+import org.primefaces.model.chart.ChartSeries;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TimelineBuilder {
 

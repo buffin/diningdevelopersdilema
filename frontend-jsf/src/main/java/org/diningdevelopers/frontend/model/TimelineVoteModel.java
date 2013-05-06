@@ -1,8 +1,8 @@
-package org.diningdevelopers.model;
-
-import org.dozer.Mapping;
+package org.diningdevelopers.frontend.model;
 
 import java.util.Date;
+
+import org.dozer.Mapping;
 
 public class TimelineVoteModel {
 

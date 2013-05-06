@@ -7,6 +7,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
+import org.diningdevelopers.business.boundary.AuditBoundary;
 import org.diningdevelopers.business.boundary.VoteBoundary;
 import org.diningdevelopers.business.model.Event;
 import org.diningdevelopers.business.model.Location;
@@ -43,14 +44,10 @@ public class VoteInteractor implements VoteBoundary, Serializable {
 
 	@Override
 	public VotesOfUserResponseModel getVotesOfUser(String username) {
-		User developer = userPersistence.findByUsername(username);
-		List<Vote> votes = votingPersistence.findLatestVotesForUser(developer);
+		User user = userPersistence.findByUsername(username);
+		List<Vote> votes = votingPersistence.findLatestVotesForUser(user);
 		
 		return new VotesOfUserResponseModel(votes);
-	}
-
-	private boolean needToCreateNewVote(Vote vote) {
-		return vote == null;
 	}
 
 	@Override
@@ -61,8 +58,8 @@ public class VoteInteractor implements VoteBoundary, Serializable {
 
 	@Override
 	public void removeVotes(String username) {
-		User developer = userPersistence.findByUsername(username);
-		votingPersistence.removeVotes(developer);
+		User user = userPersistence.findByUsername(username);
+		votingPersistence.removeVotes(user);
 		String auditMessage = "%s hat sein Voting widerrufen";
 		auditPersistence.createAudit(username, String.format(auditMessage, username));
 	}
@@ -72,38 +69,34 @@ public class VoteInteractor implements VoteBoundary, Serializable {
 		Event event = eventPersistence.findLatestVoting();
 		
 		for (Vote vote : votes) {
-			User developer = userPersistence.findByUsername(username);
+			User user = userPersistence.findByUsername(username);
 			Location location = locationPersistence.findById(vote.getLocation().getId());
-			Vote loadedVote = votingPersistence.findLatestVote(developer, location);
+			Vote loadedVote = votingPersistence.findLatestVote(user, location);
 
+			if (loadedVote != null) {
+				loadedVote.setCurrent(false);
+				votingPersistence.save(loadedVote);
+			}
+			
 			Integer newVoteValue = vote.getVote();
 			if (newVoteValue == null) {
 				newVoteValue = 0;
 			}
 			
-			Vote voteToSave = null;
+			Vote voteToSave = new Vote();
+			voteToSave.setLocation(location);
+			voteToSave.setUser(user);
+			voteToSave.setDate(new Date());
+			voteToSave.setVote(newVoteValue);
+			voteToSave.setCurrent(true);
 			
-			if (needToCreateNewVote(loadedVote)) {
-				voteToSave = new Vote();
-				voteToSave.setLocation(location);
-				voteToSave.setDeveloper(developer);
-				voteToSave.setDate(new Date());
-				voteToSave.setVote(newVoteValue);
-
-				String auditMessage = "%s hat sein Voting für %s auf %d gesetzt";
-				if (voteToSave.getVote() > 0) {
-					auditPersistence.createAudit(username, String.format(auditMessage, username, location.getName(), vote.getVote()));
-				}
-				voteToSave.setEvent(event);
-			} else {
-				voteToSave = loadedVote;
-				Integer oldVote = voteToSave.getVote();
-				if (oldVote.equals(newVoteValue) == false) {
-					String auditMessage = "%s hat sein Voting für %s geändert. Alt: %d, Neu: %d";
-					auditPersistence.createAudit(username, String.format(auditMessage, username, location.getName(), oldVote, newVoteValue));
-					voteToSave.setVote(newVoteValue);
-				}
+			String auditMessage = "%s hat sein Voting für %s auf %d gesetzt";
+			if (voteToSave.getVote() > 0) {
+				auditPersistence.createAudit(username, String.format(auditMessage, username, location.getName(), voteToSave.getVote()));
 			}
+			
+			voteToSave.setEvent(event);
+			
 			votingPersistence.save(voteToSave);
 		}
 	}

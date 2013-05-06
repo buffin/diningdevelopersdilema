@@ -10,7 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
 
 @Entity
@@ -28,10 +27,13 @@ public class VoteEntity {
 	@ManyToOne(optional=false)
 	@JoinColumn(name="event_id")
 	private EventEntity event;
+	
+	@Column(name = "current", nullable = false)
+	private Boolean current;
 
 	@ManyToOne(optional = false)
 	@JoinColumn(name="developer_id")
-	private UserEntity developer;
+	private UserEntity user;
 
 	@Column(nullable = false)
 	private Integer vote;
@@ -39,14 +41,11 @@ public class VoteEntity {
 	@Column(name = "vote_date", nullable = false)
 	private Date date;
 
-    @Column(name = "current", nullable = false)
-    private Boolean current;
-
 	public Date getDate() {
 		return date;
 	}
-	public UserEntity getDeveloper() {
-		return developer;
+	public UserEntity getUser() {
+		return user;
 	}
 
 	public EventEntity getEvent() {
@@ -60,21 +59,23 @@ public class VoteEntity {
 	public LocationEntity getLocation() {
 		return location;
 	}
-
+	
+	public Boolean getCurrent() {
+		return current;
+	}
+	public void setCurrent(Boolean current) {
+		this.current = current;
+	}
 	public Integer getVote() {
 		return vote;
 	}
-
-    public Boolean getCurrent() {
-        return current;
-    }
 
 	public void setDate(Date date) {
 		this.date = date;
 	}
 
-	public void setDeveloper(UserEntity developer) {
-		this.developer = developer;
+	public void setUser(UserEntity user) {
+		this.user = user;
 	}
 
 	public void setEvent(EventEntity event) {
@@ -93,7 +94,4 @@ public class VoteEntity {
 		this.vote = vote;
 	}
 
-    public void setCurrent(Boolean current) {
-        this.current = current;
-    }
 }

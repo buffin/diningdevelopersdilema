@@ -21,11 +21,13 @@ import org.diningdevelopers.business.model.Vote;
 import org.diningdevelopers.business.responsemodels.LatestVotesResponseModel;
 import org.diningdevelopers.business.responsemodels.ResultReponseModel;
 import org.diningdevelopers.frontend.helper.FacesUtils;
+import org.diningdevelopers.frontend.helper.TimelineChartModelBuilder;
 import org.diningdevelopers.frontend.model.DecisionModel;
 import org.diningdevelopers.frontend.model.DecisionTable;
 import org.diningdevelopers.frontend.model.ResultModel;
 import org.diningdevelopers.frontend.model.UserModel;
 import org.diningdevelopers.util.MappingService;
+import org.primefaces.model.chart.CartesianChartModel;
 import org.primefaces.model.chart.PieChartModel;
 
 @Named
@@ -39,11 +41,16 @@ public class VotingsOverview implements Serializable {
 	private EventBoundary eventBoundary;
 	
 	@Inject
+	private TimelineChartModelBuilder timelineChartModelBuilder;
+	
+	@Inject
 	private MappingService mappingService;
 
 	private DecisionTable decisionTable;
 
 	private PieChartModel pieModel;
+	
+	private CartesianChartModel timelineModel;
 
 	public DecisionTable getDecisionTable() {
 		return decisionTable;
@@ -62,6 +69,7 @@ public class VotingsOverview implements Serializable {
 	public String update() {
 		decisionTable = buildDecisionTable(decisionBoundary.findLatestVotesOfUsers());
 		updatePieModel(decisionTable);
+		updateTimelineModel();
 		return null;
 	}
 	
@@ -81,6 +89,14 @@ public class VotingsOverview implements Serializable {
 		updateTable(decisionTable);
 
 		return decisionTable;
+	}
+	
+	private void updateTimelineModel() {
+		timelineModel = timelineChartModelBuilder.buildTimelineModel();
+	}
+	
+	public CartesianChartModel getTimelineModel() {
+		return timelineModel;
 	}
 	
 	private void updateTable(DecisionTable decisionTable) {

@@ -1,4 +1,4 @@
-package org.diningdevelopers.utils;
+package org.diningdevelopers.util;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;

@@ -2,6 +2,7 @@ package org.diningdevelopers.business.boundary;
 
 import java.util.List;
 
+import org.diningdevelopers.business.model.Event;
 import org.diningdevelopers.business.model.User;
 
 public interface UserBoundary {
@@ -15,5 +16,7 @@ public interface UserBoundary {
 	String getMailAddress(String username);
 
 	void updateMailAddress(String username, String email);
+	
+	List<User> findParticipantsOfEvent(Event event);
 
 }

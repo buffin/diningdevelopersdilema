@@ -46,8 +46,8 @@ public class DecisionInteractor implements DecisionBoundary, Serializable {
 	@Override
 	public LatestVotesResponseModel findLatestVotesOfUsers() {
 		Map<User, List<Vote>> userToVotes = new HashMap<User, List<Vote>>();
-		List<User> developers = userPersistence.findAll();
-		for (User d : developers) {
+		List<User> users = userPersistence.findAll();
+		for (User d : users) {
 			userToVotes.put(d, votingPersistence.findLatestVotesForUser(d));
 		}
 		

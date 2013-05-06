@@ -50,6 +50,7 @@ public class SettingsController implements Serializable {
 		}
 
 		email = userBoundary.getMailAddress(Authentication.getUsername());
+
 		return null;
 	}
 

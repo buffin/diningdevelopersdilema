@@ -5,19 +5,19 @@ import org.diningdevelopers.database.entities.UserEntity;
 
 public class VotingCriteria {
 
-	private UserEntity developer;
+	private UserEntity user;
 	private LocationEntity location;
 
-	public UserEntity getDeveloper() {
-		return developer;
+	public UserEntity getUser() {
+		return user;
 	}
 
 	public LocationEntity getLocation() {
 		return location;
 	}
 
-	public void setDeveloper(UserEntity developer) {
-		this.developer = developer;
+	public void setUser(UserEntity user) {
+		this.user = user;
 	}
 
 	public void setLocation(LocationEntity location) {
